@@ -1,0 +1,72 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "sce.all.int",
+      "cell_types",
+      "TECs",
+      "LOH",
+      "DT",
+      "IC_PC",
+      "MES",
+      "ENDO",
+      "T",
+      "B",
+      "Neut",
+      "Myeloid"
+    ],
+    "required_inputs": [
+      "连续变量",
+      "分组",
+      "明确分析单位"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "sce.all.int",
+        "cell_types",
+        "TECs",
+        "LOH",
+        "DT",
+        "IC_PC",
+        "MES",
+        "ENDO",
+        "T",
+        "B",
+        "Neut",
+        "Myeloid"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-047-b001"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-047-b001"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-047-b001: rm(list=ls())",
+      "article-3792985494804332545-047-b001: sce.all.int <- qread(\"2-harmony/sce.all_int.qs\")"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-047-violin_distribution-v1",
+  "source_article_id": "article-3792985494804332545-047",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

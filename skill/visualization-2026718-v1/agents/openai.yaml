@@ -1,0 +1,4 @@
+interface:
+  display_name: "可视化2026718V1"
+  short_description: "科研图形决策、代码检索、渲染与科学复核"
+  default_prompt: "Use $visualization-2026718-v1 to turn my scientific question into a validated R or Python figure plan, executable Recipe chain when requested, and evidence-bounded visual review."

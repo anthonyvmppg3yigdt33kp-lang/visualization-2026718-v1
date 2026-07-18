@@ -1,0 +1,58 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-043-stacked_composition_bar-2-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "p"
+    ],
+    "required_inputs": [
+      "独立样本ID",
+      "条件",
+      "类别",
+      "计数或明确分母的比例"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "p"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-043-b003"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-043-b003: ggsave(filename = \"maprateplot_percent.png\", width = 6, height = 4, plot = p)"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-043-stacked_composition_bar-2-v1",
+  "source_article_id": "article-3792985494804332545-043",
+  "source_block_ids": [
+    "article-3792985494804332545-043-b003"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

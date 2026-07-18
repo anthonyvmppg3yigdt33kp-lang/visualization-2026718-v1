@@ -1,0 +1,75 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-044-volcano_scatter-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "top10",
+      "mycol",
+      "p",
+      "panel.grid",
+      "axis.text",
+      "axis.text.x",
+      "strip.text.x",
+      "p1"
+    ],
+    "required_inputs": [
+      "效应量",
+      "P值或FDR",
+      "特征名",
+      "明确阈值"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "top10",
+        "mycol",
+        "p",
+        "panel.grid",
+        "axis.text",
+        "axis.text.x",
+        "strip.text.x",
+        "p1"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-044-b007",
+        "article-3792985494804332545-044-b006"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-044-b006: ggsave(filename = \"Fig.7e-1.png\", width = 16, height =3.8,plot = p)",
+      "article-3792985494804332545-044-b007: ggsave(filename = \"Fig.7e.png\", width = 16, height =3.8,plot = p1)"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-044-volcano_scatter-v1",
+  "source_article_id": "article-3792985494804332545-044",
+  "source_block_ids": [
+    "article-3792985494804332545-044-b006",
+    "article-3792985494804332545-044-b007"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

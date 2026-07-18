@@ -1,0 +1,76 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-037-ranked_differential_dotplot-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "colors",
+      "values",
+      "col_fun",
+      "p",
+      "plot.title",
+      "panel.border",
+      "axis.text",
+      "axis.title",
+      "p3"
+    ],
+    "required_inputs": [
+      "分组",
+      "特征",
+      "颜色变量",
+      "大小变量"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "colors",
+        "values",
+        "col_fun",
+        "p",
+        "plot.title",
+        "panel.border",
+        "axis.text",
+        "axis.title",
+        "p3"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-037-b003",
+        "article-3792985494804332545-037-b002"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-037-b003: ggsave(filename = \"Figure5D.pdf\", plot = p3, width = 6, height = 9)"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-037-ranked_differential_dotplot-v1",
+  "source_article_id": "article-3792985494804332545-037",
+  "source_block_ids": [
+    "article-3792985494804332545-037-b002",
+    "article-3792985494804332545-037-b003"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

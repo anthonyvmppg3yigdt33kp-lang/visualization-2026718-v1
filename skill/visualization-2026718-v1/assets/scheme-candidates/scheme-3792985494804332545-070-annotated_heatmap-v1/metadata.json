@@ -1,0 +1,82 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-070-annotated_heatmap-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "p",
+      "col",
+      "name",
+      "heatmap_legend_param",
+      "show_row_names",
+      "show_column_names",
+      "show_row_dend",
+      "show_column_dend",
+      "top_annotation",
+      "column_title_side",
+      "column_split",
+      "row_split",
+      "column_title"
+    ],
+    "required_inputs": [
+      "数值矩阵",
+      "行列标签",
+      "缩放与聚类规则"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "p",
+        "col",
+        "name",
+        "heatmap_legend_param",
+        "show_row_names",
+        "show_column_names",
+        "show_row_dend",
+        "show_column_dend",
+        "top_annotation",
+        "column_title_side",
+        "column_split",
+        "row_split",
+        "column_title"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-070-b005"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-070-b005: pdf(file = \"diff_heatmap.pdf\", height = 9, width = 12)",
+      "article-3792985494804332545-070-b005: dev.off()"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-070-annotated_heatmap-v1",
+  "source_article_id": "article-3792985494804332545-070",
+  "source_block_ids": [
+    "article-3792985494804332545-070-b005"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

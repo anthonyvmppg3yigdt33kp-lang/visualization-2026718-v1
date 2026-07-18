@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0", "id": "cellchat-chord-r-v1", "name": "R directed communication chord diagram",
+  "description": "Draw a named non-negative interaction matrix as a directional circlize chord diagram; intended for precomputed CellChat-like weights.",
+  "kind": "base_recipe", "family": "cellchat_chord", "backend": "r",
+  "tags": ["cellchat", "chord", "cell-communication", "network", "circlize", "interaction"],
+  "requires": {"object_types": ["matrix"], "variables": ["named_nonnegative_adjacency"], "packages": ["circlize"], "capabilities": ["interaction_weights"]},
+  "provides": {"object_types": ["graphics_side_effect", "list"], "capabilities": ["directed_chord_view"]},
+  "compatible_with": {"kinds": ["export"], "ids": ["publication-export-r-v1"]}, "conflicts": ["ggplot-only-modifier"],
+  "parameters": [{"name": "directional", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Encode source-to-target direction with arrow links."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:438edf8e63308888e5f7abba98949cc45d4ee0a870c7eb9a6f30a075abf75a01", "sha256:1666e26acd514f237654be2bc807cb8fff25fad0cfb2167be936d5c8d9ea2b3f", "sha256:a2b5dfb145b8604abbe13ccab9896dc0a076ac13a91c90db58b0a8b488bbdf97", "sha256:87fb2e04197a5c23f3665ae9d2bee830f6584f568271c79758317baf6281a660"]},
+  "semantic_card": {
+    "questions_answered": ["network_structure", "inferred_cell_communication"], "evidence_roles": ["overview", "mechanism", "discovery"], "units": ["cell_type", "interaction"], "data_topologies": ["weighted_network_matrix"],
+    "required_variables": [{"name": "adjacency", "role": "link_width", "type": "nonnegative_matrix"}], "transformations": [{"field": "weights", "method": "caller_supplied; no normalization"}],
+    "visual_channels": {"x": "circular_node_position", "y": "none", "color": "source_or_group", "size": "link_weight", "shape": "ribbon", "alpha": "link_overlap_control", "facet": "none", "annotation": "node labels and direction"},
+    "supports_claims": ["Displays the structure and relative weights of the supplied inferred interaction network."],
+    "does_not_support": ["Does not prove physical communication, ligand-receptor binding, causal signaling, or sample-level reproducibility."],
+    "required_statistics": ["interaction inference method", "weight definition", "filtering threshold", "sample-level support"], "misread_risks": ["inference_as_physical_contact", "dense_link_occlusion", "weight_scale_ambiguity"],
+    "preferred_companions": ["interaction dot plot", "sample-level robustness", "ligand-receptor table"], "safer_alternatives": ["filtered dot plot when the network is dense"]
+  },
+  "visual_fingerprint": {"family": "cellchat_chord", "panels": 1, "panel_structure": "circular_network", "channels": ["node_position", "node_color", "ribbon_width", "direction"], "legend_mode": "direct_node_labels_no_numeric_weight_legend", "information_density": "high", "strengths": ["network overview"], "risks": ["occlusion", "direction ambiguity", "causal overinterpretation"], "final_size_behavior": "requires label and ribbon visibility check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Exact generalized recipe rendered from chord_matrix.csv and visually opened at 7 x 7 in / 200 dpi and 3.5 x 3.5 in / 300 dpi on 2026-07-17. Node labels, arcs and directional ribbons remain visible in both views; there is no numeric ribbon-width legend, so the weight definition must remain explicit in the caption. Interpretation is limited to the supplied inferred weights and does not establish physical communication."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-001", "block_ids": ["article-3792985494804332545-001-b004", "article-3792985494804332545-001-b005", "article-3792985494804332545-001-b006"], "image_ids": ["article-3792985494804332545-001-i006"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["circlize draws on the current device and does not return a persistent plot object.", "Exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending a separate formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/cellchat-chord-r.png", "fixture": "../../fixtures/chord_matrix.csv"}
+}

@@ -1,0 +1,73 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "sig2",
+      "gene",
+      "geneset",
+      "my_path",
+      "dat",
+      "p2",
+      "axis.ticks",
+      "panel.grid.major",
+      "panel.grid.minor",
+      "plot.background",
+      "panel.background",
+      "panel.border",
+      "plot.title"
+    ],
+    "required_inputs": [
+      "通路名称",
+      "方法匹配的效应或比例",
+      "FDR"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "sig2",
+        "gene",
+        "geneset",
+        "my_path",
+        "dat",
+        "p2",
+        "axis.ticks",
+        "panel.grid.major",
+        "panel.grid.minor",
+        "plot.background",
+        "panel.background",
+        "panel.border",
+        "plot.title"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-071-b004"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-071-b004"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-071-b004: sig2 <- readxl::read_xlsx(\"data/science.adk0775_data_s4.xlsx\", sheet = \"PDAC_siKRAS_KRASi_iKras_UP\")"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-071-enrichment_text_rank-2-v1",
+  "source_article_id": "article-3792985494804332545-071",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

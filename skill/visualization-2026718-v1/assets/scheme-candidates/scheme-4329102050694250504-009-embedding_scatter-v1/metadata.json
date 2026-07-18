@@ -1,0 +1,51 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "sce",
+      "p1"
+    ],
+    "required_inputs": [
+      "两列嵌入坐标",
+      "类别或连续特征"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "sce",
+        "p1"
+      ],
+      "dependency_block_ids": [
+        "article-4329102050694250504-009-b001"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-4329102050694250504-009-b001"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-4329102050694250504-009-b001: rm(list=ls())",
+      "article-4329102050694250504-009-b001: # install.packages('devtools')"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-4329102050694250504-009-embedding_scatter-v1",
+  "source_article_id": "article-4329102050694250504-009",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

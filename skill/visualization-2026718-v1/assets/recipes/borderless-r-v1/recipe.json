@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0","id":"borderless-r-v1","name":"R borderless plot modifier","description":"Remove panel frame, grids and optionally axis text from a ggplot without changing its data.","kind":"aesthetic_modifier","family":"theme","backend":"r","tags":["borderless","no-axis","umap","minimal"],
+  "requires":{"object_types":["ggplot"],"variables":[],"packages":["ggplot2"],"capabilities":[]},"provides":{"object_types":["ggplot"],"capabilities":["borderless_theme"]},
+  "compatible_with":{"kinds":["base_recipe"],"ids":["umap-dataframe-r-v1","marker-dotplot-r-v1","grouped-volcano-r-v1","gsea-summary-r-v1","box-jitter-r-v1","roc-curve-r-v1"]},"conflicts":["arrow-axes-r-v1"],
+  "parameters":[{"name":"keep_labels","type":"boolean","required":false,"default":false,"allowed":[true,false],"description":"Keep axis titles and tick text while removing the frame."}],
+  "lineage":{"parent_id":null,"components":[],"source_fingerprints":[]},
+  "semantic_card":{"questions_answered":[],"evidence_roles":["presentation"],"units":[],"data_topologies":["plot"],"required_variables":[],"transformations":[],"visual_channels":{"x":"unchanged","y":"unchanged","color":"unchanged","size":"unchanged","shape":"unchanged","alpha":"unchanged","facet":"unchanged","annotation":"axes_may_be_removed"},"supports_claims":["No new scientific claim; presentation only."],"does_not_support":["A borderless embedding still requires explicit coordinate semantics in its caption."],"required_statistics":[],"misread_risks":["lost_axis_context"],"preferred_companions":[],"safer_alternatives":["keep labels for unfamiliar coordinate systems"]},
+  "visual_fingerprint":{"family":"theme","panels":"inherits","panel_structure":"inherits","channels":["frame_removal"],"legend_mode":"inherits","information_density":"unchanged","strengths":["clean embedding view"],"risks":["lost coordinate context"],"final_size_behavior":"check caption and labels","evidence_level":"unknown","reviewed":false,"review_note":"needs_review after composition"},
+  "source":{"status":"derived","articles":[],"license_status":"internal","transformation":"original_generalized_modifier"},
+  "validation":{"tier":"parse-verified","checks":{"schema":"pass","syntax":"pass","safety":"pass","fixture":"pending","render":"pending","visual":"needs_review","semantic":"pass","provenance":"pass"},"last_validated":"2026-07-16","runtime":"R-4.5.3","notes":[]},
+  "files":{"code":"recipe.R","example":"example.R","preview":null,"fixture":null}
+}

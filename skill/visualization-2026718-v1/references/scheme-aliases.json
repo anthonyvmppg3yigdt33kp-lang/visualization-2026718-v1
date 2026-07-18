@@ -1,0 +1,872 @@
+{
+  "aliases": {
+    "style-3792985494804332545-001-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-001-cellchat_chord-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-002-composition-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-002-generic_scientific_plot-v1"
+      ],
+      "status": "deprecated_excluded"
+    },
+    "style-3792985494804332545-002-decorative-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-002-generic_scientific_plot-v1"
+      ],
+      "status": "deprecated_excluded"
+    },
+    "style-3792985494804332545-003-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-003-embedding_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-004-set_intersection-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-004-upset_intersection-10-v1",
+        "scheme-3792985494804332545-004-upset_intersection-11-v1",
+        "scheme-3792985494804332545-004-upset_intersection-12-v1",
+        "scheme-3792985494804332545-004-upset_intersection-2-v1",
+        "scheme-3792985494804332545-004-upset_intersection-3-v1",
+        "scheme-3792985494804332545-004-upset_intersection-4-v1",
+        "scheme-3792985494804332545-004-upset_intersection-5-v1",
+        "scheme-3792985494804332545-004-upset_intersection-6-v1",
+        "scheme-3792985494804332545-004-upset_intersection-7-v1",
+        "scheme-3792985494804332545-004-upset_intersection-8-v1",
+        "scheme-3792985494804332545-004-upset_intersection-9-v1",
+        "scheme-3792985494804332545-004-upset_intersection-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-005-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-005-embedding_scatter-2-v1",
+        "scheme-3792985494804332545-005-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-005-heatmap-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-006-spatial_image-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-006-spatial_cell_overlay-v1",
+        "scheme-3792985494804332545-006-spatial_spot_overlay-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-007-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-007-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-007-radial_bar_lollipop-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-008-set_intersection-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-008-upset_intersection-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-009-boxplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-009-box_jitter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-010-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-010-marker_dotplot-2-v1",
+        "scheme-3792985494804332545-010-marker_dotplot-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-010-spatial_image-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-011-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-011-pca_magnified_inset-2-v1",
+        "scheme-3792985494804332545-011-pca_magnified_inset-v1",
+        "scheme-3792985494804332545-011-pca_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-011-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-012-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-012-marker_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-013-composition-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-013-stacked_composition_bar-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-013-spatial_image-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-014-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-014-embedding_arrow_axis-2-v1",
+        "scheme-3792985494804332545-014-embedding_arrow_axis-3-v1",
+        "scheme-3792985494804332545-014-embedding_arrow_axis-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-015-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-015-ridgeline_distribution-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-016-correlation-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-016-correlation_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-017-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-017-pca_3d_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-017-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-017-enrichment_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-017-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-017-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-018-layout-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-018-survival-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-018-kaplan_meier-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-019-unknown-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-019-generic_scientific_plot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-020-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-020-embedding_density_cloud-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-021-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-021-marker_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-022-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-022-embedding_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-022-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-022-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-023-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-023-embedding_density_cloud-2-v1",
+        "scheme-3792985494804332545-023-embedding_density_cloud-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-024-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-024-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-025-flow-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-025-sankey_alluvial-2-v1",
+        "scheme-3792985494804332545-025-sankey_alluvial-3-v1",
+        "scheme-3792985494804332545-025-sankey_alluvial-4-v1",
+        "scheme-3792985494804332545-025-sankey_alluvial-5-v1",
+        "scheme-3792985494804332545-025-sankey_alluvial-6-v1",
+        "scheme-3792985494804332545-025-sankey_alluvial-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-026-flow-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-026-sankey_alluvial-2-v1",
+        "scheme-3792985494804332545-026-sankey_alluvial-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-026-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-026-enrichment_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-026-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-027-heatmap-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-027-spatial_image-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-027-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-027-volcano_scatter-2-v1",
+        "scheme-3792985494804332545-027-volcano_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-028-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-028-marker_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-029-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-029-cellchat_chord-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-030-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-030-cellchat_bubble-2-v1",
+        "scheme-3792985494804332545-030-cellchat_bubble-3-v1",
+        "scheme-3792985494804332545-030-cellchat_bubble-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-031-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-031-cellchat_chord-2-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-3-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-4-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-5-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-6-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-7-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-8-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-9-v1",
+        "scheme-3792985494804332545-031-cellchat_chord-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-032-set_intersection-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-032-venn_intersection-2-v1",
+        "scheme-3792985494804332545-032-venn_intersection-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-033-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-033-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-034-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-034-annotated_heatmap-2-v1",
+        "scheme-3792985494804332545-034-annotated_heatmap-3-v1",
+        "scheme-3792985494804332545-034-annotated_heatmap-4-v1",
+        "scheme-3792985494804332545-034-annotated_heatmap-5-v1",
+        "scheme-3792985494804332545-034-annotated_heatmap-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-035-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-035-embedding_feature-v1",
+        "scheme-3792985494804332545-035-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-036-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-036-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-037-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-037-ranked_differential_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-037-volcano-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-038-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-038-box_jitter-2-v1",
+        "scheme-3792985494804332545-038-box_jitter-v1",
+        "scheme-3792985494804332545-038-mirrored_violin-2-v1",
+        "scheme-3792985494804332545-038-mirrored_violin-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-039-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-039-cellchat_chord-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-040-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-040-genomics-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-040-layout-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-040-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-041-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-041-gsea_rank_track-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-042-composition-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-042-stacked_composition_bar-2-v1",
+        "scheme-3792985494804332545-042-stacked_composition_bar-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-043-correlation-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-043-correlation_scatter-2-v1",
+        "scheme-3792985494804332545-043-correlation_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-043-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-044-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-044-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-045-correlation-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-045-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-045-marker_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-045-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-045-embedding_density_cloud-v1",
+        "scheme-3792985494804332545-045-embedding_feature-v1",
+        "scheme-3792985494804332545-045-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-046-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-047-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-047-violin_distribution-2-v1",
+        "scheme-3792985494804332545-047-violin_distribution-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-048-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-048-ridgeline_distribution-2-v1",
+        "scheme-3792985494804332545-048-ridgeline_distribution-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-049-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-050-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-050-marker_dotplot-2-v1",
+        "scheme-3792985494804332545-050-marker_dotplot-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-050-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-050-embedding_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-051-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-051-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-052-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-052-violin_distribution-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-053-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-053-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-054-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-054-flow-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-054-sankey_alluvial-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-054-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-055-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-055-embedding_feature-2-v1",
+        "scheme-3792985494804332545-055-embedding_feature-3-v1",
+        "scheme-3792985494804332545-055-embedding_feature-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-056-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-056-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-056-enrichment_dendrogram_bar_composite-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-056-layout-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-057-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-057-embedding_density_cloud-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-058-boxplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-058-box_jitter-2-v1",
+        "scheme-3792985494804332545-058-box_jitter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-059-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-059-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-059-enrichment_bar-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-060-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-060-enrichment_comet_link_dot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-060-palette-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-061-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-061-gsea_rank_score_dot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-062-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-062-pcoa_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-063-correlation-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-063-ternary_composition_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-064-genomics-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-064-mutation_lollipop_domain-2-v1",
+        "scheme-3792985494804332545-064-mutation_lollipop_domain-3-v1",
+        "scheme-3792985494804332545-064-mutation_lollipop_domain-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-065-genomics-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-065-mutation_lollipop_domain-2-v1",
+        "scheme-3792985494804332545-065-mutation_lollipop_domain-3-v1",
+        "scheme-3792985494804332545-065-mutation_lollipop_domain-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-066-genomics-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-066-cohort_cnv_spectrum-v1",
+        "scheme-3792985494804332545-066-mutation_waterfall_oncoprint-2-v1",
+        "scheme-3792985494804332545-066-mutation_waterfall_oncoprint-v1",
+        "scheme-3792985494804332545-066-single_sample_cnv_profile-v1",
+        "scheme-3792985494804332545-066-transition_transversion_spectrum-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-067-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-067-box_jitter-v1",
+        "scheme-3792985494804332545-067-violin_distribution-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-068-genomics-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-068-maf_summary-v1",
+        "scheme-3792985494804332545-068-mutation_lollipop_domain-v1",
+        "scheme-3792985494804332545-068-mutation_rainfall-v1",
+        "scheme-3792985494804332545-068-mutation_waterfall_oncoprint-v1",
+        "scheme-3792985494804332545-068-transition_transversion_spectrum-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-069-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-069-embedding_scatter-2-v1",
+        "scheme-3792985494804332545-069-embedding_scatter-3-v1",
+        "scheme-3792985494804332545-069-embedding_scatter-4-v1",
+        "scheme-3792985494804332545-069-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-070-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-070-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-071-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-071-enrichment_text_rank-2-v1",
+        "scheme-3792985494804332545-071-enrichment_text_rank-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-072-boxplot-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-072-box_jitter-2-v1",
+        "scheme-3792985494804332545-072-box_jitter-3-v1",
+        "scheme-3792985494804332545-072-box_jitter-4-v1",
+        "scheme-3792985494804332545-072-box_jitter-5-v1",
+        "scheme-3792985494804332545-072-box_jitter-6-v1",
+        "scheme-3792985494804332545-072-box_jitter-7-v1",
+        "scheme-3792985494804332545-072-box_jitter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-072-roc-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-072-roc_curve-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-073-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-073-gsea-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-073-enrichment_bar-2-v1",
+        "scheme-3792985494804332545-073-enrichment_bar-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-074-correlation-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-074-embedding-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-074-embedding_density_cloud-2-v1",
+        "scheme-3792985494804332545-074-embedding_density_cloud-v1",
+        "scheme-3792985494804332545-074-embedding_feature-2-v1",
+        "scheme-3792985494804332545-074-embedding_feature-3-v1",
+        "scheme-3792985494804332545-074-embedding_feature-v1",
+        "scheme-3792985494804332545-074-embedding_scatter-2-v1",
+        "scheme-3792985494804332545-074-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-075-correlation-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-3792985494804332545-075-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-075-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-076-correlation-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-076-correlation_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-3792985494804332545-077-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-077-annotated_heatmap-2-v1",
+        "scheme-3792985494804332545-077-annotated_heatmap-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-077-violin-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-077-box_jitter-2-v1",
+        "scheme-3792985494804332545-077-box_jitter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-3792985494804332545-077-volcano-v1": {
+      "scheme_ids": [
+        "scheme-3792985494804332545-077-volcano_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-001-spatial_image-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-001-fluorescence_multichannel-v1",
+        "scheme-4329102050694250504-001-he_roi_zoom-v1",
+        "scheme-4329102050694250504-001-he_whole_slide-2-v1",
+        "scheme-4329102050694250504-001-he_whole_slide-v1",
+        "scheme-4329102050694250504-001-segmentation_boundary_overlay-2-v1",
+        "scheme-4329102050694250504-001-segmentation_boundary_overlay-3-v1",
+        "scheme-4329102050694250504-001-segmentation_boundary_overlay-4-v1",
+        "scheme-4329102050694250504-001-segmentation_boundary_overlay-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-002-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-002-embedding_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-003-heatmap-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-003-annotated_heatmap-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-004-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-004-embedding_feature-v1",
+        "scheme-4329102050694250504-004-embedding_scatter-2-v1",
+        "scheme-4329102050694250504-004-embedding_scatter-3-v1",
+        "scheme-4329102050694250504-004-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-005-composition-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-005-stacked_composition_bar-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-006-gsea-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-006-go_enrichment_circle-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-007-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-007-embedding_scatter-2-v1",
+        "scheme-4329102050694250504-007-embedding_scatter-3-v1",
+        "scheme-4329102050694250504-007-embedding_scatter-4-v1",
+        "scheme-4329102050694250504-007-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-008-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-4329102050694250504-008-layout-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-4329102050694250504-009-composition-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-4329102050694250504-009-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-009-embedding_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-009-gsea-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-009-enrichment_bar-2-v1",
+        "scheme-4329102050694250504-009-enrichment_bar-3-v1",
+        "scheme-4329102050694250504-009-enrichment_bar-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-010-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-010-marker_dotplot-2-v1",
+        "scheme-4329102050694250504-010-marker_dotplot-v1",
+        "scheme-4329102050694250504-010-marker_dotplot_group_boxes-2-v1",
+        "scheme-4329102050694250504-010-marker_dotplot_group_boxes-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-011-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-011-embedding_scatter-2-v1",
+        "scheme-4329102050694250504-011-embedding_scatter-3-v1",
+        "scheme-4329102050694250504-011-embedding_scatter-4-v1",
+        "scheme-4329102050694250504-011-embedding_scatter-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-012-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-012-cellchat_bubble-2-v1",
+        "scheme-4329102050694250504-012-cellchat_bubble-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-012-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-012-cellchat_bubble-2-v1",
+        "scheme-4329102050694250504-012-cellchat_bubble-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-013-trajectory-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-013-trajectory_pseudotime-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-014-cellchat_chord-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-014-cellchat_circle_network-2-v1",
+        "scheme-4329102050694250504-014-cellchat_circle_network-3-v1",
+        "scheme-4329102050694250504-014-cellchat_circle_network-4-v1",
+        "scheme-4329102050694250504-014-cellchat_circle_network-v1"
+      ],
+      "status": "one_to_many"
+    },
+    "style-4329102050694250504-015-dotplot-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-015-marker_dotplot-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-016-correlation-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-016-two_contrast_foldchange_concordance-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-016-volcano-v1": {
+      "scheme_ids": [],
+      "status": "unmapped"
+    },
+    "style-4329102050694250504-017-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-017-pca_scatter-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-018-embedding-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-018-embedding_outline-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-019-roc-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-019-roc_curve-v1"
+      ],
+      "status": "mapped"
+    },
+    "style-4329102050694250504-020-gsea-v1": {
+      "scheme_ids": [
+        "scheme-4329102050694250504-020-gsea_running_score-v1"
+      ],
+      "status": "mapped"
+    }
+  },
+  "schema_version": "2.0"
+}

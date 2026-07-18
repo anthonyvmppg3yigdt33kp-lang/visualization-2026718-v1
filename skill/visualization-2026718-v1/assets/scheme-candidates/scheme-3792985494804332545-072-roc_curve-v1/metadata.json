@@ -1,0 +1,75 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "v",
+      "gp",
+      "df",
+      "model",
+      "GSum",
+      "PValue",
+      "probability",
+      "roc_curve",
+      "Train_roc_x",
+      "Train_roc_y",
+      "Train_AUC",
+      "p",
+      "xlab",
+      "type"
+    ],
+    "required_inputs": [
+      "真实二分类结局",
+      "连续预测分数",
+      "独立验证划分"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "v",
+        "gp",
+        "df",
+        "model",
+        "GSum",
+        "PValue",
+        "probability",
+        "roc_curve",
+        "Train_roc_x",
+        "Train_roc_y",
+        "Train_AUC",
+        "p",
+        "xlab",
+        "type"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-072-b011"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-072-b011"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-072-b011: load(\"step1_output.Rdata\")"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-072-roc_curve-v1",
+  "source_article_id": "article-3792985494804332545-072",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

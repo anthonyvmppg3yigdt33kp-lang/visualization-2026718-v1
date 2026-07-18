@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0", "id": "complex-heatmap-r-v1", "name": "R annotated ComplexHeatmap",
+  "description": "Construct a centered numeric heatmap with optional row groups, column annotation and significance symbols; returns a Heatmap object.",
+  "kind": "base_recipe", "family": "heatmap", "backend": "r",
+  "tags": ["heatmap", "complexheatmap", "annotation", "pathway", "matrix", "significance"],
+  "requires": {"object_types": ["matrix"], "variables": ["numeric_matrix"], "packages": ["ComplexHeatmap", "circlize", "grid"], "capabilities": ["matrix_values"]},
+  "provides": {"object_types": ["Heatmap"], "capabilities": ["annotated_matrix_view"]},
+  "compatible_with": {"kinds": ["layout", "export"], "ids": ["publication-export-r-v1"]},
+  "conflicts": ["ggplot-only-modifier"],
+  "parameters": [{"name": "matrix_data", "type": "numeric matrix", "required": true, "default": null, "allowed": null, "description": "Rows are features and columns are groups or samples."}, {"name": "limits", "type": "numeric[3]", "required": false, "default": null, "allowed": null, "description": "Explicit low, center and high values; auto uses a symmetric range."}, {"name": "row_title_fontsize", "type": "number", "required": false, "default": 8, "allowed": "positive", "description": "Purely visual row-split title size."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:5db3c0da3af4c89d205e9df86acab0c4e600d9b68cf3b86eb11478096432485e", "sha256:214866e6369c4080253c08834e9f37d7350108e24565959a42e8e30504512d69", "sha256:81438c9c61b16edd4e6089a38baab349e174c45d7c6652df26f6f1bb6d0dee11", "sha256:a513758772afce8d9369e4cdec8868e7f2279d32a290660679f4e18394eb1803"]},
+  "semantic_card": {
+    "questions_answered": ["pattern", "relative_profile", "subtype_comparison"], "evidence_roles": ["overview", "comparison"], "units": ["feature", "pathway", "sample", "subtype"], "data_topologies": ["matrix"],
+    "required_variables": [{"name": "matrix_data", "role": "fill", "type": "numeric_matrix"}], "transformations": [{"field": "values", "method": "caller_supplied; no implicit scaling"}],
+    "visual_channels": {"x": "column", "y": "feature", "color": "numeric_value", "size": "constant_tile", "shape": "tile", "alpha": "constant", "facet": "row_split", "annotation": "optional groups and symbols"},
+    "supports_claims": ["Shows patterns in the supplied numeric matrix under the declared scale."],
+    "does_not_support": ["Colour alone does not establish statistical significance; scaled rows are not absolute expression; clustering is not phylogeny."],
+    "required_statistics": ["state normalization/scaling", "define significance symbols when used"], "misread_risks": ["relative_vs_absolute_scale", "incorrect_center", "symbol_without_definition"],
+    "preferred_companions": ["effect-size table", "sample-level distribution"], "safer_alternatives": ["dot plot when detection percentage is also essential"]
+  },
+  "visual_fingerprint": {"family": "heatmap", "panels": 1, "panel_structure": "annotated_matrix", "channels": ["position", "color", "annotation"], "legend_mode": "continuous_plus_categorical", "information_density": "high", "strengths": ["multi-feature pattern comparison"], "risks": ["small labels", "scale ambiguity"], "final_size_behavior": "requires row-label and legend check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from heatmap_matrix.csv opened at 7 x 5.5 in / 200 dpi and 3.5 x 4.8 in / 300 dpi on 2026-07-17. Reducing only row-split title typography removed overlap; matrix values, diverging limits, midpoint and labels are unchanged and fully visible."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-4329102050694250504-003", "block_ids": ["article-4329102050694250504-003-b005", "article-4329102050694250504-003-b006", "article-4329102050694250504-003-b008"], "image_ids": ["article-4329102050694250504-003-i006"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Specialist dependency may be unavailable; no file device is opened by the function.", "Round-2 exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/complex-heatmap-r.png", "fixture": "../../fixtures/heatmap_matrix.csv"}
+}

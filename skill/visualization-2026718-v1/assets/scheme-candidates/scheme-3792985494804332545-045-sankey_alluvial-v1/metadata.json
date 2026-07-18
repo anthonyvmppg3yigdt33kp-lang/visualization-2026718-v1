@@ -1,0 +1,53 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "sample",
+      "p",
+      "fill.by"
+    ],
+    "required_inputs": [
+      "源节点",
+      "目标节点",
+      "权重"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "sample",
+        "p",
+        "fill.by"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-045-b010"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-045-b010"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-045-b010: sample <- readRDS(system.file(\"extdata/seurat_dataset_example.rds\", package = \"SCpubr\"))"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-045-sankey_alluvial-v1",
+  "source_article_id": "article-3792985494804332545-045",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

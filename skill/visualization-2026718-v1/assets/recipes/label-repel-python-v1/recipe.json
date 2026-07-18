@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "id": "label-repel-python-v1",
+  "name": "Python collision-aware label modifier",
+  "description": "Reposition explicit Matplotlib labels with optional adjustText and a deterministic dependency-free Matplotlib fallback.",
+  "kind": "aesthetic_modifier",
+  "family": "labeling",
+  "backend": "python",
+  "tags": ["label", "collision", "matplotlib", "adjusttext-optional", "deterministic-fallback"],
+  "requires": {"object_types": ["matplotlib.axes.Axes"], "variables": [], "packages": ["matplotlib", "pandas"], "capabilities": ["label_anchor_contract"]},
+  "provides": {"object_types": ["matplotlib.axes.Axes"], "capabilities": ["repelled_labels", "dependency_free_label_fallback"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["umap-dataframe-python-v1"]},
+  "conflicts": [],
+  "parameters": [
+    {"name": "label_data", "type": "pandas.DataFrame|null", "required": false, "default": null, "allowed": null, "description": "Optional explicit label anchors; when omitted, consume the compatible base Recipe's copied label-anchor contract."},
+    {"name": "x", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Anchor x column; inferred from the base contract when omitted."},
+    {"name": "y", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Anchor y column; inferred from the base contract when omitted."},
+    {"name": "label", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Label column; inferred from the base contract when omitted."},
+    {"name": "method", "type": "string", "required": false, "default": "auto", "allowed": ["auto", "adjusttext", "deterministic"], "description": "Auto uses adjustText when present, otherwise deterministic Matplotlib placement."},
+    {"name": "fallback_step_points", "type": "number", "required": false, "default": 8.0, "allowed": "positive", "description": "Display-coordinate step for deterministic placement."},
+    {"name": "fallback_max_steps", "type": "integer", "required": false, "default": 12, "allowed": "positive", "description": "Maximum deterministic search rings per label."},
+    {"name": "fallback_point_padding_factor", "type": "number", "required": false, "default": 1.5, "allowed": ">=1", "description": "Expand each candidate text box before testing overlap with plotted scatter points, leaving print-safe clearance."},
+    {"name": "fallback_max_point_overlap", "type": "integer", "required": false, "default": 0, "allowed": "non-negative", "description": "Maximum plotted points a deterministic label may cover before falling back to the least-overlap position."},
+    {"name": "fontsize", "type": "number", "required": false, "default": 7.0, "allowed": "positive", "description": "Direct-label size in points for publication-scale output."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["annotation"], "units": [], "data_topologies": ["cartesian_plot"],
+    "required_variables": [{"name": "label_data", "role": "annotation", "type": "DataFrame"}], "transformations": [{"field": "label_position", "method": "optional adjustText or deterministic display-coordinate collision search against labels, axes bounds, and plotted points"}],
+    "visual_channels": {"x": "label_anchor", "y": "label_anchor", "color": "inherits", "size": "text", "shape": "none", "alpha": "none", "facet": "inherits", "annotation": "text_and_optional_leader_line"},
+    "supports_claims": ["Identifies explicitly selected items."], "does_not_support": ["Label selection or repositioning does not establish significance."],
+    "required_statistics": [], "misread_risks": ["post_hoc_label_selection", "leader_line_clutter"], "preferred_companions": ["declared label-selection rule"], "safer_alternatives": ["numbered table"]
+  },
+  "visual_fingerprint": {"family": "labeling", "panels": "inherits", "panel_structure": "inherits", "channels": ["text", "leader_lines"], "legend_mode": "inherits", "information_density": "variable", "strengths": ["reduces overlap without changing data"], "risks": ["dense labels may still require manual selection"], "final_size_behavior": "inspect final-size label, point and leader-line collisions", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Materialized UMAP + label-repel + borderless composition was freshly rebuilt on an exact 85 x 75 mm canvas without adjustText and opened together with its original-size render on 2026-07-17. A 1.5x point-clearance box moved all three direct labels away from displayed points; labels, leader lines and legend remained readable and unclipped."},
+  "source": {"status": "derived", "articles": [], "license_status": "internal", "transformation": "original_generalized_modifier_with_dependency_free_fallback"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "composed_pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "Python 3.13.12", "notes": ["The deterministic fallback was executed without adjustText.", "method='adjusttext' still fails explicitly when the optional dependency is absent.", "The compatible UMAP base exposes a copied median label-anchor contract so runtime composition does not require DataFrame serialization in JSON parameters.", "The deterministic engine tests labels against axes bounds, other labels and plotted points, and the runtime rebuilds final-size compositions before modifiers.", "Native visual QA passed in the declared UMAP composition; standalone modifier preview is not claimed."]},
+  "files": {"code": "recipe.py", "example": "example.py", "preview": null, "fixture": null}
+}

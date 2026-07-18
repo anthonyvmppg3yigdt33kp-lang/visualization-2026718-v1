@@ -1,0 +1,58 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "chart.options",
+      "title.text",
+      "gene.symbol",
+      "plot.options",
+      "output.filename"
+    ],
+    "required_inputs": [
+      "坐标",
+      "事件",
+      "样本ID",
+      "注释类别"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "chart.options",
+        "title.text",
+        "gene.symbol",
+        "plot.options",
+        "output.filename"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-065-b003"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-065-b003"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-065-b003: output.filename = \"default_theme\")"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-065-mutation_lollipop_domain-v1",
+  "source_article_id": "article-3792985494804332545-065",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

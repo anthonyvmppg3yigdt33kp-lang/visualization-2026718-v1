@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "id": "umap-dataframe-r-v1",
+  "name": "R data-frame grouped UMAP",
+  "description": "Plot precomputed two-dimensional embedding coordinates by a categorical group and return a ggplot object.",
+  "kind": "base_recipe",
+  "family": "embedding",
+  "backend": "r",
+  "tags": ["umap", "embedding", "single-cell", "cluster", "overview", "scatter"],
+  "requires": {"object_types": ["data.frame"], "variables": ["x", "y", "group"], "packages": ["ggplot2"], "capabilities": ["precomputed_embedding"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["embedding_overview", "group_color_mapping"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["arrow-axes-r-v1", "borderless-r-v1", "label-repel-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "conflicts": [],
+  "parameters": [
+    {"name": "data", "type": "data.frame", "required": true, "default": null, "allowed": null, "description": "One row per observation with precomputed embedding coordinates."},
+    {"name": "x", "type": "string", "required": false, "default": "umap_1", "allowed": null, "description": "First embedding-coordinate column."},
+    {"name": "y", "type": "string", "required": false, "default": "umap_2", "allowed": null, "description": "Second embedding-coordinate column."},
+    {"name": "group", "type": "string", "required": false, "default": "cluster", "allowed": null, "description": "Categorical colour column."},
+    {"name": "coordinate_padding", "type": "number", "required": false, "default": 0.16, "allowed": "non-negative", "description": "Purely visual multiplicative coordinate padding used to protect direct labels from clipping."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:cd51901d02a54fe94bf912e916294f1c62a9f3d8dbb98a7fbc7570cc39a06b4b", "sha256:ab2040a367b375b5e20a0b79e33117765fd9483876170af9a2b6f04286dbf10b", "sha256:5569dd928ea7ee876b865b71658e0dfc0c452ce7fac28cf09a47668a036baf49"]},
+  "semantic_card": {
+    "questions_answered": ["distribution", "embedding_neighborhood"], "evidence_roles": ["overview", "discovery"], "units": ["cell", "observation"], "data_topologies": ["embedding"],
+    "required_variables": [{"name": "x/y", "role": "position", "type": "numeric"}, {"name": "group", "role": "color", "type": "categorical"}],
+    "transformations": [{"field": "coordinates", "method": "precomputed_embedding"}],
+    "visual_channels": {"x": "embedding_dimension_1", "y": "embedding_dimension_2", "color": "group", "size": "constant", "shape": "constant", "alpha": "density_control", "facet": "none", "annotation": "optional_group_label"},
+    "supports_claims": ["Shows local embedding neighborhoods and the displayed group distribution."],
+    "does_not_support": ["Does not establish abundance differences, statistical significance, trajectory direction, global metric distance, or causality."],
+    "required_statistics": ["none"], "misread_risks": ["global_distance_interpretation", "cell_as_replicate", "overplotting"],
+    "preferred_companions": ["sample_level_composition"], "safer_alternatives": ["sample-level proportion plot for abundance claims"]
+  },
+  "visual_fingerprint": {"family": "embedding", "panels": 1, "panel_structure": "single", "channels": ["position", "color"], "legend_mode": "categorical", "information_density": "medium", "strengths": ["cluster_overview"], "risks": ["overplotting", "color_collision"], "final_size_behavior": "requires point and label check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from umap_points.csv opened at 7 x 5.5 in / 200 dpi and 3.5 x 3.2 in / 300 dpi on 2026-07-17. Adding only coordinate expansion removed direct-label clipping; embedding coordinates, group identities, point mappings and neighbourhood interpretation remain unchanged."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-014", "block_ids": ["article-3792985494804332545-014-b002", "article-3792985494804332545-014-b004"], "image_ids": ["article-3792985494804332545-014-i007"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Round-2 exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/umap-r.png", "fixture": "../../fixtures/umap_points.csv"}
+}

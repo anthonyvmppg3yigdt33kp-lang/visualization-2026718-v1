@@ -1,0 +1,75 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-055-embedding_feature-2-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "selected_genes",
+      "g",
+      "p_merge",
+      "legend.position",
+      "panel.border",
+      "panel.grid.major",
+      "panel.grid.minor",
+      "panel.background",
+      "plot.background",
+      "combined_plot"
+    ],
+    "required_inputs": [
+      "两列嵌入坐标",
+      "类别或连续特征"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "selected_genes",
+        "g",
+        "p_merge",
+        "legend.position",
+        "panel.border",
+        "panel.grid.major",
+        "panel.grid.minor",
+        "panel.background",
+        "plot.background",
+        "combined_plot"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-055-b003"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-055-b003: ggsave(filename = \"Salt_UMAP.pdf\", width = 11.5, height = 8, plot = combined_plot)",
+      "article-3792985494804332545-055-b003: ggsave(filename = \"Salt_UMAP.png\", width = 11.5, height = 8, plot = combined_plot)"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-055-embedding_feature-2-v1",
+  "source_article_id": "article-3792985494804332545-055",
+  "source_block_ids": [
+    "article-3792985494804332545-055-b003"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

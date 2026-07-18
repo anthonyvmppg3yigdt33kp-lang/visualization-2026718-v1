@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-18T03:11:11Z",
+  "source_root": "assets/source_archive",
+  "catalog_input_fingerprint": {
+    "algorithm": "sha256-v1",
+    "sha256": "f038a13552fa1deb311440f702ab2c879572266c0f814c79b551d5ea46af79b6",
+    "entries": 891
+  },
+  "records": {
+    "article": 97,
+    "source_block": 621,
+    "image": 709,
+    "recipe": 25,
+    "strategy": 9
+  },
+  "raw_languages": {
+    "r": 604,
+    "bash": 1,
+    "python": 16
+  },
+  "normalized_languages": {
+    "r": 602,
+    "python": 18,
+    "bash": 1
+  },
+  "language_corrections": [
+    "article-3792985494804332545-022-b004",
+    "article-4329102050694250504-011-b003"
+  ],
+  "stable_ids": {
+    "registered": 1331,
+    "rewritten_this_build": 1
+  },
+  "families": {
+    "cellchat_chord": 92,
+    "heatmap": 114,
+    "decorative": 5,
+    "palette": 38,
+    "embedding": 309,
+    "set_intersection": 26,
+    "composition": 59,
+    "correlation": 43,
+    "boxplot": 67,
+    "unknown": 52,
+    "violin": 60,
+    "volcano": 101,
+    "spatial_image": 30,
+    "gsea": 161,
+    "dotplot": 144,
+    "survival": 11,
+    "flow": 16,
+    "genomics": 73,
+    "layout": 18,
+    "roc": 15,
+    "trajectory": 14,
+    "anndata_adapter": 1,
+    "cellchat_adapter": 1,
+    "ora_adapter": 1,
+    "seurat_adapter": 1,
+    "sample_level_composition": 1,
+    "paired_plot": 1,
+    "precision_recall": 1,
+    "calibration": 1,
+    "cellchat_dotplot": 1,
+    "visual_review": 1,
+    "intent_clarification": 1,
+    "data_audit": 1,
+    "visual_examples": 1
+  },
+  "image_roles": {
+    "cover_or_web_screenshot": 113,
+    "intermediate_step": 297,
+    "scientific_result": 227,
+    "uncertain": 45,
+    "published_reference": 22,
+    "promotion_or_qr": 5
+  },
+  "expectations": {
+    "articles": 97,
+    "source_blocks": 621,
+    "images": 709,
+    "raw_languages": {
+      "r": 604,
+      "python": 16,
+      "bash": 1
+    }
+  },
+  "expectations_pass": {
+    "articles": true,
+    "source_blocks": true,
+    "images": true,
+    "raw_languages": true
+  },
+  "style_atlas": {
+    "style_cards": 136,
+    "articles_indexed": 97,
+    "coverage_status": {
+      "formal_exact": 11,
+      "formal_family": 84,
+      "resource_only": 9,
+      "source_only": 32
+    },
+    "missing_sample_count": 0
+  }
+}

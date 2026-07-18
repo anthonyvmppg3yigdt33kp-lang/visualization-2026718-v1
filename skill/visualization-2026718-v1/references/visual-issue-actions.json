@@ -1,0 +1,230 @@
+{
+  "schema_version": "1.0",
+  "description": "Deterministic mapping from native visual-review findings to bounded revision parameters. This registry does not detect image defects; it only constrains actions after a native review.",
+  "max_rounds": 3,
+  "native_review_methods": [
+    "native_local_image_view"
+  ],
+  "evidence_levels": [
+    "pixels_only",
+    "image_metadata",
+    "image_code",
+    "image_code_data"
+  ],
+  "forbidden_parameter_patterns": [
+    "data.*",
+    "filter.*",
+    "filters.*",
+    "normalization.*",
+    "transform.*",
+    "transformation.*",
+    "sample_selection.*",
+    "feature_selection.*"
+  ],
+  "confirmation_parameter_patterns": [
+    "scale.midpoint",
+    "scale.center",
+    "scale.limits",
+    "scale.transform",
+    "scale.direction",
+    "scale.breaks",
+    "scale.range",
+    "encoding.*",
+    "stat_annotation.*",
+    "statistics.*",
+    "statistic.*",
+    "test.*",
+    "threshold.*",
+    "fdr.*",
+    "p_value.*",
+    "multiple_testing.*",
+    "aggregation.*",
+    "grouping.*",
+    "denominator.*",
+    "top_n.*"
+  ],
+  "issues": {
+    "label_overlap": {
+      "default_severity": "major",
+      "action": "increase label repulsion or spacing without changing labels or observations",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "labels.repel",
+        "labels.max_overlaps",
+        "labels.box_padding",
+        "labels.point_padding",
+        "labels.force",
+        "labels.font_size",
+        "layout.margin.*",
+        "layout.width",
+        "layout.height"
+      ]
+    },
+    "legend_clipped": {
+      "default_severity": "major",
+      "action": "increase canvas or margins and reposition the existing legend",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "layout.margin.*",
+        "layout.legend_position",
+        "layout.width",
+        "layout.height",
+        "export.bbox_inches",
+        "export.pad_inches"
+      ]
+    },
+    "font_too_small": {
+      "default_severity": "major",
+      "action": "increase typography at the declared final physical size",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "typography.*",
+        "labels.font_size",
+        "legend.font_size",
+        "axes.font_size",
+        "layout.width",
+        "layout.height"
+      ]
+    },
+    "cross_panel_color_inconsistent": {
+      "default_severity": "major",
+      "action": "reuse one named category-to-color mapping across compatible panels",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "palette.named_mapping",
+        "palette.level_order",
+        "layout.shared_legend"
+      ],
+      "invariant": "category identities and scale semantics must remain unchanged"
+    },
+    "red_green_only": {
+      "default_severity": "major",
+      "action": "use a color-vision-safe palette and, when possible, a redundant shape or line channel",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "palette.cvd_scheme",
+        "palette.named_mapping",
+        "markers.redundant_shape",
+        "lines.redundant_style"
+      ]
+    },
+    "missing_colorbar": {
+      "default_severity": "major",
+      "action": "restore the existing continuous scale guide without changing scale values",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "guides.colorbar_visible",
+        "guides.colorbar_title",
+        "guides.colorbar_position",
+        "layout.margin.*"
+      ],
+      "invariant": "the mapped variable, palette, limits, transform, and direction must remain unchanged"
+    },
+    "wrong_midpoint": {
+      "default_severity": "major",
+      "action": "change the diverging-scale center only after scientific confirmation",
+      "safe_auto": false,
+      "requires_confirmation": true,
+      "confirmation_scope": "scale_semantics",
+      "minimum_evidence_level": "image_metadata",
+      "allowed_parameter_patterns": [
+        "scale.midpoint",
+        "scale.center"
+      ]
+    },
+    "scale_semantics_change": {
+      "default_severity": "major",
+      "action": "change scale semantics only after scientific confirmation and re-interpret the rendered evidence",
+      "safe_auto": false,
+      "requires_confirmation": true,
+      "confirmation_scope": "scale_semantics",
+      "minimum_evidence_level": "image_code",
+      "allowed_parameter_patterns": [
+        "scale.midpoint",
+        "scale.center",
+        "scale.limits",
+        "scale.transform",
+        "scale.direction",
+        "scale.breaks",
+        "scale.range"
+      ]
+    },
+    "statistical_semantics_change": {
+      "default_severity": "blocker",
+      "action": "change the declared statistic only after scientific confirmation; start a new analysis baseline if data values change",
+      "safe_auto": false,
+      "requires_confirmation": true,
+      "confirmation_scope": "statistical_semantics",
+      "minimum_evidence_level": "image_code_data",
+      "allowed_parameter_patterns": [
+        "stat_annotation.*",
+        "statistics.*",
+        "statistic.*",
+        "test.*",
+        "threshold.*",
+        "fdr.*",
+        "p_value.*",
+        "multiple_testing.*",
+        "aggregation.*",
+        "grouping.*",
+        "denominator.*",
+        "top_n.*"
+      ]
+    },
+    "encoding_semantics_change": {
+      "default_severity": "major",
+      "action": "change a visual encoding only after confirming that the scientific meaning remains valid",
+      "safe_auto": false,
+      "requires_confirmation": true,
+      "confirmation_scope": "visual_encoding_semantics",
+      "minimum_evidence_level": "image_code",
+      "allowed_parameter_patterns": [
+        "encoding.*"
+      ]
+    },
+    "axis_label_clipped": {
+      "default_severity": "major",
+      "action": "increase margins, wrap labels, or rotate labels without changing values",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "layout.margin.*",
+        "axes.label_rotation",
+        "axes.label_wrap",
+        "layout.width",
+        "layout.height",
+        "export.bbox_inches",
+        "export.pad_inches"
+      ]
+    },
+    "point_density_occlusion": {
+      "default_severity": "minor",
+      "action": "adjust visual opacity, point size, or rasterization without filtering observations",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "points.alpha",
+        "points.size",
+        "points.rasterize"
+      ]
+    },
+    "excess_whitespace": {
+      "default_severity": "minor",
+      "action": "adjust margins or panel spacing without changing coordinates or data",
+      "safe_auto": true,
+      "requires_confirmation": false,
+      "allowed_parameter_patterns": [
+        "layout.margin.*",
+        "layout.panel_spacing",
+        "layout.width",
+        "layout.height"
+      ]
+    }
+  }
+}

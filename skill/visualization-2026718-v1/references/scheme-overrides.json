@@ -1,0 +1,234 @@
+{
+  "decorative_article_ids": [
+    "article-3792985494804332545-002"
+  ],
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "image_overrides": {
+    "article-3792985494804332545-007-i001": {
+      "note": "published design reference; not the tutorial output",
+      "reviewed": true,
+      "role": "published_reference"
+    },
+    "article-3792985494804332545-007-i006": {
+      "note": "rectangular pre-polar implementation",
+      "reviewed": true,
+      "role": "intermediate_step"
+    },
+    "article-3792985494804332545-007-i007": {
+      "note": "initial polar intermediate",
+      "reviewed": true,
+      "role": "intermediate_step"
+    },
+    "article-3792985494804332545-007-i008": {
+      "note": "final tutorial implementation",
+      "reviewed": true,
+      "role": "scientific_result"
+    }
+  },
+  "schema_version": "2.0",
+  "scheme_overrides": {
+    "article-3792985494804332545-007": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-007-b005",
+          "article-3792985494804332545-007-b006",
+          "article-3792985494804332545-007-b007"
+        ],
+        "image_ids": {
+          "intermediate_step": [
+            "article-3792985494804332545-007-i006",
+            "article-3792985494804332545-007-i007"
+          ],
+          "published_reference": [
+            "article-3792985494804332545-007-i001"
+          ],
+          "scientific_result": [
+            "article-3792985494804332545-007-i008"
+          ]
+        },
+        "object_chain": [
+          "plt",
+          "p1",
+          "p2"
+        ],
+        "source_semantics": {
+          "data_topology": "one_row_per_region",
+          "question": "比较 hiking region 的累计路线长度、平均爬升和路线数量。",
+          "statistical_intent": "descriptive",
+          "unit": "region",
+          "variables": {
+            "angle": "region",
+            "fill": "n",
+            "radius_bar": "sum_length",
+            "radius_point": "mean_gain"
+          }
+        },
+        "subtype": "radial_bar_lollipop",
+        "target_application": {
+          "adapter_required": true,
+          "compatible_analysis_methods": [
+            "ora"
+          ],
+          "question": "通过显式 adapter 将多指标通路表映射为富集玫瑰图。",
+          "variable_mapping": {
+            "angle": "pathway",
+            "fill": "FDR, direction, or count (choose one and label it)",
+            "radius_bar": "declared enrichment magnitude",
+            "radius_point": "declared second metric"
+          }
+        }
+      }
+    ],
+    "article-3792985494804332545-032": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-032-b003",
+          "article-3792985494804332545-032-b005"
+        ],
+        "object_chain": [
+          "p1"
+        ],
+        "subtype": "venn_intersection"
+      },
+      {
+        "block_ids": [
+          "article-3792985494804332545-032-b004",
+          "article-3792985494804332545-032-b005"
+        ],
+        "object_chain": [
+          "p2"
+        ],
+        "subtype": "venn_intersection"
+      }
+    ],
+    "article-3792985494804332545-056": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-056-b004",
+          "article-3792985494804332545-056-b005",
+          "article-3792985494804332545-056-b006"
+        ],
+        "object_chain": [
+          "p1",
+          "p2",
+          "p"
+        ],
+        "subtype": "enrichment_dendrogram_bar_composite"
+      }
+    ],
+    "article-3792985494804332545-060": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-060-b004",
+          "article-3792985494804332545-060-b005"
+        ],
+        "object_chain": [
+          "p",
+          "p1",
+          "p2"
+        ],
+        "subtype": "enrichment_comet_link_dot"
+      }
+    ],
+    "article-3792985494804332545-063": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-063-b001"
+        ],
+        "object_chain": [
+          "p"
+        ],
+        "subtype": "ternary_composition_scatter"
+      }
+    ],
+    "article-3792985494804332545-064": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-064-b002",
+          "article-3792985494804332545-064-b003",
+          "article-3792985494804332545-064-b004",
+          "article-3792985494804332545-064-b005",
+          "article-3792985494804332545-064-b006"
+        ],
+        "object_chain": [
+          "gp"
+        ],
+        "subtype": "mutation_lollipop_domain"
+      },
+      {
+        "block_ids": [
+          "article-3792985494804332545-064-b008"
+        ],
+        "object_chain": [
+          "ggraph"
+        ],
+        "subtype": "mutation_lollipop_domain"
+      },
+      {
+        "block_ids": [
+          "article-3792985494804332545-064-b010"
+        ],
+        "object_chain": [
+          "gp"
+        ],
+        "subtype": "mutation_lollipop_domain"
+      }
+    ],
+    "article-3792985494804332545-077": [
+      {
+        "block_ids": [
+          "article-3792985494804332545-077-b006"
+        ],
+        "object_chain": [],
+        "subtype": "volcano_scatter"
+      }
+    ],
+    "article-4329102050694250504-006": [
+      {
+        "block_ids": [
+          "article-4329102050694250504-006-b003",
+          "article-4329102050694250504-006-b004",
+          "article-4329102050694250504-006-b005",
+          "article-4329102050694250504-006-b006"
+        ],
+        "object_chain": [
+          "circ",
+          "GOCircle"
+        ],
+        "subtype": "go_enrichment_circle"
+      }
+    ],
+    "article-4329102050694250504-008": [
+      {
+        "block_ids": [
+          "article-4329102050694250504-008-b004",
+          "article-4329102050694250504-008-b005",
+          "article-4329102050694250504-008-b006",
+          "article-4329102050694250504-008-b007"
+        ],
+        "object_chain": [
+          "p1",
+          "p2",
+          "p"
+        ],
+        "subtype": "mirrored_dual_metric_lollipop"
+      }
+    ],
+    "article-4329102050694250504-016": [
+      {
+        "block_ids": [
+          "article-4329102050694250504-016-b003",
+          "article-4329102050694250504-016-b004",
+          "article-4329102050694250504-016-b005"
+        ],
+        "object_chain": [
+          "p",
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "subtype": "two_contrast_foldchange_concordance"
+      }
+    ]
+  }
+}

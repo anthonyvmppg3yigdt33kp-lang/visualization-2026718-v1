@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "cards": [
+    {
+      "id": "strategy-sample-level-composition-v1",
+      "name": "Sample/donor-level composition comparison",
+      "description": "Quantify condition-associated composition at the independent sample or donor level; use an embedding only as contextual overview.",
+      "kind": "strategy",
+      "family": "sample_level_composition",
+      "backend": null,
+      "tags": ["composition", "proportion", "abundance", "sample-level", "donor-level", "cell fraction", "细胞比例", "样本水平"],
+      "requires": {"object_types": ["long_table"], "variables": ["sample_id", "condition", "cell_type", "count_or_fraction"], "capabilities": ["independent_sample_summary"]},
+      "semantic_card": {
+        "questions_answered": ["condition_composition", "cell_type_abundance"],
+        "evidence_roles": ["comparison", "validation"],
+        "units": ["sample", "donor", "patient"],
+        "data_topologies": ["sample_by_category_table"],
+        "visual_channels": {"x": "condition_or_cell_type", "y": "sample_level_fraction", "color": "condition_or_cell_type", "point": "independent_sample", "interval": "declared_uncertainty"},
+        "supports_claims": ["Shows composition estimates across independent samples and can support a declared sample-level comparison."],
+        "does_not_support": ["Cell-level counts are not independent replicates; visual UMAP density alone does not establish abundance change or treatment causality."],
+        "required_statistics": ["sample_id", "denominator", "sample-level uncertainty or a composition-aware model when inference is claimed"],
+        "preferred_companions": ["embedding overview"]
+      },
+      "validation": {"tier": "reference-only"},
+      "implementation_status": "derive_after_backend_selection"
+    },
+    {
+      "id": "strategy-paired-plot-v1",
+      "name": "Paired subject change plot",
+      "description": "Preserve subject pairing with connected observations or within-subject change estimates.",
+      "kind": "strategy",
+      "family": "paired_plot",
+      "backend": null,
+      "tags": ["paired", "pre post", "repeated measures", "within subject", "配对", "治疗前后"],
+      "requires": {"object_types": ["long_table"], "variables": ["subject_id", "condition_or_time", "value"], "capabilities": ["paired_observations"]},
+      "semantic_card": {
+        "questions_answered": ["within_subject_change"], "evidence_roles": ["comparison", "validation"],
+        "units": ["patient", "subject", "sample"], "data_topologies": ["repeated_measures_long"],
+        "visual_channels": {"x": "condition_or_time", "y": "value", "line": "subject_pair", "point": "observation"},
+        "supports_claims": ["Shows within-subject direction and magnitude of change."],
+        "does_not_support": ["Does not justify an independent-sample test or causal attribution without the study design."],
+        "required_statistics": ["subject_id", "paired estimand and uncertainty when inference is claimed"],
+        "preferred_companions": ["paired effect estimate with confidence interval"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "derive_after_backend_selection"
+    },
+    {
+      "id": "strategy-precision-recall-v1",
+      "name": "Precision-recall evaluation",
+      "description": "Prefer a precision-recall curve when the positive class is rare; retain ROC as a complementary discrimination view.",
+      "kind": "strategy", "family": "precision_recall", "backend": null,
+      "tags": ["precision recall", "pr curve", "class imbalance", "rare positive", "阳性率低", "类别不平衡"],
+      "requires": {"object_types": ["data.frame"], "variables": ["binary_outcome", "numeric_score"], "capabilities": ["binary_predictions"]},
+      "semantic_card": {
+        "questions_answered": ["imbalanced_classification"], "evidence_roles": ["validation", "clinical_relevance"],
+        "units": ["sample", "patient"], "data_topologies": ["binary_outcome_scores"],
+        "visual_channels": {"x": "recall", "y": "precision", "line": "threshold_sweep", "reference": "positive_prevalence"},
+        "supports_claims": ["Shows the precision-recall tradeoff in the supplied evaluation cohort."],
+        "does_not_support": ["Does not establish calibration, decision utility, external validity, or causality."],
+        "required_statistics": ["positive class", "prevalence", "held-out evaluation", "uncertainty when reported"],
+        "preferred_companions": ["ROC", "calibration"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "derive_after_backend_selection"
+    },
+    {
+      "id": "strategy-calibration-v1",
+      "name": "Calibration assessment",
+      "description": "Compare predicted risks with observed outcomes and report uncertainty rather than equating discrimination with clinical usefulness.",
+      "kind": "strategy", "family": "calibration", "backend": null,
+      "tags": ["calibration", "predicted risk", "observed risk", "校准"],
+      "requires": {"object_types": ["data.frame"], "variables": ["binary_outcome", "predicted_probability"], "capabilities": ["probability_predictions"]},
+      "semantic_card": {
+        "questions_answered": ["prediction_calibration"], "evidence_roles": ["validation", "clinical_relevance"],
+        "units": ["sample", "patient"], "data_topologies": ["binary_outcome_probabilities"],
+        "visual_channels": {"x": "predicted_probability", "y": "observed_frequency", "reference": "identity_line"},
+        "supports_claims": ["Assesses agreement between predicted and observed risk in the evaluation data."],
+        "does_not_support": ["Does not alone establish net clinical benefit or external transportability."],
+        "required_statistics": ["calibration intercept/slope or declared smoother", "evaluation cohort"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "derive_after_backend_selection"
+    },
+    {
+      "id": "strategy-cellchat-dotplot-v1",
+      "name": "Filtered communication dot plot",
+      "description": "Use a traceably filtered dot plot or heatmap when a communication chord diagram is too dense.",
+      "kind": "strategy", "family": "cellchat_dotplot", "backend": null,
+      "tags": ["cellchat", "communication", "dotplot", "dense chord", "通讯", "弦图太乱"],
+      "requires": {"object_types": ["CellChat", "long_table"], "variables": ["source", "target", "interaction", "weight", "significance_or_filter"], "capabilities": ["inferred_interactions"]},
+      "semantic_card": {
+        "questions_answered": ["dense_communication_comparison"], "evidence_roles": ["discovery", "comparison"],
+        "units": ["interaction", "cell_type"], "data_topologies": ["directed_weighted_network_long"],
+        "visual_channels": {"x": "source_target_pair", "y": "interaction_or_pathway", "color": "inferred_weight", "size": "declared_secondary_metric"},
+        "supports_claims": ["Shows the retained computationally inferred communication scores under a declared filter."],
+        "does_not_support": ["Does not prove physical communication, molecular flux, or causality; weak edges cannot be removed silently."],
+        "required_statistics": ["model/version", "filtering rule", "direction", "weight definition"],
+        "preferred_companions": ["expression support", "perturbation or orthogonal validation"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "derive_after_backend_selection"
+    },
+    {
+      "id": "strategy-visual-review-v1",
+      "name": "Evidence-tiered visual review",
+      "description": "Inspect pixels, metadata, code, and data only at the evidence level actually available; return keep, revise, or reselect.",
+      "kind": "strategy", "family": "visual_review", "backend": null,
+      "tags": ["review", "legend clipped", "label overlap", "read figure", "看图", "图例裁切", "标签重叠", "视觉复核"],
+      "requires": {"object_types": ["image"], "variables": [], "capabilities": ["local_image_read"]},
+      "semantic_card": {
+        "questions_answered": ["visual_quality", "evidence_bounded_interpretation"], "evidence_roles": ["robustness", "validation"],
+        "units": ["figure"], "data_topologies": ["image"],
+        "visual_channels": {"pixels": "visible_layout_color_shape_text", "metadata": "axis_legend_scale_when_readable"},
+        "supports_claims": ["Reports visible phenomena and traceable encoding interpretations at the declared evidence level."],
+        "does_not_support": ["Pixels-only review cannot invent p-values, sample size, normalization, thresholds, or causal conclusions."],
+        "required_statistics": ["none for pixels_only; source data required for numerical confirmation"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "native_visual_capability_required"
+    },
+    {
+      "id": "strategy-intent-clarification-v1",
+      "name": "Figure-intent clarification",
+      "description": "Do not choose a chart from style words alone; first establish the question, analysis unit, data topology, evidence role, and output context.",
+      "kind": "strategy", "family": "intent_clarification", "backend": null,
+      "tags": ["good looking", "nature style", "好看", "直接选", "results figure", "需求澄清"],
+      "requires": {"object_types": [], "variables": ["core_question", "unit_of_analysis", "data_topology"], "capabilities": []},
+      "semantic_card": {
+        "questions_answered": ["underspecified_request"], "evidence_roles": ["overview"],
+        "units": ["unknown"], "data_topologies": ["unknown"],
+        "visual_channels": {},
+        "supports_claims": ["Identifies the minimum information needed for a defensible figure choice."],
+        "does_not_support": ["Aesthetic imitation cannot substitute for a scientific question or compatible data."],
+        "required_statistics": ["depends on the resolved question"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "clarify_before_recipe_selection"
+    },
+    {
+      "id": "strategy-data-audit-v1",
+      "name": "Plot-input data audit",
+      "description": "Check analysis unit, variables, repeats, transformations, missingness, and statistical prerequisites before selecting executable code.",
+      "kind": "strategy", "family": "data_audit", "backend": null,
+      "tags": ["data audit", "schema", "analysis unit", "输入检查", "数据结构"],
+      "requires": {"object_types": [], "variables": [], "capabilities": []},
+      "semantic_card": {
+        "questions_answered": ["input_readiness"], "evidence_roles": ["robustness"],
+        "units": ["unknown"], "data_topologies": ["unknown"], "visual_channels": {},
+        "supports_claims": ["Determines whether the available inputs can satisfy a plot and inference contract."],
+        "does_not_support": ["Does not replace assay-specific QC or statistical analysis."],
+        "required_statistics": ["declared by the selected family"]
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "preflight_only"
+    },
+    {
+      "id": "strategy-visual-examples-v1",
+      "name": "Evidence-matched visual examples",
+      "description": "Browse scientifically compatible examples only after the intent and data contract are minimally resolved.",
+      "kind": "strategy", "family": "visual_examples", "backend": null,
+      "tags": ["examples", "gallery", "样板", "示例"],
+      "requires": {"object_types": [], "variables": ["resolved_family"], "capabilities": []},
+      "semantic_card": {
+        "questions_answered": ["visual_option_browsing"], "evidence_roles": ["overview", "discovery"],
+        "units": ["figure"], "data_topologies": ["resolved_by_intent"], "visual_channels": {},
+        "supports_claims": ["Supports visual comparison among already compatible figure families."],
+        "does_not_support": ["A visually similar example is not automatically compatible with the user's data or claim."],
+        "required_statistics": []
+      },
+      "validation": {"tier": "reference-only"}, "implementation_status": "catalog_browse"
+    }
+  ]
+}

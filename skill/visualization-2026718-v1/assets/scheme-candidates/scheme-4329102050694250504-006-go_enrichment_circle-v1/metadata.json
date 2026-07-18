@@ -1,0 +1,64 @@
+{
+  "callable": false,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-4329102050694250504-006-go_enrichment_circle-v1/candidate.R"
+  },
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "circ",
+      "GOCircle"
+    ],
+    "required_inputs": [
+      "通路名称",
+      "方法匹配的效应或比例",
+      "FDR"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "circ",
+        "GOCircle"
+      ],
+      "dependency_block_ids": [
+        "article-4329102050694250504-006-b006"
+      ],
+      "resolved": false,
+      "unresolved_objects": [
+        "GOCircle"
+      ]
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-4329102050694250504-006-b005: pdf(file = \"CC.pdf\",height = 8,width = 12)",
+      "article-4329102050694250504-006-b005: dev.off()",
+      "article-4329102050694250504-006-b006: pdf(file = \"MF.pdf\",height = 8,width = 12)",
+      "article-4329102050694250504-006-b006: dev.off()"
+    ],
+    "forbidden_operations_removed": 4,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-4329102050694250504-006-go_enrichment_circle-v1",
+  "source_article_id": "article-4329102050694250504-006",
+  "source_block_ids": [
+    "article-4329102050694250504-006-b004",
+    "article-4329102050694250504-006-b005",
+    "article-4329102050694250504-006-b006"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

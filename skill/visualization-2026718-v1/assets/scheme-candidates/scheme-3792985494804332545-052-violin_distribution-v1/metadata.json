@@ -1,0 +1,102 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-052-violin_distribution-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "label",
+      "temp",
+      "p",
+      "test",
+      "test.args",
+      "map_signif_level",
+      "y_position",
+      "vjust",
+      "p1",
+      "p2",
+      "p_merge",
+      "labels",
+      "width",
+      "fun.min",
+      "fun.max",
+      "fun",
+      "breaks",
+      "axis.line",
+      "axis.ticks.length",
+      "axis.ticks",
+      "axis.title",
+      "axis.text",
+      "p_all"
+    ],
+    "required_inputs": [
+      "连续变量",
+      "分组",
+      "明确分析单位"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "label",
+        "temp",
+        "p",
+        "test",
+        "test.args",
+        "map_signif_level",
+        "y_position",
+        "vjust",
+        "p1",
+        "p2",
+        "p_merge",
+        "labels",
+        "width",
+        "fun.min",
+        "fun.max",
+        "fun",
+        "breaks",
+        "axis.line",
+        "axis.ticks.length",
+        "axis.ticks",
+        "axis.title",
+        "axis.text",
+        "p_all"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-052-b004",
+        "article-3792985494804332545-052-b002"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [],
+    "forbidden_operations_removed": 0,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-052-violin_distribution-v1",
+  "source_article_id": "article-3792985494804332545-052",
+  "source_block_ids": [
+    "article-3792985494804332545-052-b002",
+    "article-3792985494804332545-052-b003",
+    "article-3792985494804332545-052-b004"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

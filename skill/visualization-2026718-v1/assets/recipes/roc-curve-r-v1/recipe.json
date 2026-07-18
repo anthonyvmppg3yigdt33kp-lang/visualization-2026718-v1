@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0", "id": "roc-curve-r-v1", "name": "R binary ROC curve",
+  "description": "Compute and plot a binary ROC curve with pROC, returning the plot, ROC object and AUC without inventing clinical-utility claims.",
+  "kind": "base_recipe", "family": "roc", "backend": "r",
+  "tags": ["roc", "auc", "classification", "diagnostic", "sensitivity", "specificity"],
+  "requires": {"object_types": ["data.frame"], "variables": ["binary_outcome", "numeric_score"], "packages": ["pROC", "ggplot2"], "capabilities": ["binary_predictions"]},
+  "provides": {"object_types": ["list", "ggplot", "roc"], "capabilities": ["discrimination_curve", "auc"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["shared-legend-r-v1", "publication-export-r-v1"]}, "conflicts": [],
+  "parameters": [{"name": "positive", "type": "string", "required": false, "default": null, "allowed": null, "description": "Positive outcome label; should be explicit in scientific use."}, {"name": "direction", "type": "string", "required": false, "default": "auto", "allowed": ["auto", "<", ">"], "description": "pROC direction; auto is exploratory and can bias apparent orientation if not pre-specified."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:4fb9185cf2058e4a322368ccb9e1ef6bbf6fba417abbda4e4cb713aba5b6bf67", "sha256:a5590627fd0f87346028c2e83b36fe0c624b056291f00124a8cf1fa0d2260257"]},
+  "semantic_card": {
+    "questions_answered": ["discrimination"], "evidence_roles": ["validation", "clinical_relevance"], "units": ["sample", "patient"], "data_topologies": ["binary_outcome_scores"],
+    "required_variables": [{"name": "outcome", "role": "truth", "type": "binary"}, {"name": "score", "role": "ranking", "type": "numeric"}], "transformations": [{"field": "thresholds", "method": "pROC empirical ROC"}],
+    "visual_channels": {"x": "false_positive_rate", "y": "sensitivity", "color": "curve_identity", "size": "line", "shape": "none", "alpha": "constant", "facet": "none", "annotation": "auc"},
+    "supports_claims": ["Quantifies ranking discrimination in the supplied evaluation data."],
+    "does_not_support": ["AUC alone does not establish calibration, clinical utility, external validity, causality, or an unbiased model-development process."],
+    "required_statistics": ["AUC confidence interval for reporting", "evaluation cohort", "positive class", "independent or resampled validation"], "misread_risks": ["training_set_auc", "class_direction_flip", "auc_as_clinical_utility"],
+    "preferred_companions": ["calibration plot", "decision curve", "confidence interval"], "safer_alternatives": ["precision-recall curve for severe imbalance"]
+  },
+  "visual_fingerprint": {"family": "roc", "panels": 1, "panel_structure": "single_curve", "channels": ["position", "line", "text"], "legend_mode": "none", "information_density": "low", "strengths": ["threshold-free discrimination overview"], "risks": ["optimistic evaluation", "missing uncertainty"], "final_size_behavior": "stable if axis labels remain legible", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Exact generalized recipe rendered from roc_scores.csv and visually opened at 6 x 6 in / 200 dpi and 3.5 x 3.5 in / 300 dpi on 2026-07-17. Axes, reference diagonal, ROC path and fixture-derived AUC remain legible without clipping; no P value, calibration, utility or external-validity claim is added."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-072", "block_ids": ["article-3792985494804332545-072-b011"], "image_ids": ["article-3792985494804332545-072-i005"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Confidence intervals are deliberately not fabricated; add through an explicit validated extension.", "Exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending a separate formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/roc-r.png", "fixture": "../../fixtures/roc_scores.csv"}
+}

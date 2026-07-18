@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-16T15:47:19Z",
+  "root": "source_archive",
+  "applied": true,
+  "findings": [
+    {
+      "path": "02_绘图小技巧2026/013_NC杂志同款的单细胞拟时序分析图（上篇）.md",
+      "rule": "embedded_private_key",
+      "occurrences": 1,
+      "before_sha256": "d8067a39dc0bfcf86d02a64c3fe34632d73fd27d6d6b11bc7b5bbaf4ac860dcb",
+      "action": "redacted",
+      "after_sha256": "a2e48cf3d06ff2678441abb4405fd42f5d56170b0c1dd78f23929a683627478b"
+    }
+  ],
+  "changed_files": 1,
+  "raw_secret_material_in_report": false
+}

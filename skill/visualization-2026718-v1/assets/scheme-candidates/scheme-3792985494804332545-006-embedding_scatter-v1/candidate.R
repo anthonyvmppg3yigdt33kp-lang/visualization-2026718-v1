@@ -1,0 +1,4 @@
+# Reference-only, source-safe candidate source fragment.
+candidate_source <- function() {
+  return("# source block: article-3792985494804332545-006-b005\n## 1.读取数据----\n# 空转数据\nbrain_st_cortex\nhead(Cells(brain_st_cortex))\nhead(brain_st_cortex@meta.data)\nIdents(brain_st_cortex)\n## 为细胞/位点设置符合语法规范的名称,细胞名中的-改成.\nbrain_st_cortex <- RenameCells(brain_st_cortex, new.names=make.names(Cells(brain_st_cortex)))\n## Visualize the ST data\nSpatialDimPlot(brain_st_cortex,pt.size.factor = 1.8,group.by = \"seurat_clusters\")\nDefaultAssay(brain_st_cortex)\n# brain_st_cortex <- UpdateSeuratObject(brain_st_cortex)\n\n# 单细胞数据\nbrain_sc\nhead(brain_sc@meta.data)\nbrain_sc <- RenameCells(brain_sc, new.names=make.names(Cells(brain_sc)))\n## Visualize the scRNA-seq data\nDimPlot(brain_sc, label = T, label.size = 4.5)\n")
+}

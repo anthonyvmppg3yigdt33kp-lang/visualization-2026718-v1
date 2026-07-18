@@ -1,0 +1,62 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "sce.all.filt",
+      "p",
+      "method",
+      "orig.reduction",
+      "new.reduction",
+      "verbose",
+      "p_tree"
+    ],
+    "required_inputs": [
+      "两列嵌入坐标",
+      "类别或连续特征"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "sce.all.filt",
+        "p",
+        "method",
+        "orig.reduction",
+        "new.reduction",
+        "verbose",
+        "p_tree"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-050-b003"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-050-b003"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-050-b003: rm(list=ls())",
+      "article-3792985494804332545-050-b003: dir.create(\"2-CCA\")",
+      "article-3792985494804332545-050-b003: sce.all.filt <- qread(\"GSE192935/sce.all.qs\")"
+    ],
+    "forbidden_operations_removed": 3,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-050-embedding_scatter-v1",
+  "source_article_id": "article-3792985494804332545-050",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "id": "seurat-embedding-adapter-r-v1",
+  "name": "R Seurat embedding adapter",
+  "description": "Extract a named Seurat dimensional reduction and aligned metadata group into the data-frame contract used by R embedding recipes.",
+  "kind": "adapter",
+  "family": "seurat_adapter",
+  "backend": "r",
+  "tags": ["seurat", "adapter", "umap", "embedding", "metadata", "single-cell"],
+  "requires": {
+    "object_types": ["Seurat"],
+    "variables": ["reduction", "group"],
+    "packages": ["SeuratObject"],
+    "capabilities": ["seurat_reduction", "cell_metadata"]
+  },
+  "provides": {
+    "object_types": ["data.frame"],
+    "capabilities": ["precomputed_embedding", "aligned_group_labels"]
+  },
+  "compatible_with": {
+    "kinds": ["base_recipe"],
+    "ids": ["umap-dataframe-r-v1"]
+  },
+  "conflicts": ["cross_backend_conversion"],
+  "parameters": [
+    {"name": "object", "type": "Seurat", "required": true, "default": null, "allowed": null, "description": "Caller-supplied Seurat object; it is not modified."},
+    {"name": "reduction", "type": "string", "required": false, "default": "umap", "allowed": null, "description": "Existing reduction name; the adapter never recomputes embeddings."},
+    {"name": "group", "type": "string", "required": false, "default": "seurat_clusters", "allowed": null, "description": "Metadata column aligned by cell names."},
+    {"name": "dimensions", "type": "integer[2]", "required": false, "default": [1, 2], "allowed": "two positive indices", "description": "Existing reduction dimensions to expose."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [],
+    "evidence_roles": ["data_adaptation"],
+    "units": ["cell"],
+    "data_topologies": ["embedding"],
+    "required_variables": [
+      {"name": "reduction", "role": "position", "type": "precomputed_coordinates"},
+      {"name": "group", "role": "color", "type": "categorical_metadata"}
+    ],
+    "transformations": [{"field": "coordinates", "method": "extract_existing_reduction_without_recomputation"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Preserves existing embedding coordinates and aligned group labels for downstream plotting."],
+    "does_not_support": ["Does not validate the upstream normalization, neighbors, embedding, annotations, batch correction, or analysis design."],
+    "required_statistics": ["none"],
+    "misread_risks": ["silent_recomputation_assumption", "metadata_misalignment"],
+    "preferred_companions": ["umap-dataframe-r-v1"],
+    "safer_alternatives": ["audit the Seurat reduction and metadata before plotting when provenance is unclear"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["name-aligned extraction"], "risks": ["upstream provenance not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; visual review applies to the downstream recipe."},
+  "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_adapter_for_curated_recipe_contract"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "not_run_specialist_object", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-16", "runtime": "R-4.5.3", "notes": ["Example is intentionally static because a valid Seurat object cannot be fabricated as scientific input."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": null}
+}

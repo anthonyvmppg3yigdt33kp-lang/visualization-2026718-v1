@@ -1,0 +1,17 @@
+[
+  {
+    "id": "e2e-python-composition",
+    "prompt": "使用 visualization-2026718-v1。Python/AnnData：比较处理组与对照组的单细胞 cluster 结构和每个样本的细胞比例，不能把细胞当生物学重复；匹配代码并运行，最后解释结果图。",
+    "expected": "以 sample/donor-level composition 为定量主证据、UMAP 为概览；返回可执行 Python 计划，运行两个图并进行原始/投稿尺寸视觉复核；不得把 UMAP 解释为丰度显著性。"
+  },
+  {
+    "id": "e2e-r-ora-rose",
+    "prompt": "使用 visualization-2026718-v1。R：数据列为 pathway、GeneRatio、Count、p.adjust 和 direction，请调用素材库的富集玫瑰图代码并运行，颜色表示 FDR，点表示 Count，输出图和科学解释。",
+    "expected": "识别为 ORA 而非 GSEA/source-identifier lookup；选择 enrichment rose Scheme 与正式 R Recipe；使用通用字段映射而非 hiking 标签；执行前 preflight，运行失败时精确报告；成图后按证据等级解释。"
+  },
+  {
+    "id": "e2e-python-visual-loop",
+    "prompt": "使用 visualization-2026718-v1。Python：根据 UMAP 坐标按 cluster 着色，去边框并避让标签，运行后检查原图和 85 mm 投稿图；如有遮挡自动调整纯视觉参数，最多三轮，并解释图中能和不能说明什么。",
+    "expected": "检索可执行的 Python UMAP Recipe 和兼容 modifier；依赖在运行前检查；生成可调用模块和双尺寸图；通过 native review state machine 记录问题、参数差异、数据哈希与最多三轮决策。"
+  }
+]

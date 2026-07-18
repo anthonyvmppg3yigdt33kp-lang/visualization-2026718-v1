@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0", "id": "umap-dataframe-python-v1", "name": "Python grouped UMAP scatter",
+  "description": "Plot precomputed embedding coordinates with Matplotlib and return Figure/Axes without implicit saving.",
+  "kind": "base_recipe", "family": "embedding", "backend": "python",
+  "tags": ["umap", "embedding", "python", "matplotlib", "anndata", "cluster"],
+  "requires": {"object_types": ["pandas.DataFrame"], "variables": ["x", "y", "group"], "packages": ["pandas", "matplotlib"], "capabilities": ["precomputed_embedding"]},
+  "provides": {"object_types": ["matplotlib.figure.Figure", "matplotlib.axes.Axes"], "capabilities": ["embedding_overview", "group_color_mapping", "label_anchor_contract"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["borderless-python-v1", "label-repel-python-v1", "publication-export-python-v1"]}, "conflicts": [],
+  "parameters": [
+    {"name": "data", "type": "pandas.DataFrame", "required": true, "default": null, "allowed": null, "description": "One row per observation with precomputed coordinates."},
+    {"name": "legend_fontsize", "type": "number", "required": false, "default": 7.0, "allowed": "positive", "description": "Legend label size in points for publication-scale output."},
+    {"name": "legend_title_fontsize", "type": "number", "required": false, "default": 7.0, "allowed": "positive", "description": "Legend title size in points for publication-scale output."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:081c2e55be460c4ee519fe1be23a785111fef7a28f48e47c496f1203e25d12ce", "sha256:e464bbdfd1742382e7c5f0def18262e42eca449a53ca3049d521cb1bd7868571", "sha256:ddce6214645979615da148aa6057408bebed7af27c05b36a6e46a62763b0b2c0", "sha256:15cf5607613620ed0b8a783a9341b12a0e2a56b145a413d016f33af3c275a2fb", "sha256:32ce62818418e26d91cb794b6913e044a0f7bd33a9b65e6a02d4b27ab5ec147c"]},
+  "semantic_card": {
+    "questions_answered": ["distribution", "embedding_neighborhood"], "evidence_roles": ["overview", "discovery"], "units": ["cell", "observation"], "data_topologies": ["embedding"],
+    "required_variables": [{"name": "x/y", "role": "position", "type": "numeric"}, {"name": "group", "role": "color", "type": "categorical"}], "transformations": [{"field": "coordinates", "method": "precomputed_embedding"}],
+    "visual_channels": {"x": "embedding_dimension_1", "y": "embedding_dimension_2", "color": "group", "size": "constant", "shape": "constant", "alpha": "density_control", "facet": "none", "annotation": "optional_group_label"},
+    "supports_claims": ["Shows local embedding neighborhoods and displayed category distribution."], "does_not_support": ["Does not establish abundance differences, significance, trajectory, global distances, or causality."],
+    "required_statistics": ["none"], "misread_risks": ["global_distance_interpretation", "cell_as_replicate", "overplotting"], "preferred_companions": ["sample_level_composition"], "safer_alternatives": ["sample-level proportion plot for abundance claims"]
+  },
+  "visual_fingerprint": {"family": "embedding", "panels": 1, "panel_structure": "single", "channels": ["position", "color"], "legend_mode": "categorical_outside", "information_density": "medium", "strengths": ["cluster overview"], "risks": ["overplotting", "large legend"], "final_size_behavior": "requires point, label and legend check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "The current base plus label-repel and borderless modifiers was rendered twice from umap_points.csv, including a fresh 85 x 75 mm layout, and both artifacts were opened natively on 2026-07-17. Points, displaced labels, leader lines and the outside legend remain readable and unclipped; the figure supports embedding-neighbourhood description only, not abundance, significance, trajectory or causality."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-4329102050694250504-011", "block_ids": ["article-4329102050694250504-011-b004", "article-4329102050694250504-011-b005", "article-4329102050694250504-011-b006", "article-4329102050694250504-011-b007"], "image_ids": ["article-4329102050694250504-011-i006"]}], "license_status": "unknown", "transformation": "generalized_rewrite_and_language_fence_correction"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "Python 3.13.12", "notes": ["The source block incorrectly fenced as R was recognized as Python and corrected.", "Final-size composition is rebuilt before label/layout modifiers so QA evaluates the delivered geometry.", "Exact materialized code, normalized parameters, fixture data and both images are retained as live hash-bound files.", "Exact fixture render passed native original-size and 85 x 75 mm visual review; tier remains parse-verified pending a separate formal promotion audit."]},
+  "files": {"code": "recipe.py", "example": "example.py", "preview": "../../previews-rendered/umap-python.png", "fixture": "../../fixtures/umap_points.csv"}
+}

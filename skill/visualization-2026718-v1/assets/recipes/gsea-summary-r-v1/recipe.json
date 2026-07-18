@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0", "id": "gsea-summary-r-v1", "name": "R GSEA direction and FDR summary",
+  "description": "Rank pathways by adjusted P value and display normalized enrichment direction, magnitude, FDR and optional gene-set size.",
+  "kind": "base_recipe", "family": "gsea", "backend": "r",
+  "tags": ["gsea", "enrichment", "pathway", "nes", "fdr", "lollipop", "direction"],
+  "requires": {"object_types": ["data.frame"], "variables": ["pathway", "nes", "padj"], "packages": ["ggplot2"], "capabilities": ["gsea_result"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["enrichment_direction_summary", "fdr_encoding"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["shared-legend-r-v1", "publication-export-r-v1"]}, "conflicts": [],
+  "parameters": [{"name": "alpha_cutoff", "type": "number", "required": false, "default": 0.05, "allowed": "0 < value <= 1", "description": "Explicit FDR threshold."}, {"name": "max_pathways", "type": "integer", "required": false, "default": 20, "allowed": "positive", "description": "Display limit after FDR/effect ranking; does not change analysis results."}, {"name": "wrap_width", "type": "number", "required": false, "default": 24, "allowed": ">= 8", "description": "Purely visual pathway-label wrap width; underscores are displayed as spaces."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:237eb6904a9713d945449c3e528987e965fb7b2ea5a1ec762239c244df167acc", "sha256:ec65305415357728137e677e9cdf6755c6c8ecb18bce96f30e5b3fe8aeda093a", "sha256:a51225a50f9aeb7cc53215382a251fcba01547a2fff3d86455c8492d06833f28", "sha256:da6d6b5933b5791c75abbb4803f111d94e50c70e86b8ea13508d86a16a86f672"]},
+  "semantic_card": {
+    "questions_answered": ["pathway_enrichment_direction", "pathway_prioritization"], "evidence_roles": ["comparison", "mechanism", "discovery"], "units": ["pathway"], "data_topologies": ["enrichment_result_table"],
+    "required_variables": [{"name": "nes", "role": "x", "type": "numeric"}, {"name": "padj", "role": "color", "type": "probability"}], "transformations": [{"field": "pathway_order", "method": "adjusted P then absolute NES"}],
+    "visual_channels": {"x": "normalized_enrichment_score", "y": "pathway", "color": "adjusted_p", "size": "optional_set_size", "shape": "fdr_class", "alpha": "constant", "facet": "none", "annotation": "zero_reference"},
+    "supports_claims": ["Displays direction and relative magnitude of the supplied GSEA results with their adjusted P values."],
+    "does_not_support": ["Does not establish pathway activation in individual cells, causal mechanism, or independence among overlapping gene sets."],
+    "required_statistics": ["NES", "multiple-testing-adjusted P", "gene-set database/version", "ranking statistic"], "misread_risks": ["nes_as_expression", "gene_set_redundancy", "unsigned_contrast"],
+    "preferred_companions": ["running-enrichment curve", "leading-edge genes"], "safer_alternatives": ["effect table when few pathways are pre-specified"]
+  },
+  "visual_fingerprint": {"family": "gsea", "panels": 1, "panel_structure": "ranked_rows", "channels": ["position", "color", "shape", "optional_size"], "legend_mode": "continuous_plus_binary", "information_density": "medium", "strengths": ["direction and FDR together"], "risks": ["gene-set redundancy", "long labels"], "final_size_behavior": "information-dense output uses double-column width and wrapped labels", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from gsea_results.csv opened at 8 x 5.5 in / 200 dpi and a 7 x 4.5 in / 300 dpi double-column canvas on 2026-07-17. Pure label wrapping and output sizing removed all clipping; NES, adjusted P, set size, significance shape and pathway identities remain unchanged."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-041", "block_ids": ["article-3792985494804332545-041-b006", "article-3792985494804332545-041-b007", "article-3792985494804332545-041-b008"], "image_ids": ["article-3792985494804332545-041-i006"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Round-2 exact fixture render passed original-size and double-column final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/gsea-r.png", "fixture": "../../fixtures/gsea_results.csv"}
+}

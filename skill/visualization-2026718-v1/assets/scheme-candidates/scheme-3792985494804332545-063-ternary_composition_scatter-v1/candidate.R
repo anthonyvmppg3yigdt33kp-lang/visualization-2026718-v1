@@ -1,0 +1,4 @@
+# Reference-only, source-safe candidate source fragment.
+candidate_source <- function() {
+  return("# source block: article-3792985494804332545-063-b001\nlibrary(ggtern)\n\nhead(plot_data)\nstr(plot_data)\n\np <- ggtern(data=plot_data, aes(x=CK, y=NPK, z=NPKM)) +\n  geom_mask() +  # 创建手动裁剪蒙版\n  geom_point(aes(size=size, color=Genus),alpha=0.8) +\n  scale_size(range = c(0, 10)) +\n  scale_color_manual(values  = c('#E31A1C','#228B22','#1F78B4', '#FDB462', '#8B658B',  '#4876FF', '#00BFFF', '#EE82EE','#8B8682','#CDC9C9'),\n                     limits = c('Klebsiella','Pseudomonas','Enterobacteriaceae_unclassified','Rosenbergiella','Oxalobacteraceae_unclassified','Sphingobacterium','Lactococcus','Erwinia','Others','NotSig')\n                     ) +\n  guides(size=\"none\") +\n  theme_bw() +\n  theme(axis.text=element_blank(), axis.ticks=element_blank())\n\np\n")
+}

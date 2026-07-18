@@ -1,0 +1,83 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-073-enrichment_bar-2-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "dat_top5",
+      "g_kegg",
+      "panel.grid.major",
+      "panel.grid.minor",
+      "title",
+      "axis.ticks.length",
+      "axis.ticks",
+      "axis.line",
+      "axis.title.x",
+      "axis.title.y",
+      "axis.text.x",
+      "axis.text.y",
+      "legend.position",
+      "strip.text.y"
+    ],
+    "required_inputs": [
+      "通路名称",
+      "方法匹配的效应或比例",
+      "FDR"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "dat_top5",
+        "g_kegg",
+        "panel.grid.major",
+        "panel.grid.minor",
+        "title",
+        "axis.ticks.length",
+        "axis.ticks",
+        "axis.line",
+        "axis.title.x",
+        "axis.title.y",
+        "axis.text.x",
+        "axis.text.y",
+        "legend.position",
+        "strip.text.y"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-073-b002"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-073-b002: ggsave(g_kegg,width =16,height =16,filename = 'KEGG_barplot_class.pdf' )"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-073-enrichment_bar-2-v1",
+  "source_article_id": "article-3792985494804332545-073",
+  "source_block_ids": [
+    "article-3792985494804332545-073-b002"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

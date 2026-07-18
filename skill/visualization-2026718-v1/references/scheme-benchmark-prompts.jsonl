@@ -1,0 +1,60 @@
+{"case_id":"v2-exact-001","case_type":"exact","query":"富集玫瑰图","expected_top1_subtype":"radial_bar_lollipop","expected_family":"enrichment"}
+{"case_id":"v2-fuzzy-002","case_type":"fuzzy","query":"多个通路像花瓣一样围成一圈，柱高、黑点和颜色各表示一个指标","expected_top1_subtype":"radial_bar_lollipop","expected_family":"enrichment"}
+{"case_id":"v2-fuzzy-003","case_type":"fuzzy","query":"外圈写通路名称，中间留空，扇叶长度显示显著性","expected_top1_subtype":"radial_bar_lollipop","expected_family":"enrichment"}
+{"case_id":"v2-exact-004","case_type":"exact","query":"极坐标柱形加棒棒糖点图","expected_top1_subtype":"radial_bar_lollipop"}
+{"case_id":"v2-exact-005","case_type":"exact","query":"背靠背棒棒图","expected_top1_subtype":"mirrored_dual_metric_lollipop","expected_appearance_top1_subtype":"mirrored_dual_metric_lollipop"}
+{"case_id":"v2-fuzzy-006","case_type":"fuzzy","query":"两组基因左右镜像比较，线长表示impact，点大小表示EC score","expected_top1_subtype":"mirrored_dual_metric_lollipop"}
+{"case_id":"v2-fuzzy-007","case_type":"fuzzy","query":"同一批marker分成左右两半，每边同时显示一个长度指标和一个点大小指标","expected_top1_subtype":"mirrored_dual_metric_lollipop"}
+{"case_id":"v2-exact-008","case_type":"exact","query":"功能富集流星图 彗星图","expected_top1_subtype":"enrichment_comet_link_dot","expected_family":"enrichment"}
+{"case_id":"v2-fuzzy-009","case_type":"fuzzy","query":"通路名称旁边一条线，末端有圆点，线长显示负log10 p值","expected_top1_subtype":"enrichment_comet_link_dot"}
+{"case_id":"v2-exact-010","case_type":"exact","query":"富集聚类树和条形图拼接","expected_top1_subtype":"enrichment_dendrogram_bar_composite"}
+{"case_id":"v2-fuzzy-011","case_type":"fuzzy","query":"左边是通路聚类树，右边是保持同样顺序的enrichment bar","expected_top1_subtype":"enrichment_dendrogram_bar_composite"}
+{"case_id":"v2-exact-012","case_type":"exact","query":"GOplot GOCircle 富集圈图","expected_top1_subtype":"go_enrichment_circle","expected_analysis_method":"ora"}
+{"case_id":"v2-fuzzy-013","case_type":"fuzzy","query":"GO term在圆环外层，基因logFC和p.adjust一起编码","expected_top1_subtype":"go_enrichment_circle","expected_analysis_method":"ora"}
+{"case_id":"v2-method-014","case_type":"exact","query":"ORA enrichment GeneRatio Count p.adjust 圆形展示","expected_analysis_method":"ora"}
+{"case_id":"v2-method-015","case_type":"exact","query":"GSEA NES FDR running enrichment score rank ticks","expected_top1_subtype":"gsea_running_score","expected_appearance_top1_subtype":"gsea_running_score","expected_analysis_method":"gsea","expected_availability":"scheme_without_code_lineage","expect_clarification":false}
+{"case_id":"v2-method-016","case_type":"negative","query":"GO enrichment Count GeneRatio p.adjust，不是GSEA","expected_analysis_method":"ora"}
+{"case_id":"v2-exact-017","case_type":"exact","query":"三元图 ternary composition scatter","expected_top1_subtype":"ternary_composition_scatter"}
+{"case_id":"v2-fuzzy-018","case_type":"fuzzy","query":"三个比例之和固定为1，点在三角形坐标里面","expected_top1_subtype":"ternary_composition_scatter"}
+{"case_id":"v2-exact-019","case_type":"exact","query":"三个差异比较log2FC一致性散点图","expected_top1_subtype":"two_contrast_foldchange_concordance"}
+{"case_id":"v2-fuzzy-020","case_type":"fuzzy","query":"x和y分别是两个contrast的fold change，颜色和大小是第三个contrast","expected_top1_subtype":"two_contrast_foldchange_concordance"}
+{"case_id":"v2-negative-021","case_type":"negative","query":"两个logFC比较，不要火山图","expected_top1_subtype":"two_contrast_foldchange_concordance"}
+{"case_id":"v2-exact-022","case_type":"exact","query":"marker平均表达用颜色、表达比例用大小并加分组框","expected_top1_subtype":"marker_dotplot_group_boxes"}
+{"case_id":"v2-fields-023","case_type":"exact","query":"marker dotplot avg.exp pct.exp add boxes","expected_top1_subtype":"marker_dotplot_group_boxes"}
+{"case_id":"v2-fuzzy-024","case_type":"fuzzy","query":"气泡颜色是AvgExp，圆点大小是PctExp，框出每群marker","expected_top1_subtype":"marker_dotplot_group_boxes"}
+{"case_id":"v2-exact-025","case_type":"exact","query":"单细胞marker气泡图","expected_top1_subtype":"marker_dotplot"}
+{"case_id":"v2-exact-026","case_type":"exact","query":"连接的堆积组成柱状图","expected_top1_subtype":"stacked_composition_bar","expected_family":"composition"}
+{"case_id":"v2-fuzzy-027","case_type":"fuzzy","query":"比较不同donor的细胞比例，同时给UMAP看cluster结构","expected_family":"composition"}
+{"case_id":"v2-exact-028","case_type":"exact","query":"单细胞云雾密度UMAP","expected_top1_subtype":"embedding_density_cloud"}
+{"case_id":"v2-fuzzy-029","case_type":"fuzzy","query":"UMAP点太密，想用二维密度云显示高密区域","expected_top1_subtype":"embedding_density_cloud"}
+{"case_id":"v2-exact-030","case_type":"exact","query":"带箭头坐标轴的UMAP","expected_top1_subtype":"embedding_arrow_axis"}
+{"case_id":"v2-exact-031","case_type":"exact","query":"拟时序pseudotime trajectory","expected_top1_subtype":"trajectory_pseudotime","expected_family":"trajectory"}
+{"case_id":"v2-exact-032","case_type":"exact","query":"突变蛋白结构域棒棒糖图","expected_top1_subtype":"mutation_lollipop_domain","expected_family":"genomics"}
+{"case_id":"v2-exact-033","case_type":"exact","query":"maftools rainfall plot","expected_top1_subtype":"mutation_rainfall"}
+{"case_id":"v2-exact-034","case_type":"exact","query":"突变瀑布图 oncoplot","expected_top1_subtype":"mutation_waterfall_oncoprint"}
+{"case_id":"v2-exact-035","case_type":"exact","query":"transition transversion Ti Tv spectrum","expected_top1_subtype":"transition_transversion_spectrum"}
+{"case_id":"v2-exact-036","case_type":"exact","query":"单样本CNV染色体谱","expected_top1_subtype":"single_sample_cnv_profile"}
+{"case_id":"v2-exact-037","case_type":"exact","query":"队列CNV频率谱","expected_top1_subtype":"cohort_cnv_spectrum"}
+{"case_id":"v2-exact-038","case_type":"exact","query":"Xenium HE全景图","expected_top1_subtype":"he_whole_slide","expected_family":"spatial"}
+{"case_id":"v2-exact-039","case_type":"exact","query":"HE局部ROI放大图","expected_top1_subtype":"he_roi_zoom"}
+{"case_id":"v2-exact-040","case_type":"exact","query":"空间细胞分割边界叠加","expected_top1_subtype":"segmentation_boundary_overlay"}
+{"case_id":"v2-exact-041","case_type":"exact","query":"多通道荧光图","expected_top1_subtype":"fluorescence_multichannel"}
+{"case_id":"v2-exact-042","case_type":"exact","query":"CellChat通讯气泡图","expected_top1_subtype":"cellchat_bubble","expected_family":"cellchat"}
+{"case_id":"v2-exact-043","case_type":"exact","query":"CellChat弦图 chord diagram","expected_top1_subtype":"cellchat_chord"}
+{"case_id":"v2-exact-044","case_type":"exact","query":"CellChat圆形网络，节点大小和边宽编码权重","expected_top1_subtype":"cellchat_circle_network"}
+{"case_id":"v2-exact-045","case_type":"exact","query":"UpSet多集合交集图","expected_top1_subtype":"upset_intersection"}
+{"case_id":"v2-exact-046","case_type":"exact","query":"桑基图连接通路与基因","expected_top1_subtype":"sankey_alluvial"}
+{"case_id":"v2-exact-047","case_type":"exact","query":"带注释条的聚类热图","expected_top1_subtype":"annotated_heatmap"}
+{"case_id":"v2-exact-048","case_type":"exact","query":"Kaplan Meier生存曲线","expected_top1_subtype":"kaplan_meier"}
+{"case_id":"v2-negative-049","case_type":"negative","query":"圣诞树 Christmas tree","expect_no_match":true}
+{"case_id":"v2-negative-050","case_type":"negative","query":"动漫配色科研图，不要圣诞树","forbidden_ids":["scheme-3792985494804332545-002-generic_scientific_plot-v1"]}
+{"case_id":"v2-negative-051","case_type":"negative","query":"下载拟时序数据的ascp命令","expect_no_match":true}
+{"case_id":"v2-clarify-052","case_type":"fuzzy","query":"我想画一个圆形图","expect_clarification":true}
+{"case_id":"v2-clarify-053","case_type":"fuzzy","query":"我想画棒棒图","expect_clarification":true}
+{"case_id":"v2-source-054","case_type":"exact","query":"查找包含 netVisual_circle 函数的源码","expected_top1_subtype":"cellchat_circle_network"}
+{"case_id":"v2-confusable-055","case_type":"exact","query":"背靠背小提琴图","expected_top1_subtype":"mirrored_violin","expected_appearance_top1_subtype":"mirrored_violin"}
+{"case_id":"v2-execute-056","case_type":"execution","query":"Python，AnnData：展示 UMAP cluster 结构并比较不同条件的样本级细胞比例，调用代码并运行生成图","backend":"python","expected_top1_family":"composition","expected_top3_families_contains":["embedding"],"expected_action_intent":"render","expected_source_lookup":false,"expected_requires_executable":true,"expected_plan_status":"executable","expected_base_recipe_id":"sample-composition-python-v1","expected_top3_base_recipe_ids":["sample-composition-python-v1","umap-dataframe-python-v1"],"expected_execution_availability":"formal_recipe","forbidden_validation_tiers":["visual_only"]}
+{"case_id":"v2-execute-057","case_type":"execution","query":"R，ORA结果包含 pathway、GeneRatio、Count、p.adjust：调用代码生成富集玫瑰图并运行","backend":"r","expected_top1_subtype":"radial_bar_lollipop","expected_analysis_method":"ora","expected_action_intent":"render","expected_source_lookup":false,"expected_requires_executable":true,"expected_plan_status":"preflight_blocked","expected_direct_execution":false,"expected_adapter_id":"ora-enrichment-adapter-r-v1","expected_base_recipe_id":"enrichment-rose-r-v1","expected_execution_availability":"formal_recipe","forbidden_validation_tiers":["visual_only"]}
+{"case_id":"v2-execute-058","case_type":"execution","query":"Python，AnnData UMAP，去边框并让标签避让；调用代码并运行生成图","backend":"python","expected_top1_subtype":"embedding_scatter","expected_action_intent":"render","expected_source_lookup":false,"expected_requires_executable":true,"expected_plan_status":"executable","expected_base_recipe_id":"umap-dataframe-python-v1","expected_modifier_ids":["borderless-python-v1","label-repel-python-v1"],"expected_execution_availability":"formal_recipe","forbidden_validation_tiers":["visual_only"]}
+{"case_id":"v2-compound-059","case_type":"execution","query":"Python：调用代码运行 UMAP，并在生成后复核并解释结果图","expected_top1_subtype":"embedding_scatter","expected_intent_backend":"python","expected_action_intent":"render","expected_action_intents_contains":["execute","render","review"],"expected_review_requested":true,"expected_review_after_execution":true,"expected_source_lookup":false,"expected_requires_executable":true,"expected_plan_status":"executable","expected_base_recipe_id":"umap-dataframe-python-v1","forbidden_validation_tiers":["visual_only"]}
+{"case_id":"v2-r-punctuation-060","case_type":"execution","query":"使用 visualization-2026718-v1。R：数据列为 pathway、GeneRatio、Count 和 p.adjust，请调用富集玫瑰图代码并运行，最后解释结果图。","expected_top1_subtype":"radial_bar_lollipop","expected_intent_backend":"r","expected_core_question":"pathway_enrichment","expected_retrieval_family":"gsea","expected_analysis_method":"ora","expected_action_intent":"execute","expected_action_intents_contains":["execute","review"],"expected_review_requested":true,"expected_review_after_execution":true,"expected_source_lookup":false,"expected_requires_executable":true,"expected_plan_status":"preflight_blocked","expected_adapter_id":"ora-enrichment-adapter-r-v1","expected_base_recipe_id":"enrichment-rose-r-v1","forbidden_validation_tiers":["visual_only"]}

@@ -1,0 +1,4 @@
+# Reference-only, source-safe candidate source fragment.
+candidate_source <- function() {
+  return("# source block: article-4329102050694250504-004-b003\nlibrary(Seurat)\nlibrary(SCP)\n# library(scop)\nlibrary(scales)\nlibrary(scCustomize)\nlibrary(scRNAtoolVis)\n\n\n###### step4:  看标记基因库 ######\n# 原则上分辨率是需要自己肉眼判断，取决于个人经验\n# 为了省力，我们直接看  0.1和0.8即可\nsce.all.filt\nsce.all.filt$sample <- str_split(sce.all.filt$orig.ident,simplify = T, pattern = \"_\")[,2]\ntable(Idents(sce.all.filt))\nhead(sce.all.filt@meta.data)\n\n# 美化版\n# by celltype\np1 <- CellDimPlot(sce.all.filt, group.by = \"celltype\", reduction = \"TSNE\", label = T,\n                  label.size = 4, label_repel = T, label_insitu = T,pt.size = 0.2,\n                 label_point_size = 1, label_point_color =NA ,label_segment_color = NA)\np1\n")
+}

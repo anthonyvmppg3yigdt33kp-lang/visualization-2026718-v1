@@ -1,0 +1,72 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "python": "assets/scheme-candidates/scheme-4329102050694250504-001-he_whole_slide-v1/candidate.py"
+  },
+  "entrypoints": {
+    "python": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "plot_down",
+      "thumbnail",
+      "black_color",
+      "black_pixels",
+      "ax0",
+      "rectangle",
+      "linewidth",
+      "edgecolor",
+      "facecolor"
+    ],
+    "required_inputs": [
+      "组织图像",
+      "配准坐标",
+      "标签或表达",
+      "尺度信息"
+    ]
+  },
+  "object_chain_closure": {
+    "python": {
+      "declared_object_chain": [
+        "plot_down",
+        "thumbnail",
+        "black_color",
+        "black_pixels",
+        "ax0",
+        "rectangle",
+        "linewidth",
+        "edgecolor",
+        "facecolor"
+      ],
+      "dependency_block_ids": [
+        "article-4329102050694250504-001-b008"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "python": "matplotlib Figure or Axes"
+  },
+  "safety": {
+    "forbidden_operation_examples": [],
+    "forbidden_operations_removed": 0,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-4329102050694250504-001-he_whole_slide-v1",
+  "source_article_id": "article-4329102050694250504-001",
+  "source_block_ids": [
+    "article-4329102050694250504-001-b008"
+  ],
+  "source_entrypoints": {
+    "python": "get_candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

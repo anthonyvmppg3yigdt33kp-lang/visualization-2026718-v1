@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "id": "ora-enrichment-adapter-r-v1",
+  "name": "R ORA enrichment-table adapter",
+  "description": "Validate and map pathway, GeneRatio or another declared magnitude, Count, adjusted P and optional direction into the enrichment-rose plotting contract without computing enrichment.",
+  "kind": "adapter",
+  "family": "ora_adapter",
+  "backend": "r",
+  "entrypoint": "adapt_ora_enrichment_table",
+  "tags": ["ORA", "over-representation analysis", "GeneRatio", "Count", "p.adjust", "pathway", "adapter"],
+  "requires": {"object_types": ["data.frame"], "variables": ["pathway", "magnitude|GeneRatio", "Count", "p.adjust"], "packages": [], "capabilities": ["ora_result_table"]},
+  "provides": {"object_types": ["data.frame"], "capabilities": ["ora_rose_frame", "explicit_enrichment_mapping"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["enrichment-rose-r-v1"]},
+  "conflicts": ["gsea_result", "implicit_direction_inference", "cross_backend_conversion"],
+  "parameters": [
+    {"name": "pathway", "type": "string", "required": false, "default": "pathway", "allowed": null, "description": "Pathway/category label column."},
+    {"name": "magnitude", "type": "string", "required": false, "default": "GeneRatio", "allowed": null, "description": "Non-negative magnitude column; numeric values and numerator/denominator strings are accepted."},
+    {"name": "count", "type": "string", "required": false, "default": "Count", "allowed": null, "description": "Non-negative hit-count column."},
+    {"name": "padj", "type": "string", "required": false, "default": "p.adjust", "allowed": null, "description": "Multiple-testing-adjusted P-value column in (0, 1]."},
+    {"name": "direction", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Optional precomputed direction/category column; the adapter never invents direction."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:e462a34b5a5fa50f84be8a2aca09dda6f059048579ae4bdc3487056bc9ce19d2", "sha256:48b0932c27e5bf52435113c94d2818524e99e15acc5fefaab23bc593ff0b64e5", "sha256:b3d89f11431668b4c00f79e6f737ecde19c37adc244857ae5f420d52b7a4d99b", "sha256:7fad829ca33f28d91f03938557b0bbbff3161880301fe6a17fa9dfad748905f7"]},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["data_adaptation"], "units": ["pathway"], "data_topologies": ["ora_result_table"],
+    "required_variables": [{"name": "pathway", "role": "angle_label", "type": "categorical"}, {"name": "GeneRatio|magnitude", "role": "radial_magnitude", "type": "non-negative numeric or ratio"}, {"name": "Count", "role": "point_size", "type": "non-negative numeric"}, {"name": "p.adjust", "role": "bar_fill", "type": "probability"}],
+    "transformations": [{"field": "GeneRatio", "method": "explicit numerator/denominator parsing when needed"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Preserves caller-supplied ORA quantities in a declared plotting contract."],
+    "does_not_support": ["Does not run ORA, compute adjusted P values, infer direction, create NES, or convert an ORA table into GSEA."],
+    "required_statistics": ["gene universe", "ORA method", "multiple-testing correction", "database and version"],
+    "misread_risks": ["ora_as_gsea", "gene_ratio_denominator_ambiguity", "direction_invention"],
+    "preferred_companions": ["enrichment-rose-r-v1"], "safer_alternatives": ["tabular ORA results when only a few prespecified pathways are tested"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["explicit variable mapping"], "risks": ["upstream ORA design not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-007", "block_ids": ["article-3792985494804332545-007-b005", "article-3792985494804332545-007-b006", "article-3792985494804332545-007-b007"], "image_ids": ["article-3792985494804332545-007-i008"]}], "license_status": "unknown", "transformation": "generalized_ORA_adapter_separate_from_hiking_source_semantics"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["The adapter fixture executed successfully, including GeneRatio fraction parsing.", "The adapter does not calculate enrichment or direction."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": "../../fixtures/ora_enrichment_results.csv"}
+}

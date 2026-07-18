@@ -1,0 +1,13 @@
+umap_1,umap_2,cluster,sample
+-2.2,-1.8,T_cell,S1
+-1.8,-1.5,T_cell,S1
+-2.0,-2.2,T_cell,S2
+-1.5,-1.9,T_cell,S2
+1.5,1.8,B_cell,S1
+1.9,1.5,B_cell,S1
+1.7,2.2,B_cell,S2
+2.2,1.9,B_cell,S2
+2.5,-1.6,Myeloid,S1
+2.1,-2.0,Myeloid,S1
+2.8,-2.1,Myeloid,S2
+2.4,-2.5,Myeloid,S2

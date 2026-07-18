@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-07-16",
+  "source_kind": "local_wechat_album_archive",
+  "included": [
+    "01_绘图小技巧2025",
+    "02_绘图小技巧2026",
+    "README.md",
+    "manifest.csv",
+    "download_report.json",
+    "SHA256SUMS.csv"
+  ],
+  "excluded": [
+    {
+      "path": ".state",
+      "reason": "runtime state is not needed by the installed skill"
+    },
+    {
+      "path": "_tools/download_albums.py",
+      "reason": "downloader implementation is not needed by the installed skill"
+    }
+  ],
+  "expected_inventory": {
+    "articles": 97,
+    "markdown_files_including_archive_readme": 98,
+    "code_blocks": 621,
+    "r_code_blocks": 604,
+    "python_code_blocks": 16,
+    "bash_code_blocks": 1,
+    "images": 709
+  },
+  "checksum_verification": {
+    "verified_entries": 809,
+    "intentional_missing_entries": 1,
+    "failures": 0
+  },
+  "sanitization": {
+    "report": "references/source-sanitization.json",
+    "embedded_private_keys_redacted": 1,
+    "article_and_fence_counts_preserved": true,
+    "original_source_modified": false
+  }
+}

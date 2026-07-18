@@ -1,0 +1,13 @@
+cell_type,gene,avg_expression,pct_expression
+T_cell,CD3D,1.8,92
+B_cell,CD3D,-1.1,5
+Myeloid,CD3D,-0.8,8
+T_cell,MS4A1,-1.2,3
+B_cell,MS4A1,1.9,88
+Myeloid,MS4A1,-0.7,7
+T_cell,LYZ,-0.9,12
+B_cell,LYZ,-0.8,9
+Myeloid,LYZ,2.1,95
+T_cell,NKG7,1.2,68
+B_cell,NKG7,-0.5,10
+Myeloid,NKG7,0.3,32

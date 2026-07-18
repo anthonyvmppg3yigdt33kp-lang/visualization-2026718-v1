@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "id": "cellchat-matrix-adapter-r-v1",
+  "name": "R CellChat aggregate-network adapter",
+  "description": "Extract a CellChat aggregate count/weight network as a named matrix or explicit long table without filtering unless requested.",
+  "kind": "adapter",
+  "family": "cellchat_adapter",
+  "backend": "r",
+  "tags": ["cellchat", "adapter", "network", "matrix", "long-table", "cell-communication"],
+  "requires": {"object_types": ["CellChat", "list"], "variables": ["net_measure"], "packages": ["methods"], "capabilities": ["cellchat_aggregate_network"]},
+  "provides": {"object_types": ["matrix", "data.frame"], "capabilities": ["interaction_weights", "interaction_long_table"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["cellchat-chord-r-v1"]},
+  "conflicts": ["cross_backend_conversion"],
+  "parameters": [
+    {"name": "measure", "type": "string", "required": false, "default": "weight", "allowed": null, "description": "Existing object@net entry such as weight or count; its meaning must be reported."},
+    {"name": "output", "type": "string", "required": false, "default": "matrix", "allowed": ["matrix", "long"], "description": "Return contract."},
+    {"name": "drop_zero", "type": "boolean", "required": false, "default": false, "allowed": [true, false], "description": "Explicitly omit zero rows only from long output; never applied silently."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["data_adaptation"], "units": ["cell_type", "interaction"], "data_topologies": ["weighted_network_matrix", "network_edge_table"],
+    "required_variables": [{"name": "net_measure", "role": "link_weight", "type": "nonnegative_matrix"}],
+    "transformations": [{"field": "network", "method": "extract_existing_aggregate_matrix"}, {"field": "zero_edges", "method": "preserved_by_default"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Preserves the supplied CellChat aggregate network for downstream display."],
+    "does_not_support": ["Does not validate ligand-receptor inference, filtering, sample replication, physical communication, or causal signaling."],
+    "required_statistics": ["network measure definition", "upstream CellChat method", "filtering threshold"],
+    "misread_risks": ["weight_meaning_ambiguity", "inference_as_physical_contact", "zero_edge_filtering"],
+    "preferred_companions": ["cellchat-chord-r-v1", "interaction dot plot"],
+    "safer_alternatives": ["long-table audit before rendering dense networks"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["explicit measure extraction"], "risks": ["upstream inference not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; visual review applies downstream."},
+  "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_adapter_for_curated_recipe_contract"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-16", "runtime": "R-4.5.3", "notes": ["List-shaped mock supports deterministic fixture testing without CellChat installation."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": null}
+}

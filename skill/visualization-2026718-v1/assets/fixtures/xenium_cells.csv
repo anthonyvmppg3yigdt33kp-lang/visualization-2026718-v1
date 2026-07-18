@@ -1,0 +1,7 @@
+x,y,cell_type
+120,180,T_cell
+145,210,T_cell
+180,160,B_cell
+205,195,B_cell
+250,225,Myeloid
+275,190,Myeloid

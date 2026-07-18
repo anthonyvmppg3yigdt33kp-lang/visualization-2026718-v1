@@ -1,0 +1,9 @@
+sample,group,value,subject
+S01,Control,4.1,P01
+S02,Control,4.7,P02
+S03,Control,5.0,P03
+S04,Control,4.4,P04
+S05,Treatment,6.1,P05
+S06,Treatment,5.8,P06
+S07,Treatment,6.5,P07
+S08,Treatment,6.0,P08

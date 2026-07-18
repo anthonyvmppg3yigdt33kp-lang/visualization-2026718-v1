@@ -1,0 +1,85 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-017-pca_3d_scatter-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "plot.data",
+      "Type",
+      "TypeColor",
+      "y",
+      "z",
+      "color",
+      "pch",
+      "scale.y",
+      "xlab",
+      "ylab",
+      "zlab",
+      "main",
+      "col.axis",
+      "col",
+      "inset"
+    ],
+    "required_inputs": [
+      "两列嵌入坐标",
+      "类别或连续特征"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "plot.data",
+        "Type",
+        "TypeColor",
+        "y",
+        "z",
+        "color",
+        "pch",
+        "scale.y",
+        "xlab",
+        "ylab",
+        "zlab",
+        "main",
+        "col.axis",
+        "col",
+        "inset"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-017-b003"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-017-b003: pdf(\"./results/Figure1/1B.PRO_PCA3d.pdf\", width = 7, height = 7)",
+      "article-3792985494804332545-017-b003: dev.off()"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-017-pca_3d_scatter-v1",
+  "source_article_id": "article-3792985494804332545-017",
+  "source_block_ids": [
+    "article-3792985494804332545-017-b003"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

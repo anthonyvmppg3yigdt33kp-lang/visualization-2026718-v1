@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0", "id": "marker-dotplot-r-v1", "name": "R marker expression dot plot",
+  "description": "Encode average expression by colour and percentage expressed by point area for cell-type-by-marker summaries.",
+  "kind": "base_recipe", "family": "dotplot", "backend": "r",
+  "tags": ["marker", "dotplot", "bubble", "single-cell", "average-expression", "percent-expressed"],
+  "requires": {"object_types": ["data.frame"], "variables": ["cell_type", "gene", "avg_expression", "pct_expression"], "packages": ["ggplot2"], "capabilities": ["aggregated_expression"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["dual_channel_expression_summary"]},
+  "compatible_with": {"kinds": ["semantic_modifier", "aesthetic_modifier", "layout", "export"], "ids": ["marker-box-r-v1", "borderless-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "conflicts": [],
+  "parameters": [{"name": "data", "type": "data.frame", "required": true, "default": null, "allowed": null, "description": "Aggregated marker statistics."}, {"name": "size_breaks", "type": "numeric[]", "required": false, "default": [0, 50, 100], "allowed": "values in [0, 100]", "description": "Purely visual size-guide breaks; does not alter point-size mapping."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:97eda3fa884a0261bd75cbced418a7890fad151aaff9ea03b860e9ab642da9f3", "sha256:3297bed6cd0d99d3e4c376aa6c00d515c00fa7d52a60c541efd5621441e175a2", "sha256:d05e7cf066a2c01eaeca4adde9521f9e078e38f5b7badfc83785438a3b776df7"]},
+  "semantic_card": {
+    "questions_answered": ["marker_distribution", "cell_type_profile"], "evidence_roles": ["overview", "comparison"], "units": ["cell_type", "gene"], "data_topologies": ["aggregated_matrix_long"],
+    "required_variables": [{"name": "average", "role": "fill", "type": "numeric"}, {"name": "percent", "role": "size", "type": "numeric_0_100"}], "transformations": [{"field": "expression", "method": "precomputed_group_summary"}],
+    "visual_channels": {"x": "cell_type", "y": "gene", "color": "average_expression", "size": "percent_expressed", "shape": "circle", "alpha": "constant", "facet": "none", "annotation": "optional_marker_boxes"},
+    "supports_claims": ["Displays relative average expression and detection frequency across the shown groups."],
+    "does_not_support": ["Does not by itself establish marker specificity, differential-expression significance, or sample-level reproducibility."],
+    "required_statistics": ["document aggregation and scaling method"], "misread_risks": ["confusing size with expression", "scaled_values_as_absolute_expression", "cell_as_replicate"],
+    "preferred_companions": ["sample-level expression distribution", "differential-expression table"], "safer_alternatives": ["sample-level box or violin plot for inference"]
+  },
+  "visual_fingerprint": {"family": "dotplot", "panels": 1, "panel_structure": "matrix", "channels": ["position", "fill", "area"], "legend_mode": "compact_dual", "information_density": "high", "strengths": ["compact multivariate comparison"], "risks": ["area estimation", "legend confusion"], "final_size_behavior": "rotate x labels and inspect smallest dots", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from marker_dot.csv opened at 7 x 5.5 in / 200 dpi and 3.5 x 3.8 in / 300 dpi on 2026-07-17. Reducing only displayed size-guide breaks restored the Percent expressed title; fill and area channels, values and all matrix labels remain unchanged and legible."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-4329102050694250504-010", "block_ids": ["article-4329102050694250504-010-b003", "article-4329102050694250504-010-b004"], "image_ids": ["article-4329102050694250504-010-i010"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Round-2 exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/marker-dotplot-r.png", "fixture": "../../fixtures/marker_dot.csv"}
+}

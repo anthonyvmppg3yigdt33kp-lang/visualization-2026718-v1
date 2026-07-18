@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "id": "anndata-embedding-adapter-python-v1",
+  "name": "Python AnnData embedding adapter",
+  "description": "Extract an existing AnnData obsm embedding and aligned obs category into the pandas contract used by Python embedding recipes.",
+  "kind": "adapter",
+  "family": "anndata_adapter",
+  "backend": "python",
+  "tags": ["anndata", "scanpy", "adapter", "umap", "embedding", "pandas"],
+  "requires": {"object_types": ["AnnData"], "variables": ["obsm_basis", "obs_group"], "packages": ["numpy", "pandas"], "capabilities": ["anndata_embedding", "observation_metadata"]},
+  "provides": {"object_types": ["pandas.DataFrame"], "capabilities": ["precomputed_embedding", "aligned_group_labels"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["umap-dataframe-python-v1"]},
+  "conflicts": ["cross_backend_conversion"],
+  "parameters": [
+    {"name": "adata", "type": "AnnData", "required": true, "default": null, "allowed": null, "description": "Caller-supplied AnnData or API-compatible object; it is not modified."},
+    {"name": "basis", "type": "string", "required": false, "default": "X_umap", "allowed": null, "description": "Existing adata.obsm key; the adapter never recomputes neighbors or an embedding."},
+    {"name": "group", "type": "string", "required": false, "default": "leiden", "allowed": null, "description": "Existing adata.obs category."},
+    {"name": "dimensions", "type": "integer[2]", "required": false, "default": [0, 1], "allowed": "two non-negative indices", "description": "Existing embedding dimensions to expose."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["data_adaptation"], "units": ["cell", "observation"], "data_topologies": ["embedding"],
+    "required_variables": [{"name": "obsm_basis", "role": "position", "type": "precomputed_coordinates"}, {"name": "obs_group", "role": "color", "type": "categorical_metadata"}],
+    "transformations": [{"field": "coordinates", "method": "copy_existing_embedding_without_recomputation"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Preserves existing embedding rows and group labels for downstream plotting."],
+    "does_not_support": ["Does not validate preprocessing, neighbors, embedding quality, batch correction, labels, or biological interpretation."],
+    "required_statistics": ["none"], "misread_risks": ["silent_recomputation_assumption", "row_order_misalignment"],
+    "preferred_companions": ["umap-dataframe-python-v1"], "safer_alternatives": ["audit AnnData provenance before plotting when preprocessing is uncertain"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["row-aligned extraction"], "risks": ["upstream provenance not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; visual review applies downstream."},
+  "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_adapter_for_curated_recipe_contract"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-16", "runtime": "Python 3", "notes": ["Duck-typed example runs without requiring the specialist anndata package."]},
+  "files": {"code": "recipe.py", "example": "example.py", "preview": null, "fixture": null}
+}

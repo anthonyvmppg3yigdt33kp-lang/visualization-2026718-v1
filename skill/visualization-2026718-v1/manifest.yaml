@@ -1,0 +1,107 @@
+name: visualization-2026718-v1
+version: 1.0.0
+description: >-
+  可视化2026718V1 router for evidence-aware scientific figure selection,
+  dual-channel Scheme retrieval, backend-exclusive R/Python adaptation and
+  composition, native visual review, source audit, deterministic update, and
+  explicit Recipe promotion.
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+
+axes:
+  mode:
+    detect: >-
+      Resolve one primary mode while retaining ordered compound action flags. Use discover for scientific/style search
+      and recommendation; adapt for fitting code to user data; compose for
+      compatible components; review for image interpretation or rendered QA;
+      audit for read-only source/Scheme/provenance assessment; update for source
+      ingestion; and promote for explicit candidate registration. For a workflow
+      containing several actions (for example execute/render followed by
+      native review), process them in order and load one mode at a time; review
+      must not disable executable or backend gates.
+    values:
+      discover: static/fragments/mode/discover.md
+      adapt: static/fragments/mode/adapt.md
+      compose: static/fragments/mode/compose.md
+      review: static/fragments/mode/review.md
+      audit: static/fragments/mode/audit.md
+      update: static/fragments/mode/update.md
+      promote: static/fragments/mode/promote.md
+    multi: false
+  backend:
+    detect: >-
+      Backend is optional for discovery, pixels-only review, and non-rendering
+      audit. Before executable adaptation, composition, rendering, preview,
+      export, or backend-specific visual QA, resolve Python or R from an explicit
+      choice or unambiguous artifact. If unresolved, ask exactly "Python or R?"
+      and stop. Once selected, never cross-render.
+    required_for:
+      - adapt
+      - compose
+      - render
+      - export
+      - backend_visual_qa
+    values:
+      r: static/fragments/backend/r.md
+      python: static/fragments/backend/python.md
+    multi: false
+
+data:
+  catalog: references/catalog.jsonl
+  coverage: references/coverage.json
+  stable_ids: references/stable-ids.json
+  decision_cards: references/decision-cards.json
+  scheme_catalog: references/scheme-catalog.jsonl
+  block_dispositions: references/block-dispositions.jsonl
+  image_dispositions: references/image-dispositions.jsonl
+  scheme_aliases: references/scheme-aliases.json
+  retrieval_index: references/retrieval-index.json
+  scheme_coverage: references/scheme-coverage.json
+  scheme_benchmark: references/scheme-benchmark-prompts.jsonl
+  native_visual_reviews: references/native-visual-reviews
+  scheme_candidates: assets/scheme-candidates
+  legacy_style_atlas: references/style-atlas.jsonl
+  legacy_style_coverage: references/style-coverage.json
+  retrieval_benchmark: references/benchmark-prompts.jsonl
+  visual_benchmark_protocol: references/visual-review-benchmark.jsonl
+  visual_benchmark_results: references/visual-review-results.jsonl
+  exact_render_reviews: references/exact-render-review.jsonl
+  visual_issue_actions: references/visual-issue-actions.json
+  visual_review_controller: scripts/visual_review_controller.py
+  recipe_runtime: scripts/recipe_runtime.py
+  sanitization_report: references/source-sanitization.json
+  source_snapshot: assets/source_archive
+  recipes: assets/recipes
+  source_previews: assets/previews-curated
+  exact_render_previews: assets/previews-rendered
+  fixtures: assets/fixtures
+  visual_defect_fixtures: assets/fixtures/visual-defects
+
+references:
+  on_demand:
+    - id: ontology
+      condition: parse FigureIntent, interpret Scheme semantics, or set claim boundaries
+      path: references/visual-semantic-ontology.md
+    - id: scheme_schema
+      condition: build, validate, migrate, inspect, or export Schemes and source dispositions
+      path: references/scheme-schema.md
+    - id: selection_policy
+      condition: rank, compare, diversify, clarify, or explain figure recommendations
+      path: references/figure-selection-policy.md
+    - id: visual_review
+      condition: classify/link source images, inspect a result, or iterate a render
+      path: references/visual-review-protocol.md
+    - id: recipe_schema
+      condition: inspect, adapt, compose, validate, update, or promote a Recipe/component
+      path: references/recipe-schema.md
+    - id: qa_contract
+      condition: execute, render, deliver, audit, update, export, or promote any artifact
+      path: references/qa-contract.md
+    - id: extension_protocol
+      condition: add or refresh sources, Schemes, Recipes, modifiers, vocabulary, or ranking
+      path: references/extension-protocol.md
+    - id: style_atlas_contract
+      condition: browse visual examples, map appearance to code, inspect atlas admission, or export the manual
+      path: references/style-atlas-contract.md

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "id": "enrichment-rose-r-v1",
+  "name": "R ORA enrichment rose",
+  "description": "Display caller-supplied ORA pathway magnitude as radial bars, adjusted P as fill, Count as point size and optional direction/category as point outline.",
+  "kind": "base_recipe",
+  "family": "enrichment",
+  "backend": "r",
+  "entrypoint": "plot_enrichment_rose",
+  "tags": ["ORA", "enrichment rose", "radial bar", "polar", "GeneRatio", "Count", "p.adjust", "direction"],
+  "requires": {"object_types": ["data.frame"], "variables": ["pathway", "magnitude", "count", "adjusted_p", "direction_optional"], "packages": ["ggplot2"], "capabilities": ["ora_rose_frame"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["radial_bar_lollipop", "ora_multimetric_summary", "fdr_encoding"]},
+  "compatible_with": {"kinds": ["adapter", "aesthetic_modifier", "layout", "export"], "ids": ["ora-enrichment-adapter-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "conflicts": ["gsea_result", "implicit_direction_inference", "cross_backend_conversion"],
+  "parameters": [
+    {"name": "data", "type": "data.frame", "required": true, "default": null, "allowed": null, "description": "Prefer the standardized output of ora-enrichment-adapter-r-v1."},
+    {"name": "top_n", "type": "integer", "required": false, "default": 20, "allowed": "positive", "description": "Display limit after adjusted-P then magnitude ordering; it does not alter ORA results."},
+    {"name": "magnitude_label", "type": "string", "required": false, "default": "GeneRatio / declared enrichment magnitude", "allowed": null, "description": "Explicit label for the radial quantity."},
+    {"name": "direction_palette", "type": "named character vector|null", "required": false, "default": null, "allowed": null, "description": "Optional named colors for precomputed direction/category labels."}
+  ],
+  "lineage": {"parent_id": null, "components": [{"id": "ora-enrichment-adapter-r-v1", "parameters": {}}], "source_fingerprints": ["sha256:e462a34b5a5fa50f84be8a2aca09dda6f059048579ae4bdc3487056bc9ce19d2", "sha256:48b0932c27e5bf52435113c94d2818524e99e15acc5fefaab23bc593ff0b64e5", "sha256:b3d89f11431668b4c00f79e6f737ecde19c37adc244857ae5f420d52b7a4d99b", "sha256:7fad829ca33f28d91f03938557b0bbbff3161880301fe6a17fa9dfad748905f7"]},
+  "semantic_card": {
+    "questions_answered": ["pathway_prioritization", "ora_summary"], "evidence_roles": ["comparison", "discovery"], "units": ["pathway"], "data_topologies": ["ora_result_table"],
+    "required_variables": [{"name": "pathway", "role": "angle", "type": "categorical"}, {"name": "magnitude", "role": "radius", "type": "non-negative numeric"}, {"name": "Count", "role": "point_size", "type": "non-negative numeric"}, {"name": "p.adjust", "role": "bar_fill", "type": "probability"}],
+    "transformations": [{"field": "display_order", "method": "adjusted P ascending, magnitude descending, pathway label"}, {"field": "bar_fill", "method": "-log10(adjusted P)"}],
+    "visual_channels": {"angle": "pathway", "radius": "declared ORA magnitude", "x": "polar category", "y": "declared ORA magnitude", "color": "optional caller-supplied direction/category", "fill": "-log10(adjusted P)", "size": "Count", "shape": "constant filled circle", "facet": "none", "annotation": "wrapped pathway label"},
+    "supports_claims": ["Shows the relative magnitude, adjusted P and hit count of the supplied ORA rows, plus a caller-supplied direction/category when present."],
+    "does_not_support": ["Does not calculate ORA, prove pathway activation, create NES or a GSEA running score, resolve gene-set redundancy, establish mechanism, or imply causality."],
+    "required_statistics": ["gene universe", "ORA method", "database/version", "multiple-testing correction", "definition of the magnitude and any direction field"],
+    "misread_risks": ["polar_area_comparison", "ora_as_gsea", "adjusted_p_as_effect_size", "gene_set_redundancy"],
+    "preferred_companions": ["tabular effect/count/FDR values", "overlap or leading-gene evidence", "rectilinear dot plot for precise comparison"],
+    "safer_alternatives": ["rectilinear ORA dot plot when exact magnitude comparisons are primary"]
+  },
+  "visual_fingerprint": {"family": "enrichment", "panels": 1, "panel_structure": "single_polar", "channels": ["angle", "radius", "fill", "point size", "point outline"], "legend_mode": "continuous_plus_size_plus_optional_category", "information_density": "high", "strengths": ["multimetric pathway overview", "distinct ORA mappings"], "risks": ["radial comparison imprecision", "long labels", "legend load"], "final_size_behavior": "prefer double-column width and inspect labels/legends at final size", "evidence_level": "image_code", "reviewed": false, "review_note": "Generalized code is distinct from the reviewed hiking-source image; exact recipe render review remains pending."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-007", "block_ids": ["article-3792985494804332545-007-b005", "article-3792985494804332545-007-b006", "article-3792985494804332545-007-b007"], "image_ids": ["article-3792985494804332545-007-i008"]}], "license_status": "unknown", "transformation": "generalized_rewrite_with_explicit_ORA_adapter; removed hiking labels, scales, units and hard-coded annotations"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "blocked_runtime", "render": "blocked_runtime", "visual": "pending_exact_render", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["recipe.R parsed successfully under R 4.5.3 and the separate ORA adapter fixture passed.", "Building the ggplot fixture terminated the local R process with Windows exit code -1073741819; execution/render are therefore not claimed.", "The source hiking semantics remain in provenance only; the Recipe requires an explicit ORA adapter mapping.", "No hiking-specific labels, units, axes or fixed annotations remain."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": "../../fixtures/ora_enrichment_results.csv"}
+}

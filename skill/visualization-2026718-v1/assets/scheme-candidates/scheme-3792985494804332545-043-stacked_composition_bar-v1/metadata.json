@@ -1,0 +1,54 @@
+{
+  "callable": false,
+  "candidate_code_path": {},
+  "entrypoints": {},
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "df",
+      "my_colors",
+      "p"
+    ],
+    "required_inputs": [
+      "独立样本ID",
+      "条件",
+      "类别",
+      "计数或明确分母的比例"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "df",
+        "my_colors",
+        "p"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-043-b002"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [
+    "article-3792985494804332545-043-b002"
+  ],
+  "promotable": false,
+  "return_contract": {},
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-043-b002: df <- read_csv(\"https://tidyplots.org/data/sequencing-qc-STAR.csv\")"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-043-stacked_composition_bar-v1",
+  "source_article_id": "article-3792985494804332545-043",
+  "source_block_ids": [],
+  "source_entrypoints": {},
+  "validation_tier": "visual_only"
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "articles_indexed": 97,
+  "style_cards": 136,
+  "families": {
+    "boxplot": 3,
+    "cellchat_chord": 6,
+    "composition": 13,
+    "correlation": 8,
+    "decorative": 1,
+    "dotplot": 11,
+    "embedding": 23,
+    "flow": 3,
+    "genomics": 5,
+    "gsea": 13,
+    "heatmap": 10,
+    "layout": 4,
+    "palette": 7,
+    "roc": 2,
+    "set_intersection": 3,
+    "spatial_image": 5,
+    "survival": 1,
+    "trajectory": 1,
+    "unknown": 1,
+    "violin": 7,
+    "volcano": 9
+  },
+  "coverage_status": {
+    "formal_exact": 11,
+    "formal_family": 84,
+    "resource_only": 9,
+    "source_only": 32
+  },
+  "backends": {
+    "python": 5,
+    "r": 133
+  },
+  "articles_with_exact_formal_lineage": 10,
+  "exact_formal_article_ids": [
+    "article-3792985494804332545-001",
+    "article-3792985494804332545-007",
+    "article-3792985494804332545-014",
+    "article-3792985494804332545-027",
+    "article-3792985494804332545-041",
+    "article-3792985494804332545-072",
+    "article-4329102050694250504-001",
+    "article-4329102050694250504-003",
+    "article-4329102050694250504-010",
+    "article-4329102050694250504-011"
+  ],
+  "missing_sample_count": 0,
+  "missing_sample_style_ids": [],
+  "missing_code_count": 4,
+  "missing_code_style_ids": [
+    "style-3792985494804332545-003-embedding-v1",
+    "style-4329102050694250504-002-embedding-v1",
+    "style-4329102050694250504-020-gsea-v1",
+    "style-4329102050694250504-019-roc-v1"
+  ],
+  "source_only_priority_families": [
+    {
+      "family": "correlation",
+      "count": 8
+    },
+    {
+      "family": "violin",
+      "count": 7
+    },
+    {
+      "family": "genomics",
+      "count": 5
+    },
+    {
+      "family": "layout",
+      "count": 4
+    },
+    {
+      "family": "flow",
+      "count": 3
+    },
+    {
+      "family": "set_intersection",
+      "count": 3
+    },
+    {
+      "family": "survival",
+      "count": 1
+    },
+    {
+      "family": "trajectory",
+      "count": 1
+    }
+  ],
+  "interpretation": {
+    "formal_exact": "direct source lineage to a formal Recipe/component",
+    "formal_family": "formal base Recipe exists for the family; article-specific style remains undistilled",
+    "source_only": "source code and sample image are indexed but not generalized/validated",
+    "code_only": "indexed code without a qualified sample image",
+    "visual_only": "qualified image without linked code",
+    "resource_only": "non-evidence style/tool/palette/uncategorized resource"
+  }
+}

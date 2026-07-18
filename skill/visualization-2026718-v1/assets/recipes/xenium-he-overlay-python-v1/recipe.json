@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0", "id": "xenium-he-overlay-python-v1", "name": "Python Xenium H&E cell overlay",
+  "description": "Display a registered H&E image with optional cell coordinates and labels, returning Matplotlib Figure/Axes without file I/O.",
+  "kind": "base_recipe", "family": "spatial_image", "backend": "python",
+  "tags": ["xenium", "he", "histology", "spatial", "cell-overlay", "matplotlib"],
+  "requires": {"object_types": ["numpy.ndarray", "pandas.DataFrame"], "variables": ["image", "x", "y", "group"], "packages": ["numpy", "pandas", "matplotlib"], "capabilities": ["registered_image_coordinates"]},
+  "provides": {"object_types": ["matplotlib.figure.Figure", "matplotlib.axes.Axes"], "capabilities": ["spatial_context_overlay"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["borderless-python-v1", "label-repel-python-v1", "publication-export-python-v1"]}, "conflicts": [],
+  "parameters": [{"name": "origin", "type": "string", "required": false, "default": "upper", "allowed": ["upper", "lower"], "description": "Image-coordinate origin; must match registration convention."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:00718349999b7c4eee450e09c3d671cc5262a72f29be8aa3527bf8060a93daa1", "sha256:87e224d65545f6a8e9df8c54863f43cdd71cd3061e54295378d73c71dddb1e0b", "sha256:461714029709a7077a6409aaa332d88e2efea522495317ec54343c332debf70b", "sha256:e4ea1a4b1a1b32fcacaca9faa786b67f38e92c278a7cc6392e029b302fd2cadb"]},
+  "semantic_card": {
+    "questions_answered": ["spatial_localization", "histology_context"], "evidence_roles": ["overview", "mechanism", "validation"], "units": ["cell", "tissue_region"], "data_topologies": ["registered_spatial_image"],
+    "required_variables": [{"name": "image", "role": "background", "type": "array"}, {"name": "x/y", "role": "position", "type": "numeric"}, {"name": "group", "role": "color", "type": "categorical"}], "transformations": [{"field": "coordinates", "method": "caller-supplied registration"}],
+    "visual_channels": {"x": "image_x", "y": "image_y", "color": "cell_type", "size": "point_size", "shape": "point", "alpha": "overlay_visibility", "facet": "none", "annotation": "histology background"},
+    "supports_claims": ["Shows registered cell locations in histological context when registration is valid."],
+    "does_not_support": ["Does not validate registration, segmentation accuracy, cell identity, spatial enrichment significance, or causality."],
+    "required_statistics": ["registration QC", "segmentation QC", "coordinate units and origin"], "misread_risks": ["coordinate_flip", "registration_error", "overplotting", "image_artifact_as_biology"],
+    "preferred_companions": ["registration landmarks", "region-level quantification"], "safer_alternatives": ["separate image and quantitative spatial summary if overlay is occluded"]
+  },
+  "visual_fingerprint": {"family": "spatial_image", "panels": 1, "panel_structure": "image_overlay", "channels": ["image", "position", "color"], "legend_mode": "categorical", "information_density": "high", "strengths": ["histological context"], "risks": ["registration error", "occlusion"], "final_size_behavior": "requires original and final-size registration/label check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Exact generalized recipe rendered with the deterministic example image and xenium_cells.csv, then visually opened at the default 7 x 7 in canvas / 200 dpi and a 3.5 x 3.5 in / 300 dpi canvas on 2026-07-17. Cell points and categorical legend remain visible in both views; this fixture confirms rendering only and does not validate real-image registration or segmentation."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-4329102050694250504-001", "block_ids": ["article-4329102050694250504-001-b004", "article-4329102050694250504-001-b008", "article-4329102050694250504-001-b011"], "image_ids": ["article-4329102050694250504-001-i003"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "Python 3", "notes": ["This recipe assumes already registered coordinates and deliberately omits installation/download code.", "Exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending a separate formal promotion audit."]},
+  "files": {"code": "recipe.py", "example": "example.py", "preview": "../../previews-rendered/xenium-he-python.png", "fixture": "../../fixtures/xenium_cells.csv"}
+}

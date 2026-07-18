@@ -1,0 +1,64 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-023-embedding_density_cloud-2-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "legend.position",
+      "plot.margin",
+      "legend.spacing.y",
+      "legend.key.height",
+      "legend.box.spacing"
+    ],
+    "required_inputs": [
+      "两列嵌入坐标",
+      "类别或连续特征"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "legend.position",
+        "plot.margin",
+        "legend.spacing.y",
+        "legend.key.height",
+        "legend.box.spacing"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-023-b004"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-023-b004: ggsave( \"FigureS1C_legend.pdf\", width = 3.5, height = 6, dpi = 500 )"
+    ],
+    "forbidden_operations_removed": 1,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-023-embedding_density_cloud-2-v1",
+  "source_article_id": "article-3792985494804332545-023",
+  "source_block_ids": [
+    "article-3792985494804332545-023-b004"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

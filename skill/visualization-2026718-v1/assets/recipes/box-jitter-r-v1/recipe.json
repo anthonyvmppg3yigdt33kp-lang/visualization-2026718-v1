@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0", "id": "box-jitter-r-v1", "name": "R box plot with observed points",
+  "description": "Show group distributions with box summaries, every observed value and an optional mean marker; no statistical test is added implicitly.",
+  "kind": "base_recipe", "family": "boxplot", "backend": "r",
+  "tags": ["boxplot", "jitter", "group-comparison", "sample-level", "distribution"],
+  "requires": {"object_types": ["data.frame"], "variables": ["group", "value"], "packages": ["ggplot2"], "capabilities": ["sample_level_values"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["group_distribution"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["shared-legend-r-v1", "publication-export-r-v1"]}, "conflicts": [],
+  "parameters": [{"name": "show_mean", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Overlay an explicitly labelled mean marker; box remains median/IQR."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:526210a97c002782a7d6893b61786f39a0dfbe7bbf493bb0af973f89de20a844", "sha256:639cde9f5884f3e8c831819da11ac261f8bab5d2e26844eaa9bc0431c4c83b8d", "sha256:bdee3d4767b7b1770dbe6322d550516a4b66e5bc083a72df5b45864b25c5e866"]},
+  "semantic_card": {
+    "questions_answered": ["group_distribution", "between_group_difference"], "evidence_roles": ["comparison", "validation"], "units": ["sample", "patient", "subject"], "data_topologies": ["long_table"],
+    "required_variables": [{"name": "group", "role": "x", "type": "categorical"}, {"name": "value", "role": "y", "type": "numeric"}], "transformations": [{"field": "values", "method": "none"}],
+    "visual_channels": {"x": "group", "y": "value", "color": "group", "size": "constant", "shape": "observations plus mean diamond", "alpha": "overlap_control", "facet": "none", "annotation": "none"},
+    "supports_claims": ["Shows observed sample-level distributions and conventional median/IQR summaries."],
+    "does_not_support": ["Does not establish significance, independence, normality, or causal effects without a declared analysis."],
+    "required_statistics": ["analysis unit", "sample size", "declared test/effect estimate when inference is claimed"], "misread_risks": ["technical_replicates_as_independent", "box_hides_distribution", "mean_vs_median"],
+    "preferred_companions": ["effect estimate and confidence interval"], "safer_alternatives": ["paired-line plot for paired designs", "raincloud plot for larger samples"]
+  },
+  "visual_fingerprint": {"family": "boxplot", "panels": 1, "panel_structure": "single", "channels": ["position", "summary_geometry", "points"], "legend_mode": "none", "information_density": "low", "strengths": ["shows raw observations"], "risks": ["jitter implies false x precision", "small-n summary"], "final_size_behavior": "requires point overlap check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Exact generalized recipe rendered from group_values.csv and visually opened at 7 x 5 in / 200 dpi and 3.5 x 3.0 in / 300 dpi on 2026-07-17. Both views show all observations, median/IQR and the mean diamond without clipping or overlap; no inferential statistic is implied."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-072", "block_ids": ["article-3792985494804332545-072-b008", "article-3792985494804332545-072-b009"], "image_ids": ["article-3792985494804332545-072-i004"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["No statistical annotation is generated automatically.", "Exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending a separate formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/box-jitter-r.png", "fixture": "../../fixtures/group_values.csv"}
+}

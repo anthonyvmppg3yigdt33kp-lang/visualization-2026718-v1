@@ -1,0 +1,61 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-051-volcano_scatter-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [
+      "ylab",
+      "cex"
+    ],
+    "required_inputs": [
+      "效应量",
+      "P值或FDR",
+      "特征名",
+      "明确阈值"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [
+        "ylab",
+        "cex"
+      ],
+      "dependency_block_ids": [
+        "article-3792985494804332545-051-b002"
+      ],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [
+      "article-3792985494804332545-051-b002: png(filename = \"miRNA_volvano.png\", width = 1200, height = 1000, res = 160)",
+      "article-3792985494804332545-051-b002: dev.off()"
+    ],
+    "forbidden_operations_removed": 2,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-051-volcano_scatter-v1",
+  "source_article_id": "article-3792985494804332545-051",
+  "source_block_ids": [
+    "article-3792985494804332545-051-b002"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

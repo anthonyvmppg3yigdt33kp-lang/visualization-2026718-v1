@@ -1,0 +1,50 @@
+{
+  "callable": true,
+  "candidate_code_path": {
+    "r": "assets/scheme-candidates/scheme-3792985494804332545-068-mutation_waterfall_oncoprint-v1/candidate.R"
+  },
+  "entrypoints": {
+    "r": "build_candidate_plot"
+  },
+  "execution_validated": false,
+  "generated_by": "scripts/build_scheme_catalog.py",
+  "input_contract": {
+    "bindings": "named objects required by the source chain; no file reads or hidden global state",
+    "expected_output_objects": [],
+    "required_inputs": [
+      "坐标",
+      "事件",
+      "样本ID",
+      "注释类别"
+    ]
+  },
+  "object_chain_closure": {
+    "r": {
+      "declared_object_chain": [],
+      "dependency_block_ids": [],
+      "resolved": true,
+      "unresolved_objects": []
+    }
+  },
+  "omitted_unsafe_source_block_ids": [],
+  "promotable": false,
+  "return_contract": {
+    "r": "ggplot, Heatmap/HeatmapList, grob/gTree"
+  },
+  "safety": {
+    "forbidden_operation_examples": [],
+    "forbidden_operations_removed": 0,
+    "requires_manual_input_contract": true,
+    "requires_native_render_review": true
+  },
+  "schema_version": "2.0",
+  "scheme_id": "scheme-3792985494804332545-068-mutation_waterfall_oncoprint-v1",
+  "source_article_id": "article-3792985494804332545-068",
+  "source_block_ids": [
+    "article-3792985494804332545-068-b006"
+  ],
+  "source_entrypoints": {
+    "r": "candidate_source"
+  },
+  "validation_tier": "reference_only"
+}

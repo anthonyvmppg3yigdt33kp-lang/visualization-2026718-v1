@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "id": "sample-composition-python-v1",
+  "name": "Python sample-level cell composition",
+  "description": "Aggregate cell-level or counted long data within biological samples and plot one stacked proportion bar per sample without treating cells as replicates.",
+  "kind": "base_recipe",
+  "family": "composition",
+  "backend": "python",
+  "entrypoint": "plot_sample_composition",
+  "tags": ["composition", "sample-level", "donor-level", "cell-type proportion", "anndata", "pandas", "matplotlib"],
+  "requires": {"object_types": ["pandas.DataFrame", "AnnData-compatible"], "variables": ["sample", "group", "cell_type"], "packages": ["pandas", "matplotlib"], "capabilities": ["observation_metadata", "biological_sample_id"]},
+  "provides": {"object_types": ["matplotlib.figure.Figure", "matplotlib.axes.Axes", "pandas.DataFrame"], "capabilities": ["sample_level_composition", "replicate_preserved", "within_sample_denominator"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["publication-export-python-v1"]},
+  "conflicts": ["cell_as_replicate", "cross_backend_conversion"],
+  "parameters": [
+    {"name": "data", "type": "pandas.DataFrame|AnnData-compatible", "required": true, "default": null, "allowed": null, "description": "Cell-level rows, AnnData .obs, or counted long rows; caller data are not modified."},
+    {"name": "sample", "type": "string", "required": false, "default": "sample_id", "allowed": null, "description": "Biological sample/donor identifier; each sample must map to exactly one group."},
+    {"name": "group", "type": "string", "required": false, "default": "condition", "allowed": null, "description": "Sample-level condition or cohort column."},
+    {"name": "cell_type", "type": "string", "required": false, "default": "cell_type", "allowed": null, "description": "Cell annotation column used for the stack."},
+    {"name": "count", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Optional non-negative count column for pre-aggregated long data; otherwise rows are counted."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": ["composition", "between_sample_variability"],
+    "evidence_roles": ["comparison", "overview", "robustness"],
+    "units": ["sample", "donor", "cell"],
+    "data_topologies": ["observation_long_table", "anndata_obs", "counted_long_table"],
+    "required_variables": [{"name": "sample", "role": "biological_replicate", "type": "categorical"}, {"name": "group", "role": "condition", "type": "categorical"}, {"name": "cell_type", "role": "stack_color", "type": "categorical"}],
+    "transformations": [{"field": "cell rows/counts", "method": "sum within sample x group x cell_type, complete absent categories with zero, divide by each sample total"}],
+    "visual_channels": {"x": "biological_sample", "y": "within_sample_proportion", "color": "cell_type", "size": "not_used", "shape": "not_used", "alpha": "constant", "facet": "group_order_and_separator", "annotation": "sample_and_group_labels"},
+    "supports_claims": ["Shows the supplied within-sample composition and between-sample heterogeneity while preserving biological replicates."],
+    "does_not_support": ["Does not by itself establish a condition effect, compositional differential abundance, causality, or equal sampling depth."],
+    "required_statistics": ["biological sample identifier", "within-sample denominator", "sample-level effect and uncertainty or a composition-aware model for inference"],
+    "misread_risks": ["cells_as_replicates", "stacked_segment_comparison", "sampling_depth_as_abundance"],
+    "preferred_companions": ["UMAP for cell-state overview", "sample-level dot/interval panel for a prespecified cell type", "composition-aware differential abundance model"],
+    "safer_alternatives": ["sample-level dot and interval plot when one prespecified cell type is the primary endpoint"]
+  },
+  "visual_fingerprint": {"family": "composition", "panels": 1, "panel_structure": "one_stacked_bar_per_sample", "channels": ["x position", "stack height", "color"], "legend_mode": "categorical_outside", "information_density": "medium", "strengths": ["replicate variability remains visible", "within-sample denominator explicit"], "risks": ["middle stack segments are hard to compare", "many cell types enlarge legend"], "final_size_behavior": "check rotated sample labels, legend and narrow stack segments", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Counted-long fixture rendered with count='count' and opened at original and 120 x 80 mm final size on 2026-07-17; axes, legend, sample labels, condition separator, and stacks were readable. The first omitted-count smoke was rejected because it treated aggregate rows as unit counts."},
+  "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_sample_aware_recipe_for_curated_contract"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "Python 3.13.12", "notes": ["Fixture covers counted long-table and AnnData-compatible .obs inputs.", "Execution preserves individual samples and rejects samples mapped to multiple groups.", "Hash-bound image_code_data review passed for original and final-size renders when the pre-aggregated count column was explicitly bound."]},
+  "files": {"code": "recipe.py", "example": "example.py", "preview": "../../previews-rendered/sample-composition-python-v1.png", "fixture": "../../fixtures/sample_composition_cells.csv"}
+}

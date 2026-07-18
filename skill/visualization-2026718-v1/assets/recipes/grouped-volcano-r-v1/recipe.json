@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0", "id": "grouped-volcano-r-v1", "name": "R grouped differential-effect volcano",
+  "description": "Display signed effect sizes across multiple clusters, highlighting adjusted-significant features and labelling the largest effects.",
+  "kind": "base_recipe", "family": "volcano", "backend": "r",
+  "tags": ["volcano", "differential-expression", "cluster", "effect-size", "adjusted-p", "label"],
+  "requires": {"object_types": ["data.frame"], "variables": ["cluster", "effect", "padj", "label"], "packages": ["ggplot2"], "capabilities": ["differential_result"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["grouped_effect_overview", "significance_encoding"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["label-repel-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "conflicts": [],
+  "parameters": [{"name": "alpha_cutoff", "type": "number", "required": false, "default": 0.05, "allowed": "0 < value <= 1", "description": "Adjusted-P threshold supplied explicitly; changing it changes classification."}, {"name": "top_n", "type": "integer", "required": false, "default": 3, "allowed": "non-negative", "description": "Largest absolute effects labelled per cluster."}, {"name": "legend_position", "type": "string", "required": false, "default": "bottom", "allowed": ["bottom", "right", "none"], "description": "Purely visual guide placement."}],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": ["sha256:e33766e575b737fe2f6b5354b8c03fc19412dae4ceacdd697aa827f919cdf933", "sha256:1b39a69b45cc89a3859f1882e59d2da0fea6f7cfbcae23c259172ee36fca79f7", "sha256:ba302cfc711a92f16c63399b5b8efc059008416d4d54afbb82f687bfa952aa9d", "sha256:a3fdb6dd8be9db6325c427b042086c3827610afcc383ac9570a8ca251714be3e"]},
+  "semantic_card": {
+    "questions_answered": ["differential_effect", "cluster_specific_markers"], "evidence_roles": ["comparison", "discovery"], "units": ["gene", "feature", "cluster"], "data_topologies": ["differential_result_table"],
+    "required_variables": [{"name": "effect", "role": "y", "type": "numeric"}, {"name": "padj", "role": "color", "type": "probability"}], "transformations": [{"field": "significant", "method": "padj < explicit alpha_cutoff"}],
+    "visual_channels": {"x": "cluster", "y": "signed_effect", "color": "adjusted_significance", "size": "constant", "shape": "constant", "alpha": "constant", "facet": "none", "annotation": "top absolute effects"},
+    "supports_claims": ["Summarizes the supplied effect estimates and adjusted-significance classifications across groups."],
+    "does_not_support": ["Does not repair pseudoreplication, confounding, model misspecification, or invalid multiple-testing procedures."],
+    "required_statistics": ["effect definition", "adjusted P values", "analysis unit", "model and contrast"], "misread_risks": ["cell_as_replicate", "threshold_cherry_picking", "effect_sign_without_contrast"],
+    "preferred_companions": ["sample-level distribution", "full differential table"], "safer_alternatives": ["effect-size forest plot for a short pre-specified feature list"]
+  },
+  "visual_fingerprint": {"family": "volcano", "panels": 1, "panel_structure": "grouped_strips", "channels": ["position", "color", "text"], "legend_mode": "compact_bottom_binary_significance", "information_density": "high", "strengths": ["multi-cluster effect overview"], "risks": ["label collision", "significance dominance"], "final_size_behavior": "requires label and cluster-strip check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from volcano_markers.csv opened at 8 x 5.5 in / 200 dpi and 3.5 x 3.4 in / 300 dpi on 2026-07-17. Moving the unchanged significance guide below the panel restored hierarchy; all selected labels, effects and adjusted-P classification remain visible and unchanged."},
+  "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-027", "block_ids": ["article-3792985494804332545-027-b005", "article-3792985494804332545-027-b006", "article-3792985494804332545-027-b009"], "image_ids": ["article-3792985494804332545-027-i010"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["ggrepel is optional; base fallback uses check_overlap.", "Round-2 exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/grouped-volcano-r.png", "fixture": "../../fixtures/volcano_markers.csv"}
+}
