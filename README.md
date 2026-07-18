@@ -16,7 +16,7 @@
 - 原生视觉 QA：检查原图与最终尺寸图片，支持最多三轮受控视觉修订。
 - 图库维护：支持来源审计、dry-run 更新、Scheme/Recipe 验证、图册导出和显式 promotion。
 - 单细胞对象适配：可从可信本地 Seurat 对象提取既有 embedding 和 marker 汇总，避免静默重算分析结果。
-- CellChat 多视图：可从真实 CellChat 对象提取聚合矩阵或 ligand-receptor 长表，生成 circle、directional chord、bubble 和 heatmap，并显式保留模型推断边界。
+
 
 ## 工作流
 
@@ -132,13 +132,7 @@ python scripts/plot_library.py validate --all --strict
 - 未经授权不改变过滤、归一化、聚合、分母、阈值、检验或声明强度。
 - 该技能提供研究工程支持；最终统计、临床、伦理、隐私与发表判断仍需相应负责人复核。
 
-## V1.0.0 发布重点
-
-- 将用户可见名称统一为“可视化2026718V1”，机器名统一为 `visualization-2026718-v1`。
-- 修复原说明中的中文编码损坏和 UI 元数据问题。
-- 重写能力简介、工作流、结构框架、安装说明和典型用法。
-- 保留原有离线 Scheme/Recipe 图谱、执行门禁、哈希绑定视觉复核和严格 QA 能力。
 
 ## 许可与素材说明
 
-仓库原创代码与文档按 [MIT License](LICENSE) 提供。`skill/visualization-2026718-v1/assets/source_archive/`、来源图像、文章快照和由第三方来源衍生的素材不因进入本仓库而被重新授权；其权利仍归原作者或权利人所有，详见 [NOTICE.md](NOTICE.md)。公开仓库便于完整下载和本地复现，但使用者仍需自行确认特定素材的转载、公开展示和商业使用权限。
+仓库原创代码与文档按 [MIT License](LICENSE) 提供。
