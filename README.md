@@ -15,6 +15,8 @@
 - 科学结果解读：区分像素可见、图例/代码可解释、数据统计已确认和目前不能断言。
 - 原生视觉 QA：检查原图与最终尺寸图片，支持最多三轮受控视觉修订。
 - 图库维护：支持来源审计、dry-run 更新、Scheme/Recipe 验证、图册导出和显式 promotion。
+- 单细胞对象适配：可从可信本地 Seurat 对象提取既有 embedding 和 marker 汇总，避免静默重算分析结果。
+- CellChat 多视图：可从真实 CellChat 对象提取聚合矩阵或 ligand-receptor 长表，生成 circle、directional chord、bubble 和 heatmap，并显式保留模型推断边界。
 
 ## 工作流
 
@@ -36,6 +38,8 @@ preflight → 按需 render → 原生像素复核 → keep/revise/reselect
 
 ```text
 README.md
+examples/
+└─ pbmc3k-seurat-cellchat/    可完整复现的 Seurat + CellChat 教学案例
 skill/
 └─ visualization-2026718-v1/
    ├─ SKILL.md                 核心使用说明、门禁与交付契约
@@ -107,6 +111,18 @@ python scripts/plot_library.py validate --all --strict
 ```
 
 详细规则、后端门禁、视觉复核和更新协议见 [SKILL.md](skill/visualization-2026718-v1/SKILL.md)。
+
+## 已验证端到端案例
+
+[PBMC3K Seurat + CellChat 教学案例](examples/pbmc3k-seurat-cellchat/README.md) 从 10x Genomics 官方计数矩阵开始，在独立 `renv` 环境完成：
+
+- Seurat QC、归一化、PCA、聚类、UMAP、signature-based 注释和 marker；
+- clean、arrow-axis、dark-nebula 三种 UMAP 风格及 marker dot plot；
+- CellChat circle、top-35 directional chord、top-30 ligand-receptor bubble 和完整 sender-receiver heatmap；
+- 9 组原图/300 dpi 成图的哈希绑定原生视觉复核；
+- 可复制提示词、结果解读、运行 manifest、关键表格、`renv.lock` 和故障排查。
+
+本次固定运行保留 2638 个细胞、得到 9 个注释群；CellChat 输出 441 条 `p <= 0.05` 的模型通信记录、15 条通路和 74 条非零聚合边。它是功能与复现教学，不是多供者统计证据。
 
 ## 关键原则与限制
 

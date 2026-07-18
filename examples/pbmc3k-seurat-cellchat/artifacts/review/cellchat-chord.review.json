@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["Displayed ribbons do not prove binding, causal signaling, spatial contact, or replication across donors."],
+  "confirmed": ["The display contains the top 35 positive directed edges from the aggregate CellChat net weight matrix; the exported matrix records the display filter."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:463d23c2f285e3c7f0cd854f530ecaf0fc05187fb6224084dd7e6de3d885d023",
+    "original": "sha256:aee0b7a2dc696050f6ed00bca5fea86f0c6c18bc5223c4dfe508770bfa612a70"
+  },
+  "interpretable": ["Cell-group sectors, directed ribbons, and group labels remain distinguishable."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep as the filtered relationship view; state the top-35 display filter wherever reused.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All nine sector labels and chord boundaries are visible without clipping."]
+}

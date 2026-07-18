@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["The decorative halo does not encode density, uncertainty, abundance, or any measured variable."],
+  "confirmed": ["The halo layer is decorative and the cell points retain the same Seurat UMAP coordinates and cell_type mapping."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:edd125acddd0daceab58ec26cb5f84b9bcb6741d7342347ef2b3a89c4e58c1b6",
+    "original": "sha256:5d8f738ba6c153f6877c7f9581888b92670526b332824d14650b6d36fc48fcc0"
+  },
+  "interpretable": ["Cluster identities and the decorative-halo disclaimer are readable against the dark background."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep as a presentation-oriented companion; use the clean light view for print-critical use.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All labels and points remain visible; no subtitle or panel edge is clipped."]
+}

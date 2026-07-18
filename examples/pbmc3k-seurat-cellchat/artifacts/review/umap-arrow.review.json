@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["The arrows do not encode pseudotime, lineage, velocity, transition probability, or causality."],
+  "confirmed": ["Arrow geometry is an annotation overlay on the same Seurat UMAP coordinates and is explicitly labelled as non-trajectory."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:453336a761210b59d33f1af66fe0f098747a7351b8ae649ba5845977bbc38c67",
+    "original": "sha256:8f60e4c4ff1853a0b500dfd5d094ca4722f801a89df65129afbcba4540acf4b5"
+  },
+  "interpretable": ["Arrowheads, labels, and the annotation-only disclaimer remain readable."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep for explanatory layouts only when the non-trajectory disclaimer is retained.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All nine groups, directed annotation arrows, legend, and disclaimer are visible without clipping."]
+}

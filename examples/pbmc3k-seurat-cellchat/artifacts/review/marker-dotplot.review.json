@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["This descriptive plot alone does not establish cross-donor reproducibility, causality, or independent biomarker performance."],
+  "confirmed": ["Point area maps percent expressed on a 0-100 scale and fill maps scaled average expression for 27 exported marker summaries."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:afaac61933f666cdb330964b47f11bb393d7ed9a1f860bea6dc65715791abd7e",
+    "original": "sha256:47ab51f924c2ac7069f8fec7f0650e094e3935c2fdb6eccdbff80007b75da521"
+  },
+  "interpretable": ["Marker labels, nine cell groups, area legend, and fill legend are readable."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep with the explicit area and fill legend titles.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["No marker labels or legends are clipped; small platelet group remains visibly represented."]
+}

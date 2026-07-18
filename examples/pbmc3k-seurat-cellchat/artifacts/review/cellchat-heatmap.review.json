@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["Colour intensity is model-derived aggregate weight and does not prove physical or causal communication."],
+  "confirmed": ["Rows are senders, columns are receivers, and the sequential colour scale maps the untransformed full aggregate CellChat net weight matrix."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:0532abb5483dd189249951fdadb98d487615b096088d7c32f02389647a3e28a4",
+    "original": "sha256:cb5667a0ab06a9beb1ed593e345f9661370799c8a734a3b92a4b59b2462f3033"
+  },
+  "interpretable": ["All sender and receiver labels and the weight scale are legible; high-weight receiver columns are easy to compare."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep as the most compact quantitative overview of aggregate inferred weights.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["The complete 9 by 9 matrix, title, sender axis, receiver labels, and legend are visible without clipping."]
+}

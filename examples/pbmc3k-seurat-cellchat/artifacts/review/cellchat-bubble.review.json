@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["CellChat model p-values and communication probabilities do not establish biological replication, physical binding, or causal signaling."],
+  "confirmed": ["Rows are filtered at CellChat p <= 0.05 and the top 30 are ranked by communication probability; fill maps probability and area maps -log10 p with a 1e-4 floor."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:43817051cccf6b450841fda1fe33cb95172f5824a394f6238229a8f15ecab129",
+    "original": "sha256:d669c18fdf02b032ed7c66492815bbabb13382ba4248eeaf3f1ecf7e0198fdee"
+  },
+  "interpretable": ["Sender-receiver labels, ligand-receptor labels, probability scale, and p-value area legend are readable."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep with the display-filter subtitle and exported full communication table.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All 30 points, five unique interaction rows, axis labels, and both legends are visible without clipping."]
+}

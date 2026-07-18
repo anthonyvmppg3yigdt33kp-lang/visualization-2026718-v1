@@ -1,0 +1,43 @@
+{
+  "input": {
+    "seurat_object": "data/processed/pbmc3k_seurat.rds",
+    "cells": 2638,
+    "grouping": "cell_type",
+    "groups": [
+      "Naive CD4 T",
+      "Memory CD4 T",
+      "CD14 Mono",
+      "B",
+      "CD8 T",
+      "FCGR3A Mono",
+      "NK",
+      "DC",
+      "Platelet"
+    ]
+  },
+  "software": {
+    "R": "4.5.3",
+    "CellChat": "2.2.0.9001",
+    "CellChat_remote_sha": "75253cd0c9e68410e6e721a6d3a0419a1d7e358f"
+  },
+  "database": "CellChatDB.human bundled with installed CellChat",
+  "inference": {
+    "overexpressed_genes": true,
+    "overexpressed_gene_test": "standard Wilcoxon (do.fast = FALSE; presto is optional)",
+    "overexpressed_interactions": true,
+    "probability_type": "triMean",
+    "raw_use": true,
+    "population_size": false,
+    "distance_use": false,
+    "minimum_cells": 10,
+    "communication_threshold": 0.05,
+    "future_plan": "sequential",
+    "seed": 20260718
+  },
+  "outputs": {
+    "ligand_receptor_rows": 441,
+    "pathways": 15,
+    "nonzero_aggregate_edges": 74
+  },
+  "claim_limits": ["This is model-inferred communication from one public demonstration dataset.", "It does not prove physical ligand-receptor binding, molecular flux, spatial contact, causal signaling or reproducibility across donors.", "CellChat p-values are model-derived and are not a substitute for biological replication."]
+}

@@ -1,0 +1,7 @@
+data/raw/
+data/processed/
+renv/library/
+renv/staging/
+runtime/*.dll
+runtime/*.o
+*.Rproj.user/

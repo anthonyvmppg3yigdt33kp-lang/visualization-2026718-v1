@@ -3,6 +3,7 @@
 cellchat_interaction_data <- function(object, measure = "weight",
                                       output = c("matrix", "long"), drop_zero = FALSE) {
   output <- match.arg(output)
+  if (inherits(object, "CellChat") && !requireNamespace("CellChat", quietly = TRUE)) stop("Package 'CellChat' is required.")
   net <- NULL
   if (is.list(object) && !is.null(object$net)) {
     net <- object$net

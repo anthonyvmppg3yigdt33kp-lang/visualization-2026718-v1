@@ -9,7 +9,7 @@
   "tags": ["umap", "embedding", "single-cell", "cluster", "overview", "scatter"],
   "requires": {"object_types": ["data.frame"], "variables": ["x", "y", "group"], "packages": ["ggplot2"], "capabilities": ["precomputed_embedding"]},
   "provides": {"object_types": ["ggplot"], "capabilities": ["embedding_overview", "group_color_mapping"]},
-  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["arrow-axes-r-v1", "borderless-r-v1", "label-repel-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["arrow-axes-r-v1", "borderless-r-v1", "label-repel-r-v1", "dark-nebula-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
   "conflicts": [],
   "parameters": [
     {"name": "data", "type": "data.frame", "required": true, "default": null, "allowed": null, "description": "One row per observation with precomputed embedding coordinates."},
@@ -29,8 +29,8 @@
     "required_statistics": ["none"], "misread_risks": ["global_distance_interpretation", "cell_as_replicate", "overplotting"],
     "preferred_companions": ["sample_level_composition"], "safer_alternatives": ["sample-level proportion plot for abundance claims"]
   },
-  "visual_fingerprint": {"family": "embedding", "panels": 1, "panel_structure": "single", "channels": ["position", "color"], "legend_mode": "categorical", "information_density": "medium", "strengths": ["cluster_overview"], "risks": ["overplotting", "color_collision"], "final_size_behavior": "requires point and label check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Round-2 exact recipe render from umap_points.csv opened at 7 x 5.5 in / 200 dpi and 3.5 x 3.2 in / 300 dpi on 2026-07-17. Adding only coordinate expansion removed direct-label clipping; embedding coordinates, group identities, point mappings and neighbourhood interpretation remain unchanged."},
+  "visual_fingerprint": {"family": "embedding", "panels": 1, "panel_structure": "single", "channels": ["position", "color"], "legend_mode": "categorical", "information_density": "medium", "strengths": ["cluster_overview"], "risks": ["overplotting", "color_collision"], "final_size_behavior": "requires point and label check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "Real Seurat PBMC3K UMAP render was opened at 150 by 125 mm and both 150/300 dpi on 2026-07-18. All nine direct labels, points and axes are legible without clipping; coordinates and categorical identities are unchanged by styling."},
   "source": {"status": "internal_distillation", "articles": [{"source_id": "article-3792985494804332545-014", "block_ids": ["article-3792985494804332545-014-b002", "article-3792985494804332545-014-b004"], "image_ids": ["article-3792985494804332545-014-i007"]}], "license_status": "unknown", "transformation": "generalized_rewrite"},
-  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-17", "runtime": "R-4.5.3", "notes": ["Round-2 exact fixture render passed original-size and final-size visual review; tier remains parse-verified pending formal promotion audit."]},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-18", "runtime": "R-4.5.3", "notes": ["Formal hash-bound original/final review evidence is included in the PBMC3K teaching case; tier remains parse-verified pending formal promotion audit."]},
   "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/umap-r.png", "fixture": "../../fixtures/umap_points.csv"}
 }

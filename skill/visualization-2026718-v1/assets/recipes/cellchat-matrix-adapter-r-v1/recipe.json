@@ -7,9 +7,9 @@
   "family": "cellchat_adapter",
   "backend": "r",
   "tags": ["cellchat", "adapter", "network", "matrix", "long-table", "cell-communication"],
-  "requires": {"object_types": ["CellChat", "list"], "variables": ["net_measure"], "packages": ["methods"], "capabilities": ["cellchat_aggregate_network"]},
+  "requires": {"object_types": ["CellChat", "list"], "variables": ["net_measure"], "packages": ["methods", "CellChat"], "capabilities": ["cellchat_aggregate_network"]},
   "provides": {"object_types": ["matrix", "data.frame"], "capabilities": ["interaction_weights", "interaction_long_table"]},
-  "compatible_with": {"kinds": ["base_recipe"], "ids": ["cellchat-chord-r-v1"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["cellchat-chord-r-v1", "cellchat-circle-r-v1", "cellchat-heatmap-r-v1"]},
   "conflicts": ["cross_backend_conversion"],
   "parameters": [
     {"name": "measure", "type": "string", "required": false, "default": "weight", "allowed": null, "description": "Existing object@net entry such as weight or count; its meaning must be reported."},
@@ -31,6 +31,6 @@
   },
   "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["explicit measure extraction"], "risks": ["upstream inference not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; visual review applies downstream."},
   "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_adapter_for_curated_recipe_contract"},
-  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-16", "runtime": "R-4.5.3", "notes": ["List-shaped mock supports deterministic fixture testing without CellChat installation."]},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-18", "runtime": "R-4.5.3", "notes": ["List-shaped mock supports deterministic fixture testing without CellChat installation.", "Also executed against a real CellChat 2.2.0.9001 PBMC3K object and extracted the full 9 by 9 aggregate weight matrix."]},
   "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": null}
 }

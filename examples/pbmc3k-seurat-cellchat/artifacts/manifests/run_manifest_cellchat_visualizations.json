@@ -1,0 +1,26 @@
+{
+  "skill_root": "$VIS_SKILL_ROOT",
+  "recipes": ["cellchat-matrix-adapter-r-v1", "cellchat-lr-adapter-r-v1", "cellchat-circle-r-v1", "cellchat-chord-r-v1", "cellchat-bubble-r-v1", "cellchat-heatmap-r-v1"],
+  "circle": {
+    "matrix": "full aggregate CellChat net$weight",
+    "edge_width": "relative aggregate inferred weight",
+    "node_size": "incoming + outgoing aggregate weight"
+  },
+  "chord": {
+    "matrix": "aggregate CellChat net$weight",
+    "display_filter": "top 35 positive directed edges by weight",
+    "direction": true
+  },
+  "heatmap": {
+    "matrix": "full aggregate CellChat net$weight",
+    "scale": "sequential",
+    "transform": "none"
+  },
+  "bubble": {
+    "rows": "CellChat subsetCommunication net slot",
+    "display_filter": "p <= 0.05 then top 30 by probability",
+    "colour": "communication probability",
+    "area": "-log10(CellChat model p), floored at 1e-4"
+  },
+  "claim_limits": ["All views summarize model-inferred communication.", "No view proves physical binding, molecular flux, spatial contact, causal signaling or cross-donor reproducibility.", "Top-N filters affect display only and are exported explicitly."]
+}

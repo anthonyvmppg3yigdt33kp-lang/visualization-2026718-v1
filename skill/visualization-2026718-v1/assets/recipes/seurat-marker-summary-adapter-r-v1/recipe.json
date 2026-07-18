@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "id": "seurat-marker-summary-adapter-r-v1",
+  "name": "R Seurat marker-summary adapter",
+  "description": "Aggregate a trusted caller-supplied Seurat expression layer by an explicit metadata group into average expression and percent-detected columns for the marker dot-plot contract.",
+  "kind": "adapter",
+  "family": "seurat_adapter",
+  "backend": "r",
+  "tags": ["seurat", "adapter", "marker", "dotplot", "average-expression", "percent-expressed", "single-cell"],
+  "requires": {"object_types": ["Seurat"], "variables": ["features", "group", "assay", "layer"], "packages": ["SeuratObject", "Matrix"], "capabilities": ["seurat_expression_layer", "cell_metadata"]},
+  "provides": {"object_types": ["data.frame"], "capabilities": ["aggregated_expression"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["marker-dotplot-r-v1"]},
+  "conflicts": ["cross_backend_conversion"],
+  "parameters": [
+    {"name": "object", "type": "Seurat", "required": true, "default": null, "allowed": null, "description": "Trusted local caller-supplied Seurat object; it is not modified."},
+    {"name": "features", "type": "string[]", "required": true, "default": null, "allowed": "non-empty feature names", "description": "Features to summarize in caller-declared order."},
+    {"name": "group", "type": "string", "required": false, "default": "seurat_clusters", "allowed": null, "description": "Metadata grouping column."},
+    {"name": "assay", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Assay name; null uses DefaultAssay."},
+    {"name": "layer", "type": "string", "required": false, "default": "data", "allowed": null, "description": "Existing expression layer; the adapter never normalizes or recomputes it."},
+    {"name": "average_transform", "type": "string", "required": false, "default": "expm1", "allowed": ["expm1", "identity"], "description": "Use expm1 for log1p-normalized data or identity for already-linear values."},
+    {"name": "scale_average", "type": "boolean", "required": false, "default": false, "allowed": [true, false], "description": "If true, z-scale group averages within each feature and retain the unscaled average in a separate column."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["data_adaptation"], "units": ["cell", "cell_group", "gene"], "data_topologies": ["seurat_expression_to_aggregated_long"],
+    "required_variables": [{"name": "features", "role": "feature", "type": "gene_identifier"}, {"name": "group", "role": "aggregation", "type": "categorical_metadata"}],
+    "transformations": [{"field": "average", "method": "explicit expm1 or identity, with optional declared per-feature z-scaling"}, {"field": "percent", "method": "fraction of cells with layer value > 0 within displayed group"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Produces transparent group-level descriptive summaries for downstream plotting."],
+    "does_not_support": ["Does not establish marker specificity, differential significance, biological replication, batch robustness, or causality."],
+    "required_statistics": ["declare assay, layer, transform, scaling, group and detection denominator"],
+    "misread_risks": ["log_scale_as_linear", "cell_as_replicate", "scaled_average_as_absolute_expression"],
+    "preferred_companions": ["marker-dotplot-r-v1", "differential-expression table", "sample-level validation"],
+    "safer_alternatives": ["sample-level summaries for inferential claims"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["explicit aggregation contract"], "risks": ["upstream object provenance not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; visual review applies downstream."},
+  "source": {"status": "original", "articles": [], "license_status": "internal", "transformation": "original_adapter_for_curated_recipe_contract"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-18", "runtime": "R-4.5.3", "notes": ["Executed against a real Seurat 5.4.0 PBMC3K object and produced the 27-marker average-expression and percent-detected contract used by marker-dotplot-r-v1.", "RDS execution is restricted to trusted local inputs; never deserialize untrusted RDS files."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": null}
+}

@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-18T03:11:11Z",
+  "generated_at": "2026-07-18T07:17:05Z",
   "source_root": "assets/source_archive",
   "catalog_input_fingerprint": {
     "algorithm": "sha256-v1",
-    "sha256": "f038a13552fa1deb311440f702ab2c879572266c0f814c79b551d5ea46af79b6",
-    "entries": 891
+    "sha256": "ab8bf628bfae7ea65609214d9177f613e513455ea799344ccdb5460d7c80b442",
+    "entries": 909
   },
   "records": {
     "article": 97,
     "source_block": 621,
     "image": 709,
-    "recipe": 25,
+    "recipe": 31,
     "strategy": 9
   },
   "raw_languages": {
@@ -33,10 +33,10 @@
     "rewritten_this_build": 1
   },
   "families": {
-    "cellchat_chord": 92,
+    "cellchat_chord": 95,
     "heatmap": 114,
     "decorative": 5,
-    "palette": 38,
+    "palette": 39,
     "embedding": 309,
     "set_intersection": 26,
     "composition": 59,
@@ -55,9 +55,9 @@
     "roc": 15,
     "trajectory": 14,
     "anndata_adapter": 1,
-    "cellchat_adapter": 1,
+    "cellchat_adapter": 2,
     "ora_adapter": 1,
-    "seurat_adapter": 1,
+    "seurat_adapter": 2,
     "sample_level_composition": 1,
     "paired_plot": 1,
     "precision_recall": 1,
@@ -96,8 +96,8 @@
     "style_cards": 136,
     "articles_indexed": 97,
     "coverage_status": {
-      "formal_exact": 11,
-      "formal_family": 84,
+      "formal_exact": 13,
+      "formal_family": 82,
       "resource_only": 9,
       "source_only": 32
     },

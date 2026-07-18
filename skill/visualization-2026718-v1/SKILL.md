@@ -42,6 +42,7 @@ assets/fixtures/                测试数据与视觉缺陷样例
 scripts/plot_library.py         统一检索、检查、组合、渲染、审计和更新 CLI
 scripts/visual_review_controller.py  哈希绑定的视觉复核状态控制器
 tests/                          意图解析、R/Python runtime 和视觉复核测试
+../../examples/                 可复现的公开端到端教学案例
 ```
 
 每次使用先读取 [manifest.yaml](manifest.yaml) 及 `always_load` 中的文件，再根据主模式与后端按需加载一个 fragment。需要 Scheme/Recipe、视觉复核、扩展或交付时，分别读取 manifest 指向的 reference；不要一次性加载全部大目录。
@@ -81,6 +82,9 @@ python scripts/plot_library.py preflight --backend <r|python> --base-id <id> --a
 - 移除 install/download、workspace clearing、`setwd()`、私有路径、隐藏写入和来源专属对象。
 - 保留过滤、归一化、阈值、检验和科学含义，除非用户明确批准改变。
 - `compose` 必须返回 backend-pure 的 `build_plot` module 与 preflight 证据。
+- 对 Seurat/CellChat RDS 仅接受用户明确确认可信的本地输入；未知来源 RDS 不得反序列化。
+- 单细胞 marker 请求中的“表达比例”属于 marker 语义，不得仅凭“比例”误路由为细胞组成图。
+- CellChat 语境优先解析 circle/chord/bubble/heatmap；只能连接声明兼容的 CellChat adapter 与 base Recipe。
 
 ### 3. 按需执行与导出
 

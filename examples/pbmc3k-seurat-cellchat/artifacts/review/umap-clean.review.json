@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["Biological replication, causality, or trajectory cannot be inferred from this single demonstration dataset."],
+  "confirmed": ["The plotted coordinates are the Seurat UMAP embedding and colour maps the exported cell_type annotation."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:20a106b21dd18c2836e83fa4dcc3366101d849826b84bcd63854b6abb111bf63",
+    "original": "sha256:39a4abdc24cc442390a1487527189264fe9cd12e9f07e87f996a0493445a291b"
+  },
+  "interpretable": ["Nine annotated cell groups are distinguishable by colour and direct labels."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep as the print-safe baseline UMAP view.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All labels, points, title, subtitle, and axes are visible without clipping in both render sizes."]
+}

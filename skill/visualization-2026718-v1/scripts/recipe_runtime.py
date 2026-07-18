@@ -239,10 +239,24 @@ def preflight_chain(chain: list[dict[str, Any]]) -> dict[str, Any]:
             # jsonlite itself is not a Recipe dependency, so fall back to one
             # requireNamespace expression per package when it is unavailable.
             try:
-                process = subprocess.run([rscript, "-e", expression, encoded], capture_output=True, text=True, timeout=30)
+                process = subprocess.run(
+                    [rscript, "-e", expression, encoded],
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    timeout=30,
+                )
                 if process.returncode:
                     fallback_expr = "pkgs <- c(" + ",".join(json.dumps(pkg) for pkg in packages) + "); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; cat(paste(missing, collapse='\\n')); quit(status=if(length(missing)) 7 else 0)"
-                    process = subprocess.run([rscript, "-e", fallback_expr], capture_output=True, text=True, timeout=30)
+                    process = subprocess.run(
+                        [rscript, "-e", fallback_expr],
+                        capture_output=True,
+                        text=True,
+                        encoding="utf-8",
+                        errors="replace",
+                        timeout=30,
+                    )
                 if process.returncode == 7:
                     missing.extend(line.strip() for line in process.stdout.splitlines() if line.strip())
                 elif process.returncode:
@@ -703,6 +717,7 @@ load_runtime_input <- function(path) {{
     as.matrix(value)
   }}
   extension <- tolower(tools::file_ext(path))
+  if (extension == "rds") return(readRDS(path))
   if (extension == "csv") return(normalize_delimited(utils::read.csv(path, check.names = FALSE, stringsAsFactors = FALSE)))
   if (extension == "tsv") return(normalize_delimited(utils::read.delim(path, check.names = FALSE, stringsAsFactors = FALSE)))
   if (extension %in% c("json", "jsonl")) {{
@@ -714,7 +729,7 @@ load_runtime_input <- function(path) {{
     }}
     return(normalize_delimited(jsonlite::fromJSON(path, simplifyVector = TRUE, simplifyDataFrame = TRUE, simplifyMatrix = TRUE)))
   }}
-  stop("R runtime inputs must be CSV, TSV, JSON, or JSONL.")
+  stop("R runtime inputs must be trusted local RDS, CSV, TSV, JSON, or JSONL.")
 }}
 open_png <- function(path, width_mm, height_mm, dpi) {{
   grDevices::png(filename = path, width = width_mm, height = height_mm, units = "mm", res = dpi, bg = "white")
@@ -877,8 +892,8 @@ def _run_r_render(
     code_path = code_path.resolve()
     if not input_path.is_file():
         raise FileNotFoundError(f"Runtime input is missing: {input_path}")
-    if input_path.suffix.lower() not in {".csv", ".tsv", ".json", ".jsonl"}:
-        raise ValueError("R runtime inputs must be CSV, TSV, JSON, or JSONL")
+    if input_path.suffix.lower() not in {".rds", ".csv", ".tsv", ".json", ".jsonl"}:
+        raise ValueError("R runtime inputs must be trusted local RDS, CSV, TSV, JSON, or JSONL")
     if not code_path.is_file():
         raise FileNotFoundError(f"R Recipe code is missing: {code_path}")
     if not math.isfinite(width_mm) or not math.isfinite(height_mm) or width_mm <= 0 or height_mm <= 0:
@@ -942,6 +957,8 @@ def _run_r_render(
             cwd=str(output_dir),
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             timeout=timeout_seconds,
             check=False,
         )

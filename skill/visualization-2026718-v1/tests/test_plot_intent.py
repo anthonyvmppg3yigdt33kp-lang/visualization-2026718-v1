@@ -61,6 +61,58 @@ class PlotIntentTests(unittest.TestCase):
         self.assertNotIn("binary_outcome", intent["variables"])
         self.assertEqual(intent["core_question"], "sample_level_composition")
 
+    def test_post_render_review_without_repeating_figure_is_detected(self) -> None:
+        intent = plot_library.query_intent(
+            "R Seurat PBMC3K：对各个细胞簇做高级感 UMAP，可直接运行并在生成后复核"
+        )
+        self.assertTrue(intent["review_requested"])
+        self.assertTrue(intent["review_after_execution"])
+
+    def test_marker_size_and_average_colour_is_not_composition(self) -> None:
+        intent = plot_library.query_intent(
+            "R Seurat PBMC3K：展示每个亚群的特征 marker，使用点大小表示表达比例、颜色表示平均表达，可直接运行并复核结果图"
+        )
+        self.assertEqual(intent["retrieval_family"], "dotplot")
+        self.assertEqual(intent["backend"], "r")
+        self.assertIn("Seurat", intent["input_objects"])
+        self.assertTrue(intent["review_requested"])
+
+    def test_cellchat_multiview_preserves_requested_panel_order(self) -> None:
+        query = "R CellChat PBMC3K：分析各细胞簇配体受体通讯，运行并生成圈图、弦图、气泡图与热图，之后复核解释"
+        intent, decisions, _appearance, _rejected, clarification = plot_library.search_scheme_records(
+            plot_library.load_scheme_records(), query, top_k=3
+        )
+        self.assertEqual(intent["retrieval_family"], "cellchat_chord")
+        self.assertEqual(
+            intent["geometry_subtypes"][:4],
+            ["cellchat_circle_network", "cellchat_chord", "cellchat_bubble", "cellchat_heatmap"],
+        )
+        self.assertTrue(intent["review_requested"])
+        self.assertTrue(intent["review_after_execution"])
+        self.assertIsNone(clarification)
+        self.assertEqual(
+            [row["geometry_subtype"] for row in decisions[:4]],
+            ["cellchat_circle_network", "cellchat_chord", "cellchat_bubble", "cellchat_heatmap"],
+        )
+        self.assertEqual(
+            [row["executable_plan"]["base_recipe_id"] for row in decisions[:4]],
+            [
+                "cellchat-circle-r-v1",
+                "cellchat-chord-r-v1",
+                "cellchat-bubble-r-v1",
+                "cellchat-heatmap-r-v1",
+            ],
+        )
+        self.assertEqual(
+            [row["executable_plan"]["adapter_id"] for row in decisions[:4]],
+            [
+                "cellchat-matrix-adapter-r-v1",
+                "cellchat-matrix-adapter-r-v1",
+                "cellchat-lr-adapter-r-v1",
+                "cellchat-matrix-adapter-r-v1",
+            ],
+        )
+
     def test_any_regular_python_runtime_failure_is_structured(self) -> None:
         for operation in (
             lambda: 1 / 0,

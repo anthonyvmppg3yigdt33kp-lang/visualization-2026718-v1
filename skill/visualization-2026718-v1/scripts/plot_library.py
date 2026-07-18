@@ -129,6 +129,9 @@ FORMAL_BASE_RECIPE_CANDIDATES: dict[tuple[str, str], tuple[str, ...]] = {
     ("gsea_rank_score_dot", "r"): ("gsea-summary-r-v1",),
     ("roc_curve", "r"): ("roc-curve-r-v1",),
     ("cellchat_chord", "r"): ("cellchat-chord-r-v1",),
+    ("cellchat_circle_network", "r"): ("cellchat-circle-r-v1",),
+    ("cellchat_bubble", "r"): ("cellchat-bubble-r-v1",),
+    ("cellchat_heatmap", "r"): ("cellchat-heatmap-r-v1",),
     ("box_jitter", "r"): ("box-jitter-r-v1",),
     ("he_cell_overlay", "python"): ("xenium-he-overlay-python-v1",),
 }
@@ -154,6 +157,7 @@ FORMAL_MODIFIER_RECIPE_IDS: dict[tuple[str, str], str] = {
     ("marker-box", "r"): "marker-box-r-v1",
     ("arrow-axes", "r"): "arrow-axes-r-v1",
     ("shared-legend", "r"): "shared-legend-r-v1",
+    ("dark-nebula", "r"): "dark-nebula-r-v1",
 }
 
 FENCE_RE = re.compile(r"^\s*```([A-Za-z0-9_+.-]*)\s*$")
@@ -468,6 +472,114 @@ def flatten_text(value: Any) -> str:
     return str(value)
 
 
+def formal_recipe_scheme_records() -> list[dict[str, Any]]:
+    """Expose reviewed original Recipes that have no source-derived Scheme.
+
+    The source-derived Scheme catalog remains immutable and authoritative for
+    article-backed designs.  A small explicit bridge prevents an exact,
+    reviewed formal Recipe from disappearing only because the bundled source
+    archive lacks that exact subtype.  These records never claim article
+    provenance and remain tied to the formal Recipe validation contract.
+    """
+    specs = (
+        {
+            "recipe_id": "cellchat-heatmap-r-v1",
+            "scheme_id": "formal-recipe-scheme-cellchat-heatmap-r-v1",
+            "geometry_subtype": "cellchat_heatmap",
+            "family": "cellchat_chord",
+            "backend": "r",
+            "aliases_zh": ["CellChat热图", "细胞通讯热图", "sender-receiver热图"],
+            "aliases_en": ["CellChat heatmap", "sender receiver communication heatmap"],
+        },
+    )
+    records: list[dict[str, Any]] = []
+    for spec in specs:
+        recipe_path = RECIPES_ROOT / spec["recipe_id"] / "recipe.json"
+        recipe = load_json_object(recipe_path, {})
+        checks = (recipe.get("validation") or {}).get("checks") or {}
+        if (
+            recipe.get("kind") != "base_recipe"
+            or recipe.get("backend") != spec["backend"]
+            or any(checks.get(name) != "pass" for name in ("schema", "syntax", "safety", "render", "visual"))
+        ):
+            continue
+        preview = (recipe.get("files") or {}).get("preview")
+        preview_path = (
+            (RECIPES_ROOT / spec["recipe_id"] / str(preview)).resolve()
+            if preview
+            else None
+        )
+        final_path = (
+            preview_path.with_name(preview_path.stem + "-final" + preview_path.suffix)
+            if preview_path
+            else None
+        )
+        if not preview_path or not preview_path.is_file() or not final_path or not final_path.is_file():
+            continue
+        semantic = recipe.get("semantic_card") if isinstance(recipe.get("semantic_card"), dict) else {}
+        fingerprint = recipe.get("visual_fingerprint") if isinstance(recipe.get("visual_fingerprint"), dict) else {}
+        record = {
+            "schema_version": "2.0",
+            "scheme_id": spec["scheme_id"],
+            "id": spec["scheme_id"],
+            "record_type": "scheme",
+            "title": recipe.get("name") or spec["scheme_id"],
+            "eligibility": "scientific_scheme",
+            "family": spec["family"],
+            "broad_family": spec["family"],
+            "source_broad_family": spec["family"],
+            "geometry_subtype": spec["geometry_subtype"],
+            "analysis_method": "descriptive",
+            "evidence_role": "comparison",
+            "aliases_zh": spec["aliases_zh"],
+            "aliases_en": spec["aliases_en"],
+            "semantic_card": semantic,
+            "visual_channels": semantic.get("visual_channels") or {},
+            "required_inputs": semantic.get("required_variables") or [],
+            "supported_claims": semantic.get("supports_claims") or [],
+            "claim_limits": semantic.get("does_not_support") or [],
+            "required_statistics": semantic.get("required_statistics") or [],
+            "visual_fingerprint": fingerprint,
+            "image_evidence": {
+                "review_status": "formal_recipe_reviewed",
+                "original_asset": rel_posix(preview_path),
+                "final_asset": rel_posix(final_path),
+                "evidence_level": "image_code_data",
+                "code_image_consistency": "confirmed",
+                "scheme_link_confirmed": True,
+            },
+            "recipe_ids": [spec["recipe_id"]],
+            "backends": [spec["backend"]],
+            "code_status": "formal_recipe",
+            "validation": {
+                "tier": (recipe.get("validation") or {}).get("tier") or "parse-verified",
+                "recipe_ids": [spec["recipe_id"]],
+                "review_status": "formal_recipe_reviewed",
+            },
+            "source": {
+                "status": "original_formal_recipe",
+                "recipe_id": spec["recipe_id"],
+                "article_id": None,
+            },
+        }
+        record["search_text"] = " ".join(
+            filter(
+                None,
+                (
+                    str(record["title"]),
+                    str(record["family"]),
+                    str(record["geometry_subtype"]),
+                    flatten_text(record["aliases_zh"]),
+                    flatten_text(record["aliases_en"]),
+                    flatten_text(semantic),
+                    flatten_text(fingerprint),
+                ),
+            )
+        )
+        records.append(record)
+    return records
+
+
 def load_scheme_records() -> list[dict[str, Any]]:
     """Load Scheme-v2 records while retaining every generated contract field.
 
@@ -554,6 +666,12 @@ def load_scheme_records() -> list[dict[str, Any]]:
             )
         )
         records.append(record)
+    existing_ids = {str(record.get("scheme_id")) for record in records}
+    records.extend(
+        record
+        for record in formal_recipe_scheme_records()
+        if str(record.get("scheme_id")) not in existing_ids
+    )
     _SCHEME_FEATURE_CACHE.clear()
     for record in records:
         subtype = str(record.get("geometry_subtype") or "unknown")
@@ -758,7 +876,10 @@ def detect_action_requests(query: str) -> dict[str, bool]:
             r"(?:结果图|成图|原图|投稿图|图片|图像).{0,24}(?:复核|审阅|检查|看图|理解|解释)|"
             r"(?:科学|结果|图形|图像).{0,8}(?:解释|解读)|(?:解释|解读).{0,8}(?:科学|结果|图形|图像)|"
             r"(?:review|inspect|interpret).{0,24}(?:figure|image|plot)|"
-            r"(?:figure|image|plot).{0,24}(?:review|inspect|interpret)",
+            r"(?:figure|image|plot).{0,24}(?:review|inspect|interpret)|"
+            r"(?:生成|绘制|渲染|运行|执行)(?:完成)?(?:后|之后).{0,8}(?:复核|审阅|检查|看图|解读|解释)|"
+            r"(?:复核|审阅|检查|看图|解读|解释).{0,8}(?:生成|绘制|渲染|运行|执行)(?:后|之后)?|"
+            r"(?:之后|随后|最后)?(?:复核|审阅)(?:并)?(?:解释|解读)?",
             normalized,
             re.I,
         )),
@@ -967,6 +1088,7 @@ GEOMETRY_SUBTYPE_TERMS: dict[str, tuple[str, ...]] = {
     "cellchat_bubble": ("cellchat通讯气泡图", "cellchat气泡图", "cellchat bubble"),
     "cellchat_chord": ("cellchat弦图", "chord diagram", "cellchat chord"),
     "cellchat_circle_network": ("cellchat圆形网络", "netvisual_circle", "cellchat circle network"),
+    "cellchat_heatmap": ("cellchat热图", "cellchat heatmap", "netvisual_heatmap"),
     "sankey_alluvial": ("桑基图", "sankey", "alluvial", "通路与基因连接"),
     "he_whole_slide": ("he全景图", "h&e全景", "whole slide", "he whole slide"),
     "he_roi_zoom": ("he局部roi", "roi放大图", "he roi zoom"),
@@ -985,11 +1107,31 @@ GEOMETRY_SUBTYPE_TERMS: dict[str, tuple[str, ...]] = {
 
 def detect_geometry_subtypes(query: str) -> list[str]:
     normalized = normalize_text(query)
-    found: list[str] = []
+    matches: list[tuple[int, int, str]] = []
     for subtype, aliases in GEOMETRY_SUBTYPE_TERMS.items():
-        if any(normalize_text(alias) in normalized for alias in aliases):
-            found.append(subtype)
-    return found
+        positions = [normalized.find(normalize_text(alias)) for alias in aliases]
+        positions = [position for position in positions if position >= 0]
+        if positions:
+            matches.append((min(positions), len(matches), subtype))
+
+    # A CellChat request usually declares the context once, then lists panels
+    # such as "圈图、弦图、气泡图与热图". Resolve each panel inside that context
+    # and retain the user's textual order instead of dictionary order.
+    if re.search(r"cellchat|细胞通讯|细胞簇.*通讯|communication", normalized, re.I):
+        contextual = {
+            "cellchat_circle_network": r"圈图|圆形网络|circle\s*(?:network|plot)|netvisual_circle",
+            "cellchat_chord": r"弦图|chord(?:\s*diagram)?",
+            "cellchat_bubble": r"气泡图|bubble(?:\s*plot)?",
+            "cellchat_heatmap": r"热图|heatmap|netvisual_heatmap",
+        }
+        present = {subtype for _, _, subtype in matches}
+        for subtype, pattern in contextual.items():
+            hit = re.search(pattern, normalized, re.I)
+            if hit and subtype not in present:
+                matches.append((hit.start(), len(matches), subtype))
+                present.add(subtype)
+    matches.sort(key=lambda item: (item[0], item[1]))
+    return [subtype for _, _, subtype in matches]
 
 
 def detect_analysis_method(query: str) -> str:
@@ -1474,6 +1616,15 @@ def infer_primary_family(query: str, detected: list[str], visual_intents: list[s
     text = normalize_text(query)
     has = lambda pattern: bool(re.search(pattern, text, re.I))
 
+    if (
+        has(r"marker|经典基因|特征基因|feature\s*gene")
+        and has(r"平均\s*表达|average\s*expression|avg[_ ]?expression")
+        and has(r"表达\s*比例|检出\s*比例|percent(?:age)?\s*express|pct[_ ]?expression|detection\s*(?:rate|frequency)|比例")
+        and has(r"点\s*大小|point\s*size|dot\s*(?:size|plot)|dotplot|气泡图|bubble")
+    ):
+        return "dotplot"
+    if has(r"cellchat|细胞通讯|配体.{0,8}受体.{0,20}通讯|ligand.{0,8}receptor.{0,20}communication"):
+        return "cellchat_chord"
     if has(r"(?:marker|表达|expression).*(?:平均|average).*(?:比例|percent|percentage|大小|size|detection|frequency)|average\s*expression.*(?:detection|frequency|percent)|(?:颜色|color).*(?:平均表达|average expression).*(?:大小|size).*(?:比例|percent|detection)"):
         return "dotplot"
     if has(r"(?:marker|经典基因).*(?:加框|框选|highlight|box)"):
@@ -1550,6 +1701,7 @@ def query_intent(query: str, backend: str | None = None, family: str | None = No
         "cellchat_bubble": "cellchat_chord",
         "cellchat_chord": "cellchat_chord",
         "cellchat_circle_network": "cellchat_chord",
+        "cellchat_heatmap": "cellchat_chord",
         "sankey_alluvial": "flow",
         "he_whole_slide": "spatial_image",
         "he_roi_zoom": "spatial_image",
@@ -1572,6 +1724,7 @@ def query_intent(query: str, backend: str | None = None, family: str | None = No
         ("arrow-axes", r"箭头.*坐标|arrow.*ax"),
         ("borderless", r"remove.*(?:frame|border)|去掉.*(?:边框|外框)|去边框|borderless"),
         ("shared-legend", r"共享.*图例|共用.*图例|shared.*legend|collect.*guide"),
+        ("dark-nebula", r"深色|暗色|星云|云雾|nebula|glow"),
         ("publication-export", r"export|导出|editable\s*vector|可编辑版本|\btiff\b|\bsvg\b|\bpdf\b|\bdpi\b"),
     )
     for target, pattern in component_patterns:
@@ -2111,9 +2264,16 @@ def scheme_base_recipe_candidates(
         if value
     ]
     subtype = str(record.get("geometry_subtype") or "unknown")
+    requested_subtypes = [str(value) for value in as_list(intent.get("geometry_subtypes")) if value]
     family = canonical_family(record.get("broad_family") or record.get("family"))
     core_question = intent_retrieval_family(intent)
     candidates = list(declared)
+    if requested_subtypes and intent_retrieval_family(intent) == "cellchat_chord":
+        # A multi-panel CellChat request declares several exact subtypes at
+        # once. Route each Scheme through its own subtype, not through the
+        # first panel in the user's list.
+        contextual_subtype = subtype if subtype in requested_subtypes else requested_subtypes[0]
+        candidates.extend(FORMAL_BASE_RECIPE_CANDIDATES.get((contextual_subtype, backend), ()))
     record_backends = {
         normalize_text(value).replace(" ", "_")
         for value in as_list(record.get("backends", record.get("backend")))
@@ -2302,15 +2462,29 @@ def scheme_execution_plan(record: dict[str, Any], intent: dict[str, Any]) -> dic
         else:
             blockers.append(f"no declared AnnData adapter for {base_id}")
     elif "seurat" in normalized_objects and not direct_object_match:
-        candidate_adapter = "seurat-embedding-adapter-r-v1" if base_id == "umap-dataframe-r-v1" else None
+        candidate_adapter = {
+            "umap-dataframe-r-v1": "seurat-embedding-adapter-r-v1",
+            "marker-dotplot-r-v1": "seurat-marker-summary-adapter-r-v1",
+        }.get(base_id)
         if candidate_adapter and formal_recipe_ready(recipes.get(candidate_adapter), "adapter"):
             adapter_id = candidate_adapter
-            parameter_bindings.update({"object": "caller Seurat object", "reduction": "umap", "group_by": "caller metadata column"})
+            if base_id == "umap-dataframe-r-v1":
+                parameter_bindings.update({"object": "caller Seurat object", "reduction": "umap", "group": "caller metadata column"})
+            else:
+                parameter_bindings.update({"object": "caller Seurat object", "features": "caller marker vector", "group": "caller metadata column"})
         else:
             blockers.append(f"no declared Seurat adapter for {base_id}")
     elif "cellchat" in normalized_objects and not direct_object_match:
-        candidate_adapter = "cellchat-matrix-adapter-r-v1"
-        if formal_recipe_ready(recipes.get(candidate_adapter), "adapter"):
+        candidate_adapter = (
+            "cellchat-lr-adapter-r-v1"
+            if base_id == "cellchat-bubble-r-v1"
+            else "cellchat-matrix-adapter-r-v1"
+        )
+        adapter_recipe = recipes.get(candidate_adapter) or {}
+        adapter_targets = set(as_list((adapter_recipe.get("compatible_with") or {}).get("ids")))
+        if base_id not in adapter_targets:
+            blockers.append(f"no declared CellChat adapter for {base_id}")
+        elif formal_recipe_ready(adapter_recipe, "adapter"):
             adapter_id = candidate_adapter
         else:
             blockers.append("CellChat matrix adapter is not installed or validated")
@@ -3153,10 +3327,17 @@ def search_scheme_records(
             continue
         ranked.append((score, record, breakdown, [*gate_reasons, *reasons], [*gate_missing, *score_missing]))
 
-    requested_subtypes = set(intent.get("geometry_subtypes") or [])
+    requested_subtypes_ordered = [str(item) for item in intent.get("geometry_subtypes") or []]
+    requested_subtypes = set(requested_subtypes_ordered)
+    requested_subtype_rank = {
+        subtype: index for index, subtype in enumerate(requested_subtypes_ordered)
+    }
     ranked.sort(
         key=lambda item: (
-            0 if str(item[1].get("geometry_subtype") or "unknown") in requested_subtypes else 1,
+            requested_subtype_rank.get(
+                str(item[1].get("geometry_subtype") or "unknown"),
+                len(requested_subtype_rank) + 1,
+            ),
             -item[0],
             normalize_text(item[1].get("title")),
             str(item[1].get("scheme_id")),
@@ -3187,8 +3368,15 @@ def search_scheme_records(
             )
             for item in selected
         )
+    selection_limit = max(
+        1,
+        top_k,
+        len(requested_subtypes_ordered)
+        if intent_retrieval_family(intent) == "cellchat_chord"
+        else 0,
+    )
     for item in ranked:
-        if len(selected) >= max(1, top_k):
+        if len(selected) >= selection_limit:
             break
         if item[1].get("scheme_id") in {chosen[1].get("scheme_id") for chosen in selected}:
             continue
@@ -3201,10 +3389,10 @@ def search_scheme_records(
             continue
         selected.append(item)
         signatures.add(signature)
-        if len(selected) >= max(1, top_k):
+        if len(selected) >= selection_limit:
             break
     if not selected and ranked:
-        selected = ranked[: max(1, top_k)]
+        selected = ranked[:selection_limit]
 
     appearance_pool = schemes
     if intent.get("requires_executable"):
@@ -4759,7 +4947,13 @@ def validate_recipe(
                 errors.append(f"{recipe.get('id')}: R {label} must use .R")
             rscript = locate_rscript()
             if rscript:
-                process = subprocess.run([rscript, "-e", "parse(file=commandArgs(trailingOnly=TRUE)[1])", str(code_path)], capture_output=True, text=True)
+                process = subprocess.run(
+                    [rscript, "-e", "parse(file=commandArgs(trailingOnly=TRUE)[1])", str(code_path)],
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                )
                 if process.returncode:
                     errors.append(f"{recipe.get('id')}: R syntax failed in {label}: {process.stderr.strip()[-400:]}")
             else:
@@ -6700,7 +6894,16 @@ def command_promote(args: argparse.Namespace) -> int:
         environment["MPLBACKEND"] = "Agg"
         try:
             if recipe.get("backend") == "python":
-                process = subprocess.run([sys.executable, str(example_path)], cwd=candidate_dir, env=environment, capture_output=True, text=True, timeout=120)
+                process = subprocess.run(
+                    [sys.executable, str(example_path)],
+                    cwd=candidate_dir,
+                    env=environment,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    errors="replace",
+                    timeout=120,
+                )
             else:
                 rscript = locate_rscript()
                 if not rscript:
@@ -6708,7 +6911,15 @@ def command_promote(args: argparse.Namespace) -> int:
                     process = None
                 else:
                     expression = "pdf(tempfile(fileext='.pdf')); source(commandArgs(trailingOnly=TRUE)[1], chdir=TRUE); while(dev.cur()>1) dev.off()"
-                    process = subprocess.run([rscript, "-e", expression, str(example_path)], cwd=candidate_dir, capture_output=True, text=True, timeout=120)
+                    process = subprocess.run(
+                        [rscript, "-e", expression, str(example_path)],
+                        cwd=candidate_dir,
+                        capture_output=True,
+                        text=True,
+                        encoding="utf-8",
+                        errors="replace",
+                        timeout=120,
+                    )
         except subprocess.TimeoutExpired:
             process = None
             errors.append("candidate example execution timed out after 120 seconds")

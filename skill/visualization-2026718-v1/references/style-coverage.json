@@ -26,8 +26,8 @@
     "volcano": 9
   },
   "coverage_status": {
-    "formal_exact": 11,
-    "formal_family": 84,
+    "formal_exact": 13,
+    "formal_family": 82,
     "resource_only": 9,
     "source_only": 32
   },
@@ -35,7 +35,7 @@
     "python": 5,
     "r": 133
   },
-  "articles_with_exact_formal_lineage": 10,
+  "articles_with_exact_formal_lineage": 12,
   "exact_formal_article_ids": [
     "article-3792985494804332545-001",
     "article-3792985494804332545-007",
@@ -46,7 +46,9 @@
     "article-4329102050694250504-001",
     "article-4329102050694250504-003",
     "article-4329102050694250504-010",
-    "article-4329102050694250504-011"
+    "article-4329102050694250504-011",
+    "article-4329102050694250504-012",
+    "article-4329102050694250504-014"
   ],
   "missing_sample_count": 0,
   "missing_sample_style_ids": [],

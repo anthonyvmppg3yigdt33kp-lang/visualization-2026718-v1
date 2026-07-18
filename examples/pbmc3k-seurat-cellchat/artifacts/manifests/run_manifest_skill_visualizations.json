@@ -1,0 +1,49 @@
+{
+  "skill_root": "$VIS_SKILL_ROOT",
+  "recipes": ["seurat-embedding-adapter-r-v1", "umap-dataframe-r-v1", "arrow-axes-r-v1", "dark-nebula-r-v1", "seurat-marker-summary-adapter-r-v1", "marker-dotplot-r-v1"],
+  "UMAP": {
+    "source_reduction": "existing Seurat umap",
+    "recomputed": false,
+    "group": "cell_type",
+    "point_mapping": "one point per cell",
+    "styles": ["clean direct labels", "arrow axes", "dark nebula decorative halo"]
+  },
+  "marker_dotplot": {
+    "features": [
+      "LDLRAP1",
+      "CCR7",
+      "LEF1",
+      "AQP3",
+      "CD40LG",
+      "CD2",
+      "FOLR3",
+      "S100A12",
+      "S100A8",
+      "LINC00926",
+      "VPREB3",
+      "CD79A",
+      "GZMK",
+      "GZMH",
+      "CD8A",
+      "CKB",
+      "CDKN1C",
+      "MS4A4A",
+      "AKR1C3",
+      "SH2D1B",
+      "GZMB",
+      "SERPINF1",
+      "FCER1A",
+      "CLIC2",
+      "LY6G6F",
+      "RP11-879F14.2",
+      "CLDN5"
+    ],
+    "group": "cell_type",
+    "assay": "RNA",
+    "layer": "data",
+    "linear_average": "mean(expm1(log-normalized value))",
+    "colour": "per-gene z-scaled group average clipped to +/-2.5",
+    "area": "percent cells with layer value > 0"
+  },
+  "claim_limits": ["UMAP does not establish abundance, significance, trajectory, global distance or causality.", "Marker dot plot is descriptive and does not establish marker specificity, independent replication or causality."]
+}

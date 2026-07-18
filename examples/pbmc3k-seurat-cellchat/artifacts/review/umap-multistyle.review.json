@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["Styling differences do not add biological evidence or change the underlying embedding."],
+  "confirmed": ["All three panels reuse the same UMAP coordinates and cell_type annotations; arrows and halo are decorative annotations."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:9e4bfa5cfe50e48bb0d0d7bae90c74548b04893e6ff9e9f80923664c4a76d31a",
+    "original": "sha256:5fce2ad18fc41ed2f053de03d746293dca6279afbf6898d9af001913063e0043"
+  },
+  "interpretable": ["Clean, annotation-arrow, and dark-nebula variants can be compared without confusing their semantic roles."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep the revised composite with the shortened panel-C subtitle.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["All three panel titles, subtitles, labels, and plot boundaries are visible without clipping in both sizes."]
+}

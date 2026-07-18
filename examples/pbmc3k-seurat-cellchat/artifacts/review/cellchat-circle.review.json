@@ -1,0 +1,22 @@
+{
+  "cannot_assert": ["The network does not prove physical binding, molecular flux, spatial contact, causality, or cross-donor reproducibility."],
+  "confirmed": ["The graph uses the full 9 by 9 aggregate CellChat net weight matrix; edge width is relative inferred weight and node size is total incoming plus outgoing weight."],
+  "decision": "keep",
+  "evidence_level": "image_code_data",
+  "final_size_reviewed": true,
+  "findings": [],
+  "image_hashes_seen": {
+    "final": "sha256:1b56c4840545ad02bb0044cf6b7796ff812d19b1626962e7c69c627b8177261f",
+    "original": "sha256:db74479ea6ed99cd61ce3c6559ac4a4716c3ec625af33a825bdb91f2f618674c"
+  },
+  "interpretable": ["All nine nodes, directional arrowheads, self-loops, and relative edge widths are readable despite the intentionally dense full-network view."],
+  "original_size_reviewed": true,
+  "recommendation": "Keep as an overview and pair with the filtered chord and ligand-receptor bubble views for detail.",
+  "reviewer": {
+    "completed": true,
+    "method": "native_local_image_view",
+    "tool": "Codex view_image (original detail)"
+  },
+  "round": 1,
+  "visible": ["Title, all node labels, nodes, edges, and arrowheads are present without clipping in both sizes."]
+}

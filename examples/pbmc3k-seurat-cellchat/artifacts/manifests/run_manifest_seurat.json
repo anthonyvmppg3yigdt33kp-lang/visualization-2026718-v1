@@ -1,0 +1,75 @@
+{
+  "dataset": {
+    "source": "Seurat PBMC3K tutorial / 10x Genomics filtered matrix",
+    "url": "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+    "archive_sha256": "847d6ebd9a1ec9a768f2be7e40ca42cbfe75ebeb6d76a4c24167041699dc28b5",
+    "raw_dimensions": [32738, 2700]
+  },
+  "software": {
+    "R": "4.5.3",
+    "Seurat": "5.4.0",
+    "SeuratObject": "5.4.0"
+  },
+  "seeds": {
+    "global": 20260718,
+    "PCA": 20260718,
+    "clustering": 20260718,
+    "UMAP": 20260718
+  },
+  "qc": {
+    "min_features_create": 200,
+    "min_features_filter_exclusive": 200,
+    "max_features_filter_exclusive": 2500,
+    "max_percent_mt_exclusive": 5,
+    "cells_before": 2700,
+    "cells_after": 2638
+  },
+  "normalization": {
+    "method": "LogNormalize",
+    "scale_factor": 10000
+  },
+  "variable_features": {
+    "method": "vst",
+    "nfeatures": 2000
+  },
+  "neighbors": {
+    "dims": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  },
+  "clustering": {
+    "resolution": 0.5,
+    "clusters": ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+  },
+  "annotation": {
+    "method": "one-to-one maximum-weight assignment of z-scored canonical marker-signature means; never map labels from numeric cluster IDs alone",
+    "signatures": {
+      "Naive CD4 T": ["CCR7", "MAL", "TCF7", "LEF1"],
+      "Memory CD4 T": ["IL7R", "AQP3", "LTB", "IL32"],
+      "CD14 Mono": ["S100A8", "S100A9", "S100A12", "CD14", "LYZ"],
+      "B": ["MS4A1", "CD79A", "CD79B", "CD37", "HLA-DRA"],
+      "CD8 T": ["CD8A", "CD8B", "CCL5", "GZMK", "CTSW"],
+      "FCGR3A Mono": ["FCGR3A", "MS4A7", "LST1", "FCER1G", "IFITM3"],
+      "NK": ["GNLY", "NKG7", "PRF1", "GZMB", "KLRD1"],
+      "DC": ["FCER1A", "CD1C", "CLEC10A", "CST3", "HLA-DPA1"],
+      "Platelet": ["PPBP", "PF4", "GP9", "ITGA2B", "GNG11"]
+    },
+    "mapping": {
+      "0": "Naive CD4 T",
+      "1": "Memory CD4 T",
+      "2": "CD14 Mono",
+      "3": "B",
+      "4": "CD8 T",
+      "5": "FCGR3A Mono",
+      "6": "NK",
+      "7": "DC",
+      "8": "Platelet"
+    },
+    "minimum_assigned_score": 1.77310382175624
+  },
+  "markers": {
+    "test": "Wilcoxon",
+    "only_positive": true,
+    "min_pct": 0.25,
+    "logfc_threshold": 0.25,
+    "selected_top_n_per_cluster": 3
+  }
+}
