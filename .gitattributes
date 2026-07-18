@@ -5,3 +5,4 @@
 *.gif binary
 *.rds binary
 *.pdf binary
+skill/visualization-2026718-v1/assets/source_archive/** -text

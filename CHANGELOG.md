@@ -15,6 +15,7 @@
 - Give marker/gene dot-plot context priority over the generic word “比例”.
 - Give CellChat context priority over marker routes and restrict adapter composition to compatible CellChat recipe chains.
 - Permit explicitly trusted local RDS inputs while retaining a clear untrusted-deserialization warning.
+- Preserve `source_archive` bytes across clean clones so checksum and catalog-freshness validation remain reproducible.
 
 ### Validated
 
