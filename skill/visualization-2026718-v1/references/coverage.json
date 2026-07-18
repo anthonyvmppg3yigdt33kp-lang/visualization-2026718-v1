@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-18T08:02:08Z",
+  "generated_at": "2026-07-18T08:10:55Z",
   "source_root": "assets/source_archive",
   "catalog_input_fingerprint": {
-    "algorithm": "sha256-v1",
-    "sha256": "745b7f48f6f908ca205cb77630d106445defec91312b0f622920bbc9245b67b1",
+    "algorithm": "sha256-v2-portable",
+    "sha256": "fb5b6cb8761bcbc59239089ba455ebaa68c1cf7f221b5521556d4a5bf925b547",
     "entries": 909
   },
   "records": {

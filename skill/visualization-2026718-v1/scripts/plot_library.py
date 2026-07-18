@@ -753,10 +753,12 @@ def rel_posix(path: Path, root: Path = SKILL_ROOT) -> str:
 def catalog_input_fingerprint(source_root: Path = SOURCE_ROOT) -> dict[str, Any]:
     """Fingerprint every input that can change catalog records or ranking metadata.
 
-    Source binaries are represented by path/size/mtime plus the archive checksum
-    index, while the comparatively small generator, curation, decision, and Recipe
-    files are hashed directly.  This keeps normal searches fast enough while still
-    refusing a silently stale catalog after code or curated metadata changes.
+    Source binaries are represented by portable path/size inventory entries plus
+    the archive checksum index, while the comparatively small generator, curation,
+    decision, and Recipe files are hashed directly. File mtimes are intentionally
+    excluded because a clean clone preserves bytes but assigns new timestamps.
+    This keeps normal searches fast enough while still refusing a silently stale
+    catalog after code or curated metadata changes.
     """
     digest = hashlib.sha256()
     entries = 0
@@ -786,9 +788,9 @@ def catalog_input_fingerprint(source_root: Path = SOURCE_ROOT) -> dict[str, Any]
             continue
         rel = path.relative_to(source_root).as_posix()
         stat = path.stat()
-        digest.update(f"source-stat:{rel}\0{stat.st_size}\0{stat.st_mtime_ns}".encode("utf-8"))
+        digest.update(f"source-stat:{rel}\0{stat.st_size}".encode("utf-8"))
         entries += 1
-    return {"algorithm": "sha256-v1", "sha256": digest.hexdigest(), "entries": entries}
+    return {"algorithm": "sha256-v2-portable", "sha256": digest.hexdigest(), "entries": entries}
 
 
 def catalog_freshness(source_root: Path = SOURCE_ROOT) -> dict[str, Any]:

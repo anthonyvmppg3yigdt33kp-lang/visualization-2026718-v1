@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,6 +15,30 @@ SPEC.loader.exec_module(plot_library)
 
 
 class PlotIntentTests(unittest.TestCase):
+    def test_catalog_fingerprint_is_portable_across_clone_mtimes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source_root = Path(directory)
+            checksum_index = source_root / "SHA256SUMS.csv"
+            payload = source_root / "example.txt"
+            checksum_index.write_text(
+                "path,bytes,sha256\nexample.txt,1,unused-by-this-unit-test\n",
+                encoding="utf-8",
+            )
+            payload.write_bytes(b"x")
+            first = plot_library.catalog_input_fingerprint(source_root)
+            stat = payload.stat()
+            os.utime(
+                payload,
+                ns=(stat.st_atime_ns, stat.st_mtime_ns + 10_000_000_000),
+            )
+            second = plot_library.catalog_input_fingerprint(source_root)
+            self.assertEqual(first, second)
+            self.assertEqual(first["algorithm"], "sha256-v2-portable")
+
+            payload.write_bytes(b"xx")
+            third = plot_library.catalog_input_fingerprint(source_root)
+            self.assertNotEqual(first["sha256"], third["sha256"])
+
     def test_execute_then_review_keeps_executable_gate(self) -> None:
         intent = plot_library.query_intent(
             "执行代码，复核并解释结果图",
