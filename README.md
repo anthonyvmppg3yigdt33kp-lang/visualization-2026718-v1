@@ -16,6 +16,7 @@
 - 原生视觉 QA：检查原图与最终尺寸图片，支持最多三轮受控视觉修订。
 - 图库维护：支持来源审计、dry-run 更新、Scheme/Recipe 验证、图册导出和显式 promotion。
 - 单细胞对象适配：可从可信本地 Seurat 对象提取既有 embedding 和 marker 汇总，避免静默重算分析结果。
+- 空间对象绘图：`seurat-spatial-overlay-r-v1` 在调用 `SpatialDimPlot`/`SpatialFeaturePlot` 前核对 Spatial assay、图像、scale factors 与 barcode-coordinate 对账，保留 Seurat 的坐标语义并返回 plot object。
 
 
 ## 工作流
@@ -86,6 +87,14 @@ Copy-Item -Recurse -Force `
 ```text
 使用 $visualization-2026718-v1。Python。将 UMAP Recipe 适配到我的 DataFrame（umap1、umap2、cell_type），先 preflight，运行后检查原图和最终尺寸图。
 ```
+
+### 适配 Seurat Visium 空间叠加图
+
+```text
+使用 $visualization-2026718-v1。R。对可信本地 Seurat Visium 对象先执行 seurat-spatial-overlay-r-v1 preflight，再用 Spatial assay 和指定 image 绘制 cluster 及 Hpca/Ttr spot overlay；不得手工重建坐标，运行后打开原图和最终尺寸图复核。
+```
+
+该 Recipe 的合成 fixture 只验证对象、图像、scale factor 与 barcode-coordinate 契约；真实空间定位结论必须基于真实 Visium 输入、输入 QC 和 native visual review。
 
 ### 解释已有结果图
 

@@ -134,6 +134,7 @@ FORMAL_BASE_RECIPE_CANDIDATES: dict[tuple[str, str], tuple[str, ...]] = {
     ("cellchat_heatmap", "r"): ("cellchat-heatmap-r-v1",),
     ("box_jitter", "r"): ("box-jitter-r-v1",),
     ("he_cell_overlay", "python"): ("xenium-he-overlay-python-v1",),
+    ("spatial_spot_overlay", "r"): ("seurat-spatial-overlay-r-v1",),
 }
 
 FORMAL_FAMILY_RECIPE_CANDIDATES: dict[tuple[str, str], tuple[str, ...]] = {
@@ -147,6 +148,7 @@ FORMAL_FAMILY_RECIPE_CANDIDATES: dict[tuple[str, str], tuple[str, ...]] = {
     ("cellchat_chord", "r"): ("cellchat-chord-r-v1",),
     ("boxplot", "r"): ("box-jitter-r-v1",),
     ("spatial_image", "python"): ("xenium-he-overlay-python-v1",),
+    ("spatial_image", "r"): ("seurat-spatial-overlay-r-v1",),
 }
 
 FORMAL_MODIFIER_RECIPE_IDS: dict[tuple[str, str], str] = {
@@ -2502,6 +2504,16 @@ def scheme_execution_plan(record: dict[str, Any], intent: dict[str, Any]) -> dic
                 "gene_ratio": "GeneRatio or declared radial metric",
                 "count": "Count or declared point-size metric",
                 "padj": "p.adjust/FDR column",
+            }
+        )
+    elif subtype == "spatial_spot_overlay" and base_id == "seurat-spatial-overlay-r-v1":
+        parameter_bindings.update(
+            {
+                "object": "caller trusted Seurat object",
+                "assay": "Spatial",
+                "image": "caller-selected image when more than one is present",
+                "mode": "identity or feature",
+                "group_by/features": "caller metadata column or existing assay features",
             }
         )
 

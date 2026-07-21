@@ -83,6 +83,7 @@ python scripts/plot_library.py preflight --backend <r|python> --base-id <id> --a
 - 保留过滤、归一化、阈值、检验和科学含义，除非用户明确批准改变。
 - `compose` 必须返回 backend-pure 的 `build_plot` module 与 preflight 证据。
 - 对 Seurat/CellChat RDS 仅接受用户明确确认可信的本地输入；未知来源 RDS 不得反序列化。
+- Seurat Visium spot/image overlay 使用正式 `seurat-spatial-overlay-r-v1`；执行前必须核对 Spatial assay、image、scale factors 与 barcode-coordinate 对账，并保留 Seurat 的坐标绘图接口。
 - 单细胞 marker 请求中的“表达比例”属于 marker 语义，不得仅凭“比例”误路由为细胞组成图。
 - CellChat 语境优先解析 circle/chord/bubble/heatmap；只能连接声明兼容的 CellChat adapter 与 base Recipe。
 

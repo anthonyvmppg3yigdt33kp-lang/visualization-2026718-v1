@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-18T08:10:55Z",
+  "generated_at": "2026-07-21T20:46:35Z",
   "source_root": "assets/source_archive",
   "catalog_input_fingerprint": {
     "algorithm": "sha256-v2-portable",
-    "sha256": "fb5b6cb8761bcbc59239089ba455ebaa68c1cf7f221b5521556d4a5bf925b547",
-    "entries": 909
+    "sha256": "e99215cd392c5eb5e33d3ffe33ce6b2f326e9d745e19a69e95b9e04e465f8a88",
+    "entries": 913
   },
   "records": {
     "article": 97,
     "source_block": 621,
     "image": 709,
-    "recipe": 31,
+    "recipe": 32,
     "strategy": 9
   },
   "raw_languages": {
@@ -45,7 +45,7 @@
     "unknown": 52,
     "violin": 60,
     "volcano": 101,
-    "spatial_image": 30,
+    "spatial_image": 31,
     "gsea": 161,
     "dotplot": 144,
     "survival": 11,
