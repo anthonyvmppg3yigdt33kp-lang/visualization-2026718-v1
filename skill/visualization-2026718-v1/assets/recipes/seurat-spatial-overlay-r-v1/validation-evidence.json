@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "recipe_id": "seurat-spatial-overlay-r-v1",
+  "status": "verified",
+  "validated_on": "2026-07-22",
+  "runtime": {
+    "R": "4.5.3",
+    "Seurat": "5.5.0",
+    "SeuratObject": "5.4.0",
+    "renv": "1.2.2",
+    "renv_lock_sha256": "4a5ed726be5b11c8a960bfcc4eccb1751fca6e2e6fb609bd46185d8333cebbc2"
+  },
+  "code_binding": {
+    "recipe_sha256": "f4cd1c58f18646cbe52db1ca001edf7887c6caaceed3cdd2584c835a595fd25f",
+    "fixture_sha256": "c08e75b2aa120743928acfe22f7b66cb413ade572f69b69bd550337b9c8dfbce"
+  },
+  "synthetic_contract": {
+    "status": "pass",
+    "execution": "guarded Windows R subprocess with an explicit completion marker and zero process exit",
+    "seurat_version": "5.5.0",
+    "barcode_mismatch_guard": "pass",
+    "caller_default_assay_unchanged": true,
+    "completion_marker_sha256": "a1cc6e76e36cbf5e4fc99a7e9a445dadeebdba5400632d5fa15c23421d0d1c86"
+  },
+  "real_visium_execution": {
+    "status": "pass",
+    "dataset": "10x Genomics Mouse Brain Serial Section 1 (Sagittal-Anterior)",
+    "source_page": "https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0",
+    "data_license": "CC BY 4.0",
+    "inputs": [
+      {
+        "basename": "V1_Mouse_Brain_Sagittal_Anterior_filtered_feature_bc_matrix.h5",
+        "size_bytes": 20554697,
+        "sha256": "56078d8d6fe6c13de248fdb1c518b691cdef78fb00021b659786b4a47c6656d5"
+      },
+      {
+        "basename": "V1_Mouse_Brain_Sagittal_Anterior_spatial.tar.gz",
+        "size_bytes": 9233573,
+        "sha256": "5f41a803e2bd69fa4dfca6abc8fa2d4e0d76aeb6c72d7038a5fdcf9cc50a36f8"
+      }
+    ],
+    "analysis_object_sha256": "d8e30585363469373ad9f9a920729d2bc88cbe7ad69c53b1375ba02120544b3b",
+    "image": "anterior1",
+    "registration_assay": "Spatial",
+    "feature_assay": "SCT",
+    "barcode_reconciliation": {
+      "assay": 2695,
+      "image": 2695,
+      "coordinates": 2695,
+      "all_pairwise_set_differences": 0
+    },
+    "scale_factors": {
+      "spot": 89.472,
+      "fiducial": 144.5317,
+      "hires": 0.1721,
+      "lowres": 0.0516
+    },
+    "identity": "seurat_clusters",
+    "features": [
+      "Hpca",
+      "Ttr"
+    ],
+    "execution_marker_sha256": "f42bcbe455107b1507679b6c2eb5761e02e66f6597efdbbdb7d7537dbe0ce652"
+  },
+  "rendered_outputs": [
+    {
+      "path": "../../previews-rendered/seurat-spatial-overlay-r.png",
+      "width_px": 3600,
+      "height_px": 2400,
+      "size_bytes": 3661181,
+      "sha256": "89d196dc6a709b36b8e2b640cd21c8020a6e19970c99b4695f23c2ebfac51c12"
+    },
+    {
+      "path": "../../previews-rendered/seurat-spatial-overlay-r-final.png",
+      "width_px": 2130,
+      "height_px": 1425,
+      "size_bytes": 1680240,
+      "sha256": "ece6c752ba7fb4ff5a91c0d5e2edd435736e275c3578ed18e4165bc11a936f21"
+    },
+    {
+      "path": "../../previews-rendered/seurat-spatial-feature-r.png",
+      "width_px": 3600,
+      "height_px": 2400,
+      "size_bytes": 4507485,
+      "sha256": "a7a1ce26ca70e746c44683adcb369c75354c4a1bf184fc44354831f6bc279ab3"
+    },
+    {
+      "path": "../../previews-rendered/seurat-spatial-feature-r-final.png",
+      "width_px": 2130,
+      "height_px": 1425,
+      "size_bytes": 2125158,
+      "sha256": "95a5f887a2c3deb29da1d6b10fb8e7200532dfd1b405d694a4e9c79141db99b1"
+    }
+  ],
+  "native_visual_review": {
+    "tool": "Codex view_image",
+    "detail": "original",
+    "reviewer": "OpenAI Codex primary agent",
+    "decisions": {
+      "seurat-spatial-overlay-r.png": "KEEP",
+      "seurat-spatial-overlay-r-final.png": "KEEP",
+      "seurat-spatial-feature-r.png": "KEEP",
+      "seurat-spatial-feature-r-final.png": "KEEP"
+    },
+    "checks": {
+      "spot_tissue_alignment": "pass",
+      "cluster_label_separation": "pass",
+      "legibility_at_final_size": "pass",
+      "legend_and_color_scale": "pass",
+      "clipping": "pass"
+    }
+  },
+  "revision_history": [
+    {
+      "type": "contract_correction",
+      "observation": "The first real feature render correctly failed because the Spatial registration assay had no normalized data layer.",
+      "resolution": "Added an explicit feature_assay parameter, exact feature-assay/image barcode reconciliation, and a normalized-data-layer preflight; the real feature render uses SCT without changing expression values."
+    },
+    {
+      "type": "visual_only",
+      "observation": "Default cluster labels were too large and partially crowded.",
+      "resolution": "Set label_size=3.5 and label_repel=true; filtering, normalization, clustering, thresholds, coordinates, and statistical meaning were unchanged."
+    }
+  ],
+  "claim_limit": "The previews demonstrate coordinate-faithful descriptive overlays for one public Visium section; they do not establish spatial enrichment, biological replication, mechanism, or causality."
+}

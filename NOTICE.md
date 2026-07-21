@@ -7,3 +7,7 @@ The bundled source archive, source/reference images, article snapshots, curated 
 These materials are bundled to preserve the skill's offline retrieval, provenance, audit, and reproducibility behavior. Before redistributing, publicly displaying, or commercially using a specific third-party asset, verify that the intended use is permitted by the applicable license, permission, quotation exception, fair-use/fair-dealing rule, or other governing law.
 
 Source URLs and lineage metadata are retained where available so users can identify provenance. No endorsement by the original sources is implied.
+
+## 10x Genomics Visium validation previews
+
+The four `seurat-spatial-*-r*.png` validation previews were generated from the 10x Genomics public dataset “Mouse Brain Serial Section 1 (Sagittal-Anterior)”. The source page identifies the dataset as CC BY 4.0: <https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0>. These data-derived previews retain that attribution and are not relicensed under the repository MIT License. The original data files are not distributed in this repository.

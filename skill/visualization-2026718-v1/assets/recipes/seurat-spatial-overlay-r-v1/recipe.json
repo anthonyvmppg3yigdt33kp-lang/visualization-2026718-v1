@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "id": "seurat-spatial-overlay-r-v1",
+  "name": "R Seurat Visium spot/image overlay",
+  "description": "Validate a Seurat Spatial assay, image, scale factors, and barcode-coordinate alignment, then return a coordinate-faithful SpatialDimPlot or SpatialFeaturePlot object.",
+  "kind": "base_recipe",
+  "family": "spatial_image",
+  "backend": "r",
+  "entrypoint": "plot_seurat_spatial_overlay",
+  "tags": ["seurat", "visium", "spatial", "spot-overlay", "histology", "SpatialDimPlot", "SpatialFeaturePlot"],
+  "requires": {
+    "object_types": ["Seurat"],
+    "variables": ["Spatial assay", "image", "scale_factors", "barcode_coordinates", "group_or_feature"],
+    "packages": ["Seurat", "SeuratObject", "ggplot2"],
+    "capabilities": ["spatial_assay", "registered_image_coordinates"]
+  },
+  "provides": {
+    "object_types": ["ggplot", "patchwork"],
+    "capabilities": ["spatial_spot_overlay", "coordinate_faithful_seurat_plot"]
+  },
+  "compatible_with": {
+    "kinds": ["layout", "export"],
+    "ids": ["publication-export-r-v1"]
+  },
+  "conflicts": ["manual_coordinate_reconstruction", "cross_backend_conversion"],
+  "parameters": [
+    {"name": "object", "type": "Seurat", "required": true, "default": null, "allowed": null, "description": "Caller-supplied trusted Seurat object; it is validated and not modified."},
+    {"name": "mode", "type": "string", "required": false, "default": "identity", "allowed": ["identity", "feature"], "description": "Use SpatialDimPlot for identities/metadata or SpatialFeaturePlot for assay features."},
+    {"name": "assay", "type": "string", "required": false, "default": "Spatial", "allowed": null, "description": "Existing spatial-registration assay associated with the selected image."},
+    {"name": "feature_assay", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Existing normalized assay used only for feature values; NULL uses the spatial-registration assay. Its barcodes must exactly match the selected image coordinates."},
+    {"name": "image", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "One image name; required explicitly when the assay has multiple images."},
+    {"name": "group_by", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Metadata grouping for identity mode; NULL uses active identities."},
+    {"name": "features", "type": "string[]|null", "required": false, "default": null, "allowed": null, "description": "Existing assay features for feature mode; no expression values are recomputed."},
+    {"name": "cols", "type": "string[]|null", "required": false, "default": null, "allowed": null, "description": "Optional identity palette passed to SpatialDimPlot."},
+    {"name": "crop", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Crop to tissue coordinates using Seurat's spatial plotting contract."},
+    {"name": "label", "type": "boolean", "required": false, "default": false, "allowed": [true, false], "description": "Add Seurat identity labels in identity mode."},
+    {"name": "label_size", "type": "number", "required": false, "default": 3.5, "allowed": "> 0", "description": "Purely visual Seurat identity-label size."},
+    {"name": "label_repel", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Use Seurat label repulsion in identity mode."},
+    {"name": "pt_size_factor", "type": "number", "required": false, "default": 1.6, "allowed": "> 0", "description": "Purely visual Seurat spot-size factor."},
+    {"name": "spot_alpha", "type": "number", "required": false, "default": 1.0, "allowed": "[0, 1]", "description": "Purely visual spot opacity."},
+    {"name": "image_alpha", "type": "number", "required": false, "default": 1.0, "allowed": "[0, 1]", "description": "Purely visual histology-image opacity."},
+    {"name": "image_scale", "type": "string", "required": false, "default": "lowres", "allowed": ["lowres", "hires"], "description": "Existing image scale whose factor must be present and positive."}
+  ],
+  "lineage": {"parent_id": null, "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": ["spatial_localization", "tissue_context"],
+    "evidence_roles": ["overview", "discovery"],
+    "units": ["spatial_spot"],
+    "data_topologies": ["registered_spatial_image_and_coordinates"],
+    "required_variables": [
+      {"name": "barcode_coordinates", "role": "position", "type": "registered_spatial_coordinates"},
+      {"name": "histology_image", "role": "background", "type": "Seurat SpatialImage"},
+      {"name": "group_or_feature", "role": "color", "type": "categorical_or_numeric"}
+    ],
+    "transformations": [
+      {"field": "coordinates", "method": "Seurat GetTissueCoordinates with declared image scale"},
+      {"field": "feature_values", "method": "Existing data layer from the explicitly selected feature assay; no normalization or assay copying"},
+      {"field": "plot", "method": "Seurat SpatialDimPlot or SpatialFeaturePlot without manual coordinate reconstruction"}
+    ],
+    "visual_channels": {"x": "registered image x", "y": "registered image y", "color": "identity_or_feature", "size": "spot footprint factor", "shape": "spot", "alpha": "spot and image visibility", "facet": "feature when multiple", "annotation": "histology background"},
+    "supports_claims": ["Shows the displayed identities or feature values at registered spots in the selected tissue image."],
+    "does_not_support": ["Does not establish spatial enrichment significance, registration accuracy beyond contract checks, cell-type deconvolution, biological replication, mechanism, or causality."],
+    "required_statistics": ["none for descriptive overlay; report spatial statistics and replicate structure separately for inference"],
+    "misread_risks": ["registration_error", "barcode_mismatch", "spot_as_biological_replicate", "histology_occlusion", "feature_scale_overinterpretation"],
+    "preferred_companions": ["barcode-coordinate reconciliation table", "image and scale-factor QC", "replicate-aware spatial summary when inference is intended"],
+    "safer_alternatives": ["separate tissue image and quantitative table when overlay occlusion prevents reliable reading"]
+  },
+  "visual_fingerprint": {
+    "family": "spatial_image",
+    "panels": 1,
+    "panel_structure": "spot_over_histology",
+    "channels": ["image", "position", "color"],
+    "legend_mode": "categorical_or_continuous",
+    "information_density": "high",
+    "strengths": ["coordinate-faithful tissue context"],
+    "risks": ["spot occlusion", "registration uncertainty", "small final-size legend"],
+    "final_size_behavior": "requires original and final-size checks of spot alignment, legend, tissue detail, and clipping",
+    "evidence_level": "image_code_data",
+    "reviewed": true,
+    "review_note": "Real 2,695-spot Visium cluster and Hpca/Ttr overlays passed native original/final-size review with hash-bound evidence."
+  },
+  "source": {"status": "original", "articles": [], "license_status": "MIT", "transformation": "original_coordinate_faithful_seurat_recipe"},
+  "validation": {
+    "tier": "parse-verified",
+    "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass_seurat_5.5.0_guarded", "render": "pass_real_visium_2695", "visual": "pass", "semantic": "pass", "provenance": "pass"},
+    "last_validated": "2026-07-22",
+    "runtime": "R-4.5.3; Seurat-5.5.0; SeuratObject-5.4.0; renv-1.2.2",
+    "notes": ["The synthetic contract and barcode-mismatch guard passed in the pinned Seurat 5.5.0 task-local environment using an explicit Windows completion marker.", "A real 10x Mouse Brain Sagittal-Anterior object reconciled 2,695 Spatial-assay, image, and coordinate barcodes with zero pairwise differences.", "Feature overlays explicitly separate the Spatial registration assay from the normalized feature assay and fail closed when a normalized data layer is absent.", "All four real original/final-size previews received terminal KEEP decisions in native review; see validation-evidence.json."]
+  },
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/seurat-spatial-overlay-r.png", "preview_final": "../../previews-rendered/seurat-spatial-overlay-r-final.png", "feature_preview": "../../previews-rendered/seurat-spatial-feature-r.png", "feature_preview_final": "../../previews-rendered/seurat-spatial-feature-r-final.png", "fixture": "../../fixtures/seurat_spatial_contract.R", "validation_evidence": "validation-evidence.json"}
+}
