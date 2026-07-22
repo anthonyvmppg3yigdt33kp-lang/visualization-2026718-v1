@@ -1,10 +1,10 @@
 name: visualization-2026718-v1
-version: 1.0.0
+version: 1.2.0
 profile: biomedical-public-runtime-v1
 description: >-
   Public task-local formal-Recipe runtime for evidence-aware scientific figure
   selection, backend-exclusive R/Python adaptation and composition, rendering,
-  and native visual review. Raw source archives, extracted source code,
+  declared-only visual revision, and native visual review. Raw source archives, extracted source code,
   reference-only candidates, and third-party curated previews are excluded.
 
 always_load:
@@ -42,6 +42,7 @@ data:
   fixtures: assets/fixtures
   recipe_runtime: scripts/recipe_runtime.py
   visual_review_controller: scripts/visual_review_controller.py
+  public_runtime_builder: scripts/build_public_runtime.py
 
 references:
   on_demand:

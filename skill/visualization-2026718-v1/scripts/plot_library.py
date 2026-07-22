@@ -4897,9 +4897,59 @@ def validate_recipe(
             errors.append(f"{recipe.get('id')}: {contract_name} must be an object")
     if not isinstance(recipe.get("conflicts"), list) or not isinstance(recipe.get("parameters"), list):
         errors.append(f"{recipe.get('id')}: conflicts and parameters must be arrays")
+    parameter_names: list[str] = []
     for parameter in recipe.get("parameters") or []:
         if not isinstance(parameter, dict) or not {"name", "type", "required", "default", "allowed", "description"}.issubset(parameter):
             errors.append(f"{recipe.get('id')}: invalid parameter declaration")
+            continue
+        parameter_names.append(str(parameter.get("name") or ""))
+    duplicate_parameters = sorted(
+        {name for name in parameter_names if name and parameter_names.count(name) > 1}
+    )
+    if duplicate_parameters:
+        errors.append(f"{recipe.get('id')}: duplicate parameters {duplicate_parameters}")
+    input_parameter = recipe.get("input_parameter")
+    if input_parameter is not None and str(input_parameter) not in parameter_names:
+        errors.append(
+            f"{recipe.get('id')}: input_parameter must name a declared parameter"
+        )
+    visual_revision = recipe.get("visual_revision")
+    if visual_revision is not None:
+        if not isinstance(visual_revision, dict):
+            errors.append(f"{recipe.get('id')}: visual_revision must be an object")
+        else:
+            if visual_revision.get("parameter_policy") != "declared-only":
+                errors.append(
+                    f"{recipe.get('id')}: visual_revision.parameter_policy must be declared-only"
+                )
+            if visual_revision.get("max_rounds") != 3:
+                errors.append(f"{recipe.get('id')}: visual_revision.max_rounds must be 3")
+            issue_map = visual_revision.get("issue_parameter_map")
+            if not isinstance(issue_map, dict):
+                errors.append(
+                    f"{recipe.get('id')}: visual_revision.issue_parameter_map must be an object"
+                )
+            else:
+                issue_registry = load_json_object(
+                    SKILL_ROOT / "references" / "visual-issue-actions.json", {}
+                ).get("issues") or {}
+                for issue_id, names in issue_map.items():
+                    if issue_id not in issue_registry:
+                        errors.append(
+                            f"{recipe.get('id')}: unknown visual issue code {issue_id}"
+                        )
+                    if not isinstance(names, list) or not names:
+                        errors.append(
+                            f"{recipe.get('id')}: visual issue {issue_id} must map to a non-empty parameter list"
+                        )
+                        continue
+                    undeclared = sorted(
+                        str(name) for name in names if str(name) not in parameter_names
+                    )
+                    if undeclared:
+                        errors.append(
+                            f"{recipe.get('id')}: visual issue {issue_id} maps to undeclared parameters {undeclared}"
+                        )
 
     semantic_required = {
         "questions_answered", "evidence_roles", "units", "data_topologies", "required_variables",

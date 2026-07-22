@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "id": "seurat-embedding-adapter-r-v2",
+  "name": "R Seurat embedding adapter v2",
+  "description": "Extract an existing Seurat reduction and name-aligned categorical metadata into the explicit v2 UMAP data-frame contract without recomputation.",
+  "kind": "adapter",
+  "family": "seurat_adapter",
+  "backend": "r",
+  "entrypoint": "seurat_embedding_frame_v2",
+  "input_parameter": "object",
+  "tags": ["seurat", "adapter", "umap", "embedding", "metadata", "single-cell", "declared-parameters"],
+  "requires": {"object_types": ["Seurat"], "variables": ["reduction", "group"], "packages": ["SeuratObject"], "capabilities": ["seurat_reduction", "cell_metadata"]},
+  "provides": {"object_types": ["data.frame"], "capabilities": ["precomputed_embedding", "aligned_group_labels"]},
+  "compatible_with": {"kinds": ["base_recipe"], "ids": ["umap-dataframe-r-v2"]},
+  "conflicts": ["cross_backend_conversion", "embedding_recomputation"],
+  "parameters": [
+    {"name": "object", "type": "Seurat", "required": true, "default": null, "allowed": null, "description": "Trusted caller-supplied Seurat object, bound by the input artifact and never modified."},
+    {"name": "reduction", "type": "string", "required": false, "default": "umap", "allowed": null, "description": "Existing reduction name."},
+    {"name": "group", "type": "string", "required": false, "default": "seurat_clusters", "allowed": null, "description": "Existing metadata grouping column."},
+    {"name": "dimensions", "type": "integer[2]", "required": false, "default": [1, 2], "allowed": "two positive indices", "description": "Existing reduction dimensions to expose."},
+    {"name": "x_name", "type": "string", "required": false, "default": "umap_1", "allowed": null, "description": "Output name for the first coordinate."},
+    {"name": "y_name", "type": "string", "required": false, "default": "umap_2", "allowed": null, "description": "Output name for the second coordinate."},
+    {"name": "group_name", "type": "string", "required": false, "default": "cluster", "allowed": null, "description": "Output name for the categorical group."}
+  ],
+  "lineage": {"parent_id": "seurat-embedding-adapter-r-v1", "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": [], "evidence_roles": ["data_adaptation"], "units": ["cell"], "data_topologies": ["embedding"],
+    "required_variables": [{"name": "reduction", "role": "position", "type": "precomputed_coordinates"}, {"name": "group", "role": "color", "type": "categorical_metadata"}],
+    "transformations": [{"field": "coordinates", "method": "extract_existing_reduction_without_recomputation"}],
+    "visual_channels": {"x": "not_rendered", "y": "not_rendered", "color": "not_rendered", "size": "not_rendered", "shape": "not_rendered", "alpha": "not_rendered", "facet": "not_rendered", "annotation": "not_rendered"},
+    "supports_claims": ["Preserves existing coordinates and aligned group labels for downstream plotting."],
+    "does_not_support": ["Does not validate upstream normalization, neighbors, embedding, annotation, integration, batch correction, or study design."],
+    "required_statistics": ["none"], "misread_risks": ["silent_recomputation_assumption", "metadata_misalignment"],
+    "preferred_companions": ["umap-dataframe-r-v2"], "safer_alternatives": ["audit the reduction and metadata before plotting when provenance is unclear"]
+  },
+  "visual_fingerprint": {"family": "adapter", "panels": 0, "panel_structure": "none", "channels": [], "legend_mode": "none", "information_density": "none", "strengths": ["name-aligned extraction"], "risks": ["upstream provenance not validated"], "final_size_behavior": "not_applicable", "evidence_level": "none", "reviewed": false, "review_note": "Non-rendering adapter; review applies to the downstream Recipe."},
+  "source": {"status": "derived", "articles": [], "license_status": "MIT", "transformation": "v2 parameter-contract revision of the original adapter"},
+  "validation": {"tier": "parse-verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "not_applicable", "visual": "not_applicable", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-23", "runtime": "R-4.5.3; Seurat-5.5.0; SeuratObject-5.4.0", "notes": ["Executed on the hash-bound 2,638-cell PBMC3K object as the upstream component of umap-dataframe-r-v2; the existing UMAP coordinates and teaching_label memberships were preserved.", "The adapter is non-rendering; terminal native review and full chain evidence are bound in the downstream validation-evidence.json."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": null, "fixture": null, "validation_evidence": "../umap-dataframe-r-v2/validation-evidence.json"}
+}

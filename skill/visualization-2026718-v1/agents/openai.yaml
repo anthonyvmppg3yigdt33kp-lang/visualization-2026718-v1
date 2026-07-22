@@ -1,4 +1,4 @@
 interface:
   display_name: "可视化2026718V1"
-  short_description: "科研图形决策、代码检索、渲染与科学复核"
-  default_prompt: "Use $visualization-2026718-v1 to turn my scientific question into a validated R or Python figure plan, executable Recipe chain when requested, and evidence-bounded visual review."
+  short_description: "证据相容的生物医学科研绘图、Recipe 执行与原生图审"
+  default_prompt: "使用 $visualization-2026718-v1，根据研究问题和数据结构选择或执行正式 Recipe；明确后端与科学边界，渲染后完成哈希绑定的原生视觉复核。"

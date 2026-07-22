@@ -4,7 +4,7 @@ description: >-
   可视化2026718V1：面向生物医学、临床研究、统计分析和多组学的离线科研可视化决策与代码检索技能。支持从科学问题或模糊外观描述选择证据型图形，检索精确 Scheme，适配或组合 R/Python Recipe，按需渲染，原生像素复核，解释结果图，审计/更新本地图谱，并在严格 QA 后提升新 Recipe。Use when users ask for 科研绘图、绘图代码检索、匹配绘图模板、图册浏览、结果图解读、UMAP、dot/bubble plot、heatmap、volcano、GSEA/ORA、CellChat、survival、ROC、genomics、spatial 或 multipanel figures. Discovery can compare R and Python; executable adaptation, rendering, export, and QA require an explicit backend and remain backend-exclusive.
 ---
 
-# 可视化2026718V1（V1.0.0）
+# 可视化2026718V1（V1.2.0）
 
 把科研图形视为承载证据的视觉论证，而不是装饰。遵循：
 
@@ -41,6 +41,7 @@ assets/previews-*/              人工复核参考图与精确渲染图
 assets/fixtures/                测试数据与视觉缺陷样例
 scripts/plot_library.py         统一检索、检查、组合、渲染、审计和更新 CLI
 scripts/visual_review_controller.py  哈希绑定的视觉复核状态控制器
+scripts/build_public_runtime.py 按 profile 构建/验证可安装的公开运行层
 tests/                          意图解析、R/Python runtime 和视觉复核测试
 ../../examples/                 可复现的公开端到端教学案例
 ```
@@ -83,8 +84,11 @@ python scripts/plot_library.py preflight --backend <r|python> --base-id <id> --a
 - 保留过滤、归一化、阈值、检验和科学含义，除非用户明确批准改变。
 - `compose` 必须返回 backend-pure 的 `build_plot` module 与 preflight 证据。
 - 对 Seurat/CellChat RDS 仅接受用户明确确认可信的本地输入；未知来源 RDS 不得反序列化。
-- Seurat Visium spot/image overlay 使用正式 `seurat-spatial-overlay-r-v1`；执行前必须核对 Spatial assay、image、scale factors 与 barcode-coordinate 对账，并保留 Seurat 的坐标绘图接口。
-- 该 Recipe 的真实执行证据来自独立 upstream harness 对可信 Seurat 对象的验证；它只证明 Recipe 在该对象上可执行，不证明生成该对象的工作流或外层 CLI 成功。cluster 标签按 expression-derived spot clusters 解释，feature overlay 保持描述性。
+- 需要声明式、可审计的 Seurat UMAP 链时，显式组合 `seurat-embedding-adapter-r-v2 -> umap-dataframe-r-v2`；只读取既有 reduction 与分组元数据，不得静默重算 embedding 或改写 group membership。
+- 需要声明式 marker 汇总链时，显式组合 `seurat-marker-summary-adapter-r-v2 -> marker-dotplot-r-v2`，并绑定 assay、layer、average transform、group、scaling 与 percent denominator；它不是差异表达检验。
+- Seurat Visium spot/image overlay 的 v2 链使用正式 `seurat-spatial-overlay-r-v2`；执行前必须核对 Spatial assay、image、scale factors 与 barcode-coordinate 对账，并保留 Seurat 的坐标绘图接口。feature 模式由官方 `SpatialFeaturePlot` 构图后仅替换连续 fill palette，不改变值、limits、transformations、coordinates 或 spot selection。
+- 三个 v2 base Recipes 的真实执行证据只证明相应 Recipe/adapter chain 在指定 hash-bound 可信对象上可执行，不证明生成对象的上游工作流或外层 CLI 成功。PBMC teaching labels 保持描述性；Visium cluster 标签按 expression-derived spot clusters 解释，feature overlay 保持描述性。
+- v1 Recipe 保留为兼容接口。已固定或已记录 provenance 的 v1 计划不得静默迁移到 v2；新链也必须显式选择 v2 ID。
 - 单细胞 marker 请求中的“表达比例”属于 marker 语义，不得仅凭“比例”误路由为细胞组成图。
 - CellChat 语境优先解析 circle/chord/bubble/heatmap；只能连接声明兼容的 CellChat adapter 与 base Recipe。
 
@@ -98,7 +102,12 @@ python scripts/plot_library.py render --recipe-id <recipe-id> --input <data> --o
 python scripts/plot_library.py render --scheme-id <scheme-id> --backend <r|python> --adapter-id <id> --base-id <id> --modifier <id> --input <data> --output-dir <dir> --params-json <json> --review-state <state.json>
 ```
 
+在 Windows PowerShell 中优先把参数写入 UTF-8 JSON 文件，并把文件路径传给
+`--params-json`；避免依赖容易被 shell 引号规则改写的内联 JSON。
+
 显式绑定预聚合计数、分母、分组变量、阈值和科学参数。不得为了让图运行而猜测新的聚合方式。成功 render 仅表示 `rendered_pending_native_review`；若子进程非零退出、依赖缺失、绘图对象契约不支持或 runtime 崩溃，即使留下部分图片也视为阻断。
+
+对于声明 `visual_revision.parameter_policy=declared-only` 的 Recipe，runtime 只接受该 Recipe 已声明且由 issue registry 映射的视觉参数；禁止用参数载荷重绑定输入对象。超出契约的参数、未登记 issue 或任何数据/统计语义变化均须 fail closed。
 
 ## 决策与科学门禁
 

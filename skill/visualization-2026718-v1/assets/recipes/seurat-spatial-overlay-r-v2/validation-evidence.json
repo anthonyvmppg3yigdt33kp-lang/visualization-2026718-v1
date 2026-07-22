@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "recipe_id": "seurat-spatial-overlay-r-v2",
+  "status": "verified",
+  "validated_on": "2026-07-23",
+  "validation_scope": {
+    "executed_component": "seurat-spatial-overlay-r-v2 direct base Recipe",
+    "evidence_set": "visium-v2-final-code-native-review",
+    "trusted_input": "one hash-bound Seurat object produced from the public 10x Visium Mouse Brain Sagittal-Anterior section",
+    "explicit_exclusions": [
+      "This evidence validates the v2 spatial Recipe on the trusted object; it does not independently revalidate the workflow that produced that object.",
+      "The feature and identity overlays are descriptive and do not constitute spatial enrichment or differential-expression inference."
+    ]
+  },
+  "runtime": {
+    "R": "4.5.3",
+    "Seurat": "5.5.0",
+    "SeuratObject": "5.4.0",
+    "ggplot2": "4.0.3",
+    "patchwork": "1.3.2",
+    "renv": "1.2.2",
+    "Bioconductor": "3.21",
+    "renv_lock_sha256": "b8450521054cd750e93a27fab0b44757519361bd8b694ffbae35636de508cf5b",
+    "task_local_user_library": true,
+    "external_user_library_used": false,
+    "native_architecture": "Windows X64"
+  },
+  "data_binding": {
+    "dataset": "10x Genomics Mouse Brain Serial Section 1 (Sagittal-Anterior)",
+    "source_page": "https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0",
+    "data_license": "CC BY 4.0",
+    "inputs": [
+      {
+        "basename": "V1_Mouse_Brain_Sagittal_Anterior_filtered_feature_bc_matrix.h5",
+        "size_bytes": 20554697,
+        "sha256": "56078d8d6fe6c13de248fdb1c518b691cdef78fb00021b659786b4a47c6656d5"
+      },
+      {
+        "basename": "V1_Mouse_Brain_Sagittal_Anterior_spatial.tar.gz",
+        "size_bytes": 9233573,
+        "sha256": "5f41a803e2bd69fa4dfca6abc8fa2d4e0d76aeb6c72d7038a5fdcf9cc50a36f8"
+      }
+    ],
+    "trusted_object_sha256": "df70f131aaebecca52a42c1cd363f606e5efac7782ea6090f333ee2957236900",
+    "spots": 2695,
+    "image": "anterior1",
+    "registration_assay": "Spatial",
+    "feature_assay": "SCT",
+    "identity": "seurat_clusters",
+    "identity_interpretation": "11 expression-derived spot clusters (0-10), not cell types",
+    "features": [
+      "Hpca",
+      "Ttr"
+    ],
+    "barcode_reconciliation": {
+      "assay": 2695,
+      "image": 2695,
+      "coordinates": 2695,
+      "all_six_set_differences": 0
+    }
+  },
+  "code_binding": {
+    "base_recipe_sha256": "d22951f68762ac4fb6770b76c441469278cd1bd229ffa9e8fe2847447cfce765",
+    "plot_library_sha256": "f62dccd2e819c3c1c7ecc6b78eef6e58785e6a01969f21d625cca6cae2a0d7be",
+    "recipe_runtime_sha256": "ececbbea24502afbc0f7d488665247fc8236a57eed475902c6e64de49a7f68ac",
+    "identity_input_contract_sha256": "bd3f44c69fd366fb1afef478745383bc2bf427af2e74229bacf1e494687a7a98",
+    "feature_input_contract_sha256": "1bf69192144ca6b6be93c10cb3b8c8e156607aa3b2a76fe8acb180a2b7c4ea5d"
+  },
+  "formal_preflight": {
+    "status": "pass",
+    "backend": "r",
+    "entrypoint": "plot_seurat_spatial_overlay_v2",
+    "missing_dependencies": [],
+    "syntax": "pass",
+    "declared_only_parameter_gate": "pass",
+    "input_rebinding_gate": "pass"
+  },
+  "execution": {
+    "status": "pass",
+    "identity_path": "Seurat::SpatialDimPlot",
+    "feature_path": "Seurat::SpatialFeaturePlot followed by continuous fill-palette replacement only",
+    "manual_coordinate_reconstruction": false,
+    "spot_or_feature_filtering_added": false,
+    "value_limits_or_transformations_changed": false,
+    "runtime_status": "STATUS=OK; renderer=ggplot2_ggsave",
+    "native_returncode": 0
+  },
+  "rendered_outputs": [
+    {
+      "role": "identity_original",
+      "path": "../../previews-rendered/visium-spatial-identity-r-v2.png",
+      "width_px": 1062,
+      "height_px": 708,
+      "dpi": 150,
+      "size_bytes": 554697,
+      "sha256": "79b4c2486fd9ff83a4d96c900974cce846a934c0f828fbb80b8cc19fd25811e5"
+    },
+    {
+      "role": "identity_final",
+      "path": "../../previews-rendered/visium-spatial-identity-r-v2-final.png",
+      "width_px": 2125,
+      "height_px": 1417,
+      "dpi": 300,
+      "size_bytes": 1496025,
+      "sha256": "dbc02daf8db0f30fcd84600707febe4d793ada4dcb9696e91f6b82a0e5573a62"
+    },
+    {
+      "role": "feature_original",
+      "path": "../../previews-rendered/visium-spatial-feature-r-v2.png",
+      "width_px": 1299,
+      "height_px": 708,
+      "dpi": 150,
+      "size_bytes": 598055,
+      "sha256": "747bc734a4368f9cec2dcd9e0d17d05209f6812345f4e3ca58c1e04b38b15b89"
+    },
+    {
+      "role": "feature_final",
+      "path": "../../previews-rendered/visium-spatial-feature-r-v2-final.png",
+      "width_px": 2598,
+      "height_px": 1417,
+      "dpi": 300,
+      "size_bytes": 1623284,
+      "sha256": "106cf84ac1541df2aa8807af42514a0d67cea4989dbb120d74154bad10fb1534"
+    }
+  ],
+  "native_visual_review": {
+    "method": "native_local_image_view",
+    "actual_tool": "Codex view_image",
+    "detail": "original",
+    "all_four_images_opened": true,
+    "pairs": [
+      {
+        "role": "identity_overlay",
+        "round": 1,
+        "decision": "keep",
+        "blockers": [],
+        "major_findings": [],
+        "visible": [
+          "The complete tissue section, all 11 expression-derived clusters, labels, title and legend are visible without clipping or registration displacement.",
+          "The final export improves text, label and legend legibility while preserving the tissue image, spot positions and categorical assignments."
+        ],
+        "cannot_assert": [
+          "The expression-derived clusters are not independently validated anatomical regions or cell types.",
+          "This single teaching section does not establish spatial enrichment significance, biological replication, mechanism, causality or generalization."
+        ]
+      },
+      {
+        "role": "feature_overlay",
+        "round": 1,
+        "decision": "keep",
+        "blockers": [],
+        "major_findings": [],
+        "visible": [
+          "Both Hpca and Ttr panels retain the complete tissue section, registered spots, feature titles and continuous color bars without clipping.",
+          "Panel spacing, feature labels and color-bar ticks remain readable at final size."
+        ],
+        "confirmed": [
+          "The official Seurat SpatialFeaturePlot path constructed both panels; only continuous colours were replaced, with no change to values, limits, transformations, coordinates or spot selection."
+        ],
+        "cannot_assert": [
+          "The overlays do not establish spatial enrichment significance, cell identity, differential expression, direct interaction, biological replication, mechanism or causality."
+        ]
+      }
+    ]
+  },
+  "excluded_attempts": [
+    {
+      "status": "excluded_from_success_evidence",
+      "cause": "A pre-fix named identity palette arrived as an R named list rather than a character vector.",
+      "resolution": "The Recipe now normalizes a named list or vector to an identity-preserving named character vector.",
+      "successful_artifacts_reused": false
+    },
+    {
+      "status": "excluded_from_success_evidence",
+      "cause": "Seurat 5.5.0 SpatialFeaturePlot does not accept a cols argument.",
+      "resolution": "The Recipe retains the official SpatialFeaturePlot path and replaces only the continuous fill palette on its returned panels.",
+      "successful_artifacts_reused": false
+    },
+    {
+      "status": "excluded_from_success_evidence",
+      "cause": "An intermediate direct SpatialPlot implementation emitted warnings and was not retained.",
+      "resolution": "Only the warning-free final-code identity and feature renders are promoted.",
+      "successful_artifacts_reused": false
+    }
+  ],
+  "claim_limit": "The previews demonstrate coordinate-faithful descriptive overlays for one public Visium section. They do not validate the workflow that created the trusted object and do not establish spatial enrichment, biological replication, cell type identity, mechanism or causality."
+}

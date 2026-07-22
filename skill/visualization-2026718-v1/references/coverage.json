@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-22T01:21:34Z",
+  "generated_at": "2026-07-22T19:39:02Z",
   "source_root": "assets/source_archive",
   "catalog_input_fingerprint": {
     "algorithm": "sha256-v2-portable",
-    "sha256": "c1207d2ab02505140bd29a8ae1016a98c8b268a055d5a50a6d9c9ce4b10807cf",
-    "entries": 915
+    "sha256": "497fd9d142aa82196b5e7cb7b8b0e69f18be3bd1704ba55420c5346b3e97f6bc",
+    "entries": 933
   },
   "records": {
     "article": 97,
     "source_block": 621,
     "image": 709,
-    "recipe": 32,
+    "recipe": 37,
     "strategy": 9
   },
   "raw_languages": {
@@ -37,7 +37,7 @@
     "heatmap": 114,
     "decorative": 5,
     "palette": 39,
-    "embedding": 309,
+    "embedding": 310,
     "set_intersection": 26,
     "composition": 59,
     "correlation": 43,
@@ -45,9 +45,9 @@
     "unknown": 52,
     "violin": 60,
     "volcano": 101,
-    "spatial_image": 31,
+    "spatial_image": 32,
     "gsea": 161,
-    "dotplot": 144,
+    "dotplot": 145,
     "survival": 11,
     "flow": 16,
     "genomics": 73,
@@ -57,7 +57,7 @@
     "anndata_adapter": 1,
     "cellchat_adapter": 2,
     "ora_adapter": 1,
-    "seurat_adapter": 2,
+    "seurat_adapter": 4,
     "sample_level_composition": 1,
     "paired_plot": 1,
     "precision_recall": 1,

@@ -1,0 +1,156 @@
+{
+  "schema_version": "1.0.0",
+  "recipe_id": "marker-dotplot-r-v2",
+  "status": "verified",
+  "validated_on": "2026-07-23",
+  "validation_scope": {
+    "executed_chain": [
+      "seurat-marker-summary-adapter-r-v2",
+      "marker-dotplot-r-v2"
+    ],
+    "evidence_set": "pbmc3k-v2-native-review-round-2",
+    "trusted_input": "one hash-bound Seurat object produced from the public PBMC3K teaching dataset",
+    "explicit_exclusions": [
+      "This evidence validates the v2 adapter and plotting chain on the trusted object; it does not independently revalidate the upstream PBMC3K analysis workflow.",
+      "The descriptive marker summary is not a differential-expression test and does not establish annotation certainty or donor-level inference."
+    ]
+  },
+  "runtime": {
+    "R": "4.5.3",
+    "Seurat": "5.5.0",
+    "SeuratObject": "5.4.0",
+    "ggplot2": "4.0.3",
+    "renv": "1.2.2",
+    "renv_lock_sha256": "f36e3c092f1fda0cb3b2106402ffd95cf1351d7902b4dd6b3cd2381c49a953bf",
+    "task_local_user_library": true,
+    "base_r_recommended_library_used": [
+      "Matrix-1.7.4"
+    ],
+    "external_user_library_used": false,
+    "native_architecture": "Windows X64"
+  },
+  "data_binding": {
+    "dataset": "10x Genomics PBMC 3k",
+    "source_url": "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+    "source_archive_sha256": "847d6ebd9a1ec9a768f2be7e40ca42cbfe75ebeb6d76a4c24167041699dc28b5",
+    "trusted_object_sha256": "ed58ff626a7c4d21d82f0e9a8d09b16368ca5438a929790341ab9c7d4524ed57",
+    "input_cells": 2700,
+    "summarized_cells": 2638,
+    "displayed_groups": 9,
+    "displayed_features": 12,
+    "group_field": "teaching_label",
+    "assay": "RNA",
+    "layer": "data",
+    "average_transform": "expm1",
+    "scale_average_within_feature": true,
+    "scale_clip": 2.5,
+    "percent_denominator": "cells within each displayed teaching_label group",
+    "statistical_unit": "cell-group by gene descriptive summary"
+  },
+  "code_binding": {
+    "adapter_recipe_sha256": "d913825e0304d1a0454b0e7eb9e6e5465f52a7e1221049308733614fd74f0ff8",
+    "base_recipe_sha256": "de964be33a9834cd4e3c0258344b3803dc7851282218525e18f5900c9430c789",
+    "materialized_composed_module_sha256": "396700577e980081c6b8ad3a8537ca3ea440ff9a32d6d7a31815bce8ca681fa2",
+    "plot_library_sha256": "f62dccd2e819c3c1c7ecc6b78eef6e58785e6a01969f21d625cca6cae2a0d7be",
+    "recipe_runtime_sha256": "ececbbea24502afbc0f7d488665247fc8236a57eed475902c6e64de49a7f68ac",
+    "input_contract_sha256": "f845cf67f8981be59a18eaaade865667c679b2f9befc06bfb6065f277633d207"
+  },
+  "formal_preflight": {
+    "status": "pass",
+    "backend": "r",
+    "entrypoint": "build_plot",
+    "missing_dependencies": [],
+    "syntax": "pass",
+    "declared_only_parameter_gate": "pass",
+    "input_rebinding_gate": "pass"
+  },
+  "execution": {
+    "status": "pass",
+    "features": [
+      "CCR7",
+      "IL7R",
+      "CD14",
+      "LYZ",
+      "MS4A1",
+      "CD8A",
+      "FCGR3A",
+      "GNLY",
+      "NKG7",
+      "FCER1A",
+      "CST3",
+      "PPBP"
+    ],
+    "aggregation_changed_during_visual_revision": false,
+    "runtime_status": "STATUS=OK; renderer=ggplot2_ggsave",
+    "native_returncode": 0
+  },
+  "rendered_outputs": [
+    {
+      "role": "round_2_original",
+      "path": "../../previews-rendered/pbmc3k-marker-dotplot-r-v2.png",
+      "width_px": 1062,
+      "height_px": 826,
+      "dpi": 150,
+      "size_bytes": 35693,
+      "sha256": "b55820b85c163d8d7e883665370830907bb67ebd7c695bbb690720d992191578"
+    },
+    {
+      "role": "round_2_final",
+      "path": "../../previews-rendered/pbmc3k-marker-dotplot-r-v2-final.png",
+      "width_px": 2125,
+      "height_px": 1653,
+      "dpi": 300,
+      "size_bytes": 80230,
+      "sha256": "b02ed33569cf48a8122b228f3af8b1ec8f600c89c550b05ffa4e8a252ccc7b94"
+    }
+  ],
+  "native_visual_review": {
+    "method": "native_local_image_view",
+    "actual_tool": "Codex view_image",
+    "detail": "original",
+    "rounds": 2,
+    "terminal_decision": "keep",
+    "round_1": {
+      "decision": "revise",
+      "major_findings": [
+        "axis_label_clipped"
+      ]
+    },
+    "round_2": {
+      "decision": "keep",
+      "blockers": [],
+      "major_findings": [],
+      "resolved_findings": [
+        "axis_label_clipped"
+      ],
+      "visible": [
+        "All 12 marker labels and all nine teaching-label axis labels are fully visible.",
+        "The dot-size legend and scaled-average-expression color bar are complete and unclipped.",
+        "The 90-degree labels remain readable at the declared final physical size."
+      ]
+    },
+    "visual_only_revision": {
+      "x_text_angle": {
+        "before": 60,
+        "after": 90
+      },
+      "canvas_height_mm": {
+        "before": 125,
+        "after": 140
+      },
+      "scientific_parameters_changed": false
+    },
+    "cannot_assert": [
+      "The descriptive marker summary does not establish annotation certainty, differential-expression significance, biological replication or causality."
+    ]
+  },
+  "excluded_attempts": [
+    {
+      "status": "excluded_from_success_evidence",
+      "cause": "An initial materialization failed because ave() was not namespace-qualified inside the isolated runtime.",
+      "resolution": "The adapter now calls stats::ave() explicitly.",
+      "successful_artifacts_reused": false
+    }
+  ],
+  "claim_limit": "The previews demonstrate a descriptive PBMC3K group-by-marker summary using a declared expression layer, transform, scaling rule and denominator. They do not establish marker specificity, differential-expression significance, biological replication, mechanism or causality."
+}

@@ -4,6 +4,7 @@ from pathlib import Path, PurePosixPath
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 PROFILE = SKILL_ROOT / "public-install-profile.json"
+IS_PUBLIC_RUNTIME = (SKILL_ROOT / "PUBLIC_RUNTIME_MANIFEST.json").is_file()
 
 
 def test_public_install_profile_has_exact_rights_boundary_and_exclusions():
@@ -70,7 +71,8 @@ def test_public_install_profile_paths_are_safe_and_notice_is_local():
         path = PurePosixPath(value)
         assert not path.is_absolute()
         assert ".." not in path.parts
-        assert (SKILL_ROOT / Path(*path.parts)).exists()
+        present = (SKILL_ROOT / Path(*path.parts)).exists()
+        assert present is not IS_PUBLIC_RUNTIME
 
     notice = (SKILL_ROOT / "NOTICE.md").read_text(encoding="utf-8")
     license_text = (SKILL_ROOT / "LICENSE").read_text(encoding="utf-8")
@@ -80,14 +82,19 @@ def test_public_install_profile_paths_are_safe_and_notice_is_local():
     assert "MIT License" in license_text
 
     for source, target in payload["overlay_files"].items():
-        assert (SKILL_ROOT / source).is_file()
         assert PurePosixPath(target).name == target
+        if IS_PUBLIC_RUNTIME:
+            assert not (SKILL_ROOT / source).exists()
+            assert (SKILL_ROOT / target).is_file()
+        else:
+            assert (SKILL_ROOT / source).is_file()
 
 
 def test_public_runtime_manifest_references_only_present_nonexcluded_paths():
     payload = json.loads(PROFILE.read_text(encoding="utf-8"))
     excluded = tuple(f"{path}/" for path in payload["excluded_paths"] if "." not in Path(path).name)
-    manifest = (SKILL_ROOT / "manifest.public-runtime.yaml").read_text(encoding="utf-8")
+    manifest_name = "manifest.yaml" if IS_PUBLIC_RUNTIME else "manifest.public-runtime.yaml"
+    manifest = (SKILL_ROOT / manifest_name).read_text(encoding="utf-8")
     for forbidden in (*excluded, "references/catalog.jsonl", "assets/previews-curated"):
         assert forbidden not in manifest
     for required in (

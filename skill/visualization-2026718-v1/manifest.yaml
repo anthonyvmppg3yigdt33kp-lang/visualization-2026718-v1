@@ -1,10 +1,11 @@
 name: visualization-2026718-v1
-version: 1.0.0
+version: 1.2.0
 description: >-
   可视化2026718V1 router for evidence-aware scientific figure selection,
   dual-channel Scheme retrieval, backend-exclusive R/Python adaptation and
   composition, native visual review, source audit, deterministic update, and
-  explicit Recipe promotion.
+  declared-only visual revision, explicit Recipe promotion, and hash-bound
+  researcher-in-the-loop review.
 
 always_load:
   - static/core/contract.md
@@ -71,6 +72,8 @@ data:
   visual_issue_actions: references/visual-issue-actions.json
   visual_review_controller: scripts/visual_review_controller.py
   recipe_runtime: scripts/recipe_runtime.py
+  public_runtime_builder: scripts/build_public_runtime.py
+  public_install_profile: public-install-profile.json
   sanitization_report: references/source-sanitization.json
   source_snapshot: assets/source_archive
   recipes: assets/recipes
