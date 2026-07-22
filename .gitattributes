@@ -6,3 +6,5 @@
 *.rds binary
 *.pdf binary
 skill/visualization-2026718-v1/assets/source_archive/** -text
+# Preserve the exact byte stream of the hash-bound native R execution marker.
+skill/visualization-2026718-v1/assets/recipes/seurat-spatial-overlay-r-v1/real-execution-marker.json -text whitespace=cr-at-eol

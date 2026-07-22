@@ -188,6 +188,32 @@ def locate_rscript() -> str | None:
     return next((str(path) for path in candidates if path.exists()), None)
 
 
+def _r_child_environment() -> tuple[dict[str, str], dict[str, Any]]:
+    """Return an isolated R child environment with native Windows architecture restored."""
+    environment = dict(os.environ)
+    architecture: dict[str, Any] = {
+        "platform": "windows" if os.name == "nt" else "non-windows",
+        "parent_environment_modified": False,
+    }
+    if os.name != "nt" or sys.maxsize <= 2**32:
+        return environment, architecture
+
+    observed = environment.get("PROCESSOR_ARCHITECTURE", "").strip().upper()
+    if observed and observed not in {"AMD64", "X64", "X86_64"}:
+        raise RuntimeError(
+            "PROCESSOR_ARCHITECTURE conflicts with the native 64-bit Python process"
+        )
+    environment["PROCESSOR_ARCHITECTURE"] = "AMD64"
+    architecture.update(
+        {
+            "native_architecture": "X64",
+            "processor_architecture": "AMD64",
+            "processor_architecture_restored": not bool(observed),
+        }
+    )
+    return environment, architecture
+
+
 def _python_dependency_name(package: str) -> str:
     mapping = {
         "Pillow": "PIL",
@@ -230,6 +256,12 @@ def preflight_chain(chain: list[dict[str, Any]]) -> dict[str, Any]:
         if not rscript:
             missing.append("Rscript")
         elif packages:
+            try:
+                child_environment, architecture = _r_child_environment()
+                runtime["child_architecture"] = architecture
+            except RuntimeError as exc:
+                child_environment = None
+                runtime["probe_error"] = str(exc)
             encoded = json.dumps(packages)
             expression = (
                 "pkgs <- jsonlite::fromJSON(commandArgs(trailingOnly=TRUE)[1]); "
@@ -239,8 +271,11 @@ def preflight_chain(chain: list[dict[str, Any]]) -> dict[str, Any]:
             # jsonlite itself is not a Recipe dependency, so fall back to one
             # requireNamespace expression per package when it is unavailable.
             try:
+                if child_environment is None:
+                    raise RuntimeError(runtime["probe_error"])
                 process = subprocess.run(
                     [rscript, "-e", expression, encoded],
+                    env=child_environment,
                     capture_output=True,
                     text=True,
                     encoding="utf-8",
@@ -251,6 +286,7 @@ def preflight_chain(chain: list[dict[str, Any]]) -> dict[str, Any]:
                     fallback_expr = "pkgs <- c(" + ",".join(json.dumps(pkg) for pkg in packages) + "); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly=TRUE)]; cat(paste(missing, collapse='\\n')); quit(status=if(length(missing)) 7 else 0)"
                     process = subprocess.run(
                         [rscript, "-e", fallback_expr],
+                        env=child_environment,
                         capture_output=True,
                         text=True,
                         encoding="utf-8",
@@ -262,6 +298,8 @@ def preflight_chain(chain: list[dict[str, Any]]) -> dict[str, Any]:
                 elif process.returncode:
                     runtime["probe_error"] = (process.stderr or process.stdout).strip()[-1000:] or f"R dependency probe exited non-zero ({process.returncode})"
                     runtime["probe_returncode"] = process.returncode
+            except RuntimeError:
+                pass
             except subprocess.TimeoutExpired as exc:
                 runtime["probe_error"] = f"R dependency probe timed out after {exc.timeout} seconds"
                 runtime["probe_returncode"] = "timeout"
@@ -952,15 +990,28 @@ def _run_r_render(
     )
     runner_path.write_text(runner_source, encoding="utf-8", newline="\n")
     try:
+        child_environment, _architecture = _r_child_environment()
         process = subprocess.run(
             [str(rscript), "--vanilla", str(runner_path)],
             cwd=str(output_dir),
+            env=child_environment,
             capture_output=True,
             text=True,
             encoding="utf-8",
             errors="replace",
             timeout=timeout_seconds,
             check=False,
+        )
+    except RuntimeError as exc:
+        return _r_blocked_result(
+            reason=f"R child environment is invalid: {exc}",
+            stage="execute",
+            input_path=input_path,
+            code_path=code_path,
+            preflight=preflight,
+            identity=identity,
+            partial_paths=(original, final),
+            runner_path=runner_path,
         )
     except subprocess.TimeoutExpired as exc:
         return _r_blocked_result(

@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "status": "pass",
+  "trusted_local_object": true,
+  "warning_policy": {
+    "warn": 1,
+    "suppress_warnings_used": false,
+    "warning_allowlist_used": false
+  },
+  "runtime": {
+    "R": "4.5.3",
+    "Seurat": "5.5.0",
+    "SeuratObject": "5.4.0"
+  },
+  "recipe_sha256": "f4cd1c58f18646cbe52db1ca001edf7887c6caaceed3cdd2584c835a595fd25f",
+  "analysis_object_sha256": "e549e9003f6ca12181a728f024ccb711c1d171ab57f3960f37156a53d858be51",
+  "image": "anterior1",
+  "registration_assay": "Spatial",
+  "feature_assay": "SCT",
+  "identity": "seurat_clusters",
+  "features": ["Hpca", "Ttr"],
+  "barcode_reconciliation": {
+    "assay": 2695,
+    "image": 2695,
+    "coordinates": 2695,
+    "set_differences": {
+      "assay_minus_image": 0,
+      "image_minus_assay": 0,
+      "assay_minus_coordinates": 0,
+      "coordinates_minus_assay": 0,
+      "image_minus_coordinates": 0,
+      "coordinates_minus_image": 0
+    }
+  },
+  "scale_factors": {
+    "spot": 89.472,
+    "fiducial": 144.5317,
+    "hires": 0.1721,
+    "lowres": 0.0516
+  },
+  "caller_default_assay_unchanged": true,
+  "output_names": ["seurat-spatial-overlay-r.png", "seurat-spatial-overlay-r-final.png", "seurat-spatial-feature-r.png", "seurat-spatial-feature-r-final.png"]
+}

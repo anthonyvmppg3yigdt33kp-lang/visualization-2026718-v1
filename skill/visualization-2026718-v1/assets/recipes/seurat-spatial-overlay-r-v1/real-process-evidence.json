@@ -1,0 +1,62 @@
+{
+  "absolute_paths_included": false,
+  "analysis_object_sha256": "e549e9003f6ca12181a728f024ccb711c1d171ab57f3960f37156a53d858be51",
+  "architecture": {
+    "native_architecture": "X64",
+    "parent_environment_modified": false,
+    "platform": "windows",
+    "processor_architecture": "AMD64",
+    "processor_architecture_restored": true
+  },
+  "forbidden_matches": [],
+  "forbidden_patterns": [
+    "warning:",
+    "warning message",
+    "stack imbalance",
+    "iteration limit reached",
+    "alternation limit reached",
+    "execution halted",
+    "error in ",
+    "caught access violation",
+    "caught segfault",
+    "fatal error"
+  ],
+  "marker_sha256": "a2404517b54e5fd07dcf2b77640829f4c29923e93f3044e0ba9160063bc00128",
+  "native_exit_zero": true,
+  "native_returncode": 0,
+  "outputs": [
+    {
+      "height_px": 2400,
+      "name": "seurat-spatial-overlay-r.png",
+      "sha256": "747488f45c6a1e03bff9cde683b3241080dc3f14689929620d648abd22bb4abd",
+      "size_bytes": 3023362,
+      "width_px": 3600
+    },
+    {
+      "height_px": 1425,
+      "name": "seurat-spatial-overlay-r-final.png",
+      "sha256": "0f35e3714c2c6f980481205654b760ec0e8bbda0c745bf94c1fc5299f0a5ac8a",
+      "size_bytes": 1459059,
+      "width_px": 2130
+    },
+    {
+      "height_px": 2400,
+      "name": "seurat-spatial-feature-r.png",
+      "sha256": "3205ea00d3ceee73c28b63230c403d1d4b4f35d8aacd00e7b386ba8ea1c21dd6",
+      "size_bytes": 2743981,
+      "width_px": 3600
+    },
+    {
+      "height_px": 1425,
+      "name": "seurat-spatial-feature-r-final.png",
+      "sha256": "f2d95dd59baf7d70ec3297670cd765a3e12a76ed85935f8185613dacc6781a1b",
+      "size_bytes": 1332529,
+      "width_px": 2130
+    }
+  ],
+  "recipe_sha256": "f4cd1c58f18646cbe52db1ca001edf7887c6caaceed3cdd2584c835a595fd25f",
+  "schema_version": "1.0.0",
+  "status": "passed",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout_sha256": "af614562ce9a58e8ac9fb56698512ee5919300c60037f37d83b3949d31a24230"
+}
