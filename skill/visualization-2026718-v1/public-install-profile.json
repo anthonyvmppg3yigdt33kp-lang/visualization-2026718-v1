@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "profile_id": "biomedical-public-runtime-v1",
+  "purpose": "Task-local formal-Recipe runtime distribution without upstream audit snapshots, raw extracted source code, reference-only candidates, or third-party curated reference images of unresolved redistribution status.",
+  "capability_scope": [
+    "formal_recipe_adaptation",
+    "formal_recipe_composition",
+    "formal_recipe_preflight",
+    "formal_recipe_rendering",
+    "native_visual_review"
+  ],
+  "overlay_files": {
+    "SKILL.public-runtime.md": "SKILL.md",
+    "manifest.public-runtime.yaml": "manifest.yaml"
+  },
+  "included_rights_boundary": {
+    "original_code_license": "MIT",
+    "third_party_rights_status": "mixed-original-and-third-party-not-relicensed",
+    "notice_file": "NOTICE.md"
+  },
+  "excluded_paths": [
+    "assets/previews-curated",
+    "assets/scheme-candidates",
+    "assets/source_archive",
+    "references/catalog.jsonl"
+  ],
+  "exclusion_reasons": {
+    "assets/previews-curated": "Third-party curated reference images are retained only in the upstream audit checkout and are not installed by the public runtime profile.",
+    "assets/scheme-candidates": "Reference-only candidates distilled from source blocks are retained only in the upstream audit checkout and are not installed by the public formal-Recipe runtime profile.",
+    "assets/source_archive": "Article snapshots and source/reference images with unresolved redistribution rights are retained only in the upstream audit checkout and are not installed by the public runtime profile.",
+    "references/catalog.jsonl": "The full source catalog contains extracted source code and article search text; it is retained only in the upstream audit checkout and is not installed by the public formal-Recipe runtime profile."
+  },
+  "raw_third_party_data_included": false,
+  "raw_extracted_source_code_included": false
+}

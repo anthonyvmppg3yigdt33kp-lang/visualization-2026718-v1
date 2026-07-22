@@ -77,15 +77,15 @@
     "final_size_behavior": "requires original and final-size checks of spot alignment, legend, tissue detail, and clipping",
     "evidence_level": "image_code_data",
     "reviewed": true,
-    "review_note": "Real 2,695-spot Visium cluster and Hpca/Ttr overlays passed native original/final-size review with hash-bound evidence."
+    "review_note": "An independent upstream Recipe harness rendered a trusted 2,695-spot Visium Seurat object; cluster and Hpca/Ttr original/final-size previews passed hash-bound native review. This does not validate the workflow that produced the object."
   },
   "source": {"status": "original", "articles": [], "license_status": "MIT", "transformation": "original_coordinate_faithful_seurat_recipe"},
   "validation": {
-    "tier": "parse-verified",
-    "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass_seurat_5.5.0_guarded", "render": "pass_real_visium_2695", "visual": "pass", "semantic": "pass", "provenance": "pass"},
+    "tier": "verified",
+    "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "preflight": "pass_task_local_seurat_5.5.0", "fixture": "pass_seurat_5.5.0_guarded", "render": "pass_real_visium_2695", "visual": "pass", "semantic": "pass", "provenance": "pass"},
     "last_validated": "2026-07-22",
-    "runtime": "R-4.5.3; Seurat-5.5.0; SeuratObject-5.4.0; renv-1.2.2",
-    "notes": ["The synthetic contract and barcode-mismatch guard passed in the pinned Seurat 5.5.0 task-local environment using an explicit Windows completion marker.", "A real 10x Mouse Brain Sagittal-Anterior object reconciled 2,695 Spatial-assay, image, and coordinate barcodes with zero pairwise differences.", "Feature overlays explicitly separate the Spatial registration assay from the normalized feature assay and fail closed when a normalized data layer is absent.", "All four real original/final-size previews received terminal KEEP decisions in native review; see validation-evidence.json."]
+    "runtime": "R-4.5.3; Seurat-5.5.0; SeuratObject-5.4.0; renv-1.2.2; Bioconductor-3.21",
+    "notes": ["Formal preflight passed against the pinned task-local Seurat 5.5.0 library after restoring native Windows X64 architecture in the child environment without mutating the parent.", "The synthetic contract and barcode-mismatch guard passed in the pinned Seurat 5.5.0 task-local environment using an explicit Windows completion marker.", "The independent upstream harness exited zero with no warning/error-pattern matches on a trusted real 10x Mouse Brain Sagittal-Anterior Seurat object; 2,695 Spatial-assay, image, and coordinate barcodes had zero six-way set differences.", "Feature overlays explicitly separate the Spatial registration assay from the normalized feature assay and fail closed when a normalized data layer is absent.", "All four real original/final-size previews received terminal KEEP decisions in native review; see validation-evidence.json.", "The real execution validates this Recipe on the trusted object only; it does not validate the workflow or wrapper that produced that object."]
   },
-  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/seurat-spatial-overlay-r.png", "preview_final": "../../previews-rendered/seurat-spatial-overlay-r-final.png", "feature_preview": "../../previews-rendered/seurat-spatial-feature-r.png", "feature_preview_final": "../../previews-rendered/seurat-spatial-feature-r-final.png", "fixture": "../../fixtures/seurat_spatial_contract.R", "validation_evidence": "validation-evidence.json"}
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/seurat-spatial-overlay-r.png", "preview_final": "../../previews-rendered/seurat-spatial-overlay-r-final.png", "feature_preview": "../../previews-rendered/seurat-spatial-feature-r.png", "feature_preview_final": "../../previews-rendered/seurat-spatial-feature-r-final.png", "fixture": "../../fixtures/seurat_spatial_contract.R", "validation_evidence": "validation-evidence.json", "real_execution_marker": "real-execution-marker.json", "real_process_evidence": "real-process-evidence.json"}
 }

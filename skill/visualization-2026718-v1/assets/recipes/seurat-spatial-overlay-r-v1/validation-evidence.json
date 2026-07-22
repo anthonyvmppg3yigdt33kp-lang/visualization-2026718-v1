@@ -3,16 +3,45 @@
   "recipe_id": "seurat-spatial-overlay-r-v1",
   "status": "verified",
   "validated_on": "2026-07-22",
+  "validation_scope": {
+    "executed_component": "independent upstream Seurat spatial Recipe harness",
+    "evidence_set": "v6-output2",
+    "trusted_input": "one local Seurat object derived from the public 10x Visium section",
+    "explicit_exclusions": [
+      "This evidence does not validate the workflow that produced the trusted Seurat object.",
+      "This evidence does not claim that a separate biomedical tutorial CLI wrapper completed successfully."
+    ]
+  },
   "runtime": {
     "R": "4.5.3",
     "Seurat": "5.5.0",
     "SeuratObject": "5.4.0",
     "renv": "1.2.2",
-    "renv_lock_sha256": "4a5ed726be5b11c8a960bfcc4eccb1751fca6e2e6fb609bd46185d8333cebbc2"
+    "Bioconductor": "3.21",
+    "renv_lock_sha256": "b8450521054cd750e93a27fab0b44757519361bd8b694ffbae35636de508cf5b",
+    "task_local_library": true,
+    "global_library_used": false
   },
   "code_binding": {
     "recipe_sha256": "f4cd1c58f18646cbe52db1ca001edf7887c6caaceed3cdd2584c835a595fd25f",
-    "fixture_sha256": "c08e75b2aa120743928acfe22f7b66cb413ade572f69b69bd550337b9c8dfbce"
+    "fixture_sha256": "c08e75b2aa120743928acfe22f7b66cb413ade572f69b69bd550337b9c8dfbce",
+    "r_harness_sha256": "592463b2d6ff34eba1ecb98e665a8e3f53bbe08a6c57ba42b3b4d64b9f6e3d84",
+    "process_harness_sha256": "5eae31cc268c46f8b9ce4ecc3a675790a03506b81533e4637642f189cdb23b01"
+  },
+  "formal_preflight": {
+    "status": "pass",
+    "backend": "r",
+    "packages": [
+      "Seurat",
+      "SeuratObject",
+      "ggplot2"
+    ],
+    "missing_dependencies": [],
+    "syntax": "pass",
+    "entrypoint": "plot_seurat_spatial_overlay",
+    "native_architecture": "X64",
+    "processor_architecture_restored_for_child": true,
+    "parent_environment_modified": false
   },
   "synthetic_contract": {
     "status": "pass",
@@ -24,6 +53,7 @@
   },
   "real_visium_execution": {
     "status": "pass",
+    "scope": "independent_recipe_execution_on_trusted_local_seurat_object",
     "dataset": "10x Genomics Mouse Brain Serial Section 1 (Sagittal-Anterior)",
     "source_page": "https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0",
     "data_license": "CC BY 4.0",
@@ -39,15 +69,28 @@
         "sha256": "5f41a803e2bd69fa4dfca6abc8fa2d4e0d76aeb6c72d7038a5fdcf9cc50a36f8"
       }
     ],
-    "analysis_object_sha256": "d8e30585363469373ad9f9a920729d2bc88cbe7ad69c53b1375ba02120544b3b",
+    "analysis_object_sha256": "e549e9003f6ca12181a728f024ccb711c1d171ab57f3960f37156a53d858be51",
     "image": "anterior1",
     "registration_assay": "Spatial",
     "feature_assay": "SCT",
+    "identity": "seurat_clusters",
+    "identity_interpretation": "11 expression-derived spot clusters (0-10), not cell types",
+    "features": [
+      "Hpca",
+      "Ttr"
+    ],
     "barcode_reconciliation": {
       "assay": 2695,
       "image": 2695,
       "coordinates": 2695,
-      "all_pairwise_set_differences": 0
+      "set_differences": {
+        "assay_minus_image": 0,
+        "image_minus_assay": 0,
+        "assay_minus_coordinates": 0,
+        "coordinates_minus_assay": 0,
+        "image_minus_coordinates": 0,
+        "coordinates_minus_image": 0
+      }
     },
     "scale_factors": {
       "spot": 89.472,
@@ -55,53 +98,115 @@
       "hires": 0.1721,
       "lowres": 0.0516
     },
-    "identity": "seurat_clusters",
-    "features": [
-      "Hpca",
-      "Ttr"
-    ],
-    "execution_marker_sha256": "f42bcbe455107b1507679b6c2eb5761e02e66f6597efdbbdb7d7537dbe0ce652"
+    "caller_default_assay_unchanged": true,
+    "warning_policy": {
+      "warn": 1,
+      "suppress_warnings_used": false,
+      "warning_allowlist_used": false,
+      "forbidden_matches": []
+    }
+  },
+  "native_process_evidence": {
+    "status": "passed",
+    "native_returncode": 0,
+    "native_exit_zero": true,
+    "architecture": "Windows X64",
+    "stdout_sha256": "af614562ce9a58e8ac9fb56698512ee5919300c60037f37d83b3949d31a24230",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "execution_marker_file": "real-execution-marker.json",
+    "execution_marker_sha256": "a2404517b54e5fd07dcf2b77640829f4c29923e93f3044e0ba9160063bc00128",
+    "process_evidence_file": "real-process-evidence.json",
+    "process_evidence_sha256": "2d1dc6fec31cb8c9d2ae4ce633ebb4f6d9cc665ef9bcbc1a99e83b5c41bc859e",
+    "forbidden_matches": [],
+    "absolute_paths_included": false
   },
   "rendered_outputs": [
     {
       "path": "../../previews-rendered/seurat-spatial-overlay-r.png",
       "width_px": 3600,
       "height_px": 2400,
-      "size_bytes": 3661181,
-      "sha256": "89d196dc6a709b36b8e2b640cd21c8020a6e19970c99b4695f23c2ebfac51c12"
+      "size_bytes": 3023362,
+      "sha256": "747488f45c6a1e03bff9cde683b3241080dc3f14689929620d648abd22bb4abd"
     },
     {
       "path": "../../previews-rendered/seurat-spatial-overlay-r-final.png",
       "width_px": 2130,
       "height_px": 1425,
-      "size_bytes": 1680240,
-      "sha256": "ece6c752ba7fb4ff5a91c0d5e2edd435736e275c3578ed18e4165bc11a936f21"
+      "size_bytes": 1459059,
+      "sha256": "0f35e3714c2c6f980481205654b760ec0e8bbda0c745bf94c1fc5299f0a5ac8a"
     },
     {
       "path": "../../previews-rendered/seurat-spatial-feature-r.png",
       "width_px": 3600,
       "height_px": 2400,
-      "size_bytes": 4507485,
-      "sha256": "a7a1ce26ca70e746c44683adcb369c75354c4a1bf184fc44354831f6bc279ab3"
+      "size_bytes": 2743981,
+      "sha256": "3205ea00d3ceee73c28b63230c403d1d4b4f35d8aacd00e7b386ba8ea1c21dd6"
     },
     {
       "path": "../../previews-rendered/seurat-spatial-feature-r-final.png",
       "width_px": 2130,
       "height_px": 1425,
-      "size_bytes": 2125158,
-      "sha256": "95a5f887a2c3deb29da1d6b10fb8e7200532dfd1b405d694a4e9c79141db99b1"
+      "size_bytes": 1332529,
+      "sha256": "f2d95dd59baf7d70ec3297670cd765a3e12a76ed85935f8185613dacc6781a1b"
     }
   ],
   "native_visual_review": {
-    "tool": "Codex view_image",
+    "method": "native_local_image_view",
+    "actual_tool": "Codex view_image",
     "detail": "original",
     "reviewer": "OpenAI Codex primary agent",
+    "all_four_images_opened": true,
     "decisions": {
       "seurat-spatial-overlay-r.png": "KEEP",
       "seurat-spatial-overlay-r-final.png": "KEEP",
       "seurat-spatial-feature-r.png": "KEEP",
       "seurat-spatial-feature-r-final.png": "KEEP"
     },
+    "pairs": [
+      {
+        "role": "identity_overlay",
+        "original_sha256": "747488f45c6a1e03bff9cde683b3241080dc3f14689929620d648abd22bb4abd",
+        "final_sha256": "0f35e3714c2c6f980481205654b760ec0e8bbda0c745bf94c1fc5299f0a5ac8a",
+        "decision": "keep",
+        "blockers": [],
+        "major_findings": [],
+        "visible": [
+          "The complete tissue section, registered spots, labels 0-10, and categorical legend are visible without clipping.",
+          "The final-size image is more compact while remaining readable."
+        ],
+        "interpretable": [
+          "Color and labels map to the displayed seurat_clusters identities over the registered tissue image."
+        ],
+        "confirmed": [
+          "The Recipe and marker confirm that all 2,695 Spatial-assay, image, and coordinate barcodes reconcile with zero six-way set differences."
+        ],
+        "cannot_assert": [
+          "The 11 identities are expression-derived spot clusters, not cell types.",
+          "The overlay does not establish spatial enrichment, biological replication, mechanism, or causality."
+        ]
+      },
+      {
+        "role": "feature_overlay",
+        "original_sha256": "3205ea00d3ceee73c28b63230c403d1d4b4f35d8aacd00e7b386ba8ea1c21dd6",
+        "final_sha256": "f2d95dd59baf7d70ec3297670cd765a3e12a76ed85935f8185613dacc6781a1b",
+        "decision": "keep",
+        "blockers": [],
+        "major_findings": [],
+        "visible": [
+          "Both Hpca and Ttr panels retain full tissue coverage and readable continuous color scales without clipping.",
+          "The final-size two-panel view is compact and legible."
+        ],
+        "interpretable": [
+          "Color maps the existing SCT assay values for Hpca and Ttr at registered spots."
+        ],
+        "confirmed": [
+          "The Recipe used the Spatial assay for registration and the SCT assay for existing feature values without changing the caller default assay."
+        ],
+        "cannot_assert": [
+          "The descriptive feature overlays do not establish enrichment, differential expression, mechanism, or causality."
+        ]
+      }
+    ],
     "checks": {
       "spot_tissue_alignment": "pass",
       "cluster_label_separation": "pass",
@@ -110,17 +215,17 @@
       "clipping": "pass"
     }
   },
-  "revision_history": [
-    {
-      "type": "contract_correction",
-      "observation": "The first real feature render correctly failed because the Spatial registration assay had no normalized data layer.",
-      "resolution": "Added an explicit feature_assay parameter, exact feature-assay/image barcode reconciliation, and a normalized-data-layer preflight; the real feature render uses SCT without changing expression values."
-    },
-    {
-      "type": "visual_only",
-      "observation": "Default cluster labels were too large and partially crowded.",
-      "resolution": "Set label_size=3.5 and label_repel=true; filtering, normalization, clustering, thresholds, coordinates, and statistical meaning were unchanged."
-    }
-  ],
-  "claim_limit": "The previews demonstrate coordinate-faithful descriptive overlays for one public Visium section; they do not establish spatial enrichment, biological replication, mechanism, or causality."
+  "visual_adjustment": {
+    "rounds": 1,
+    "final_size_only": true,
+    "scientific_parameters_changed": false,
+    "summary": "The final exports use a smaller physical canvas; filtering, normalization, clustering, coordinates, feature values, thresholds, and statistical meaning are unchanged."
+  },
+  "excluded_attempt": {
+    "status": "excluded_from_success_evidence",
+    "cause": "An earlier harness-only attempt could not serialize the Seurat ScaleFactors S3 object to JSON.",
+    "recipe_failure": false,
+    "successful_artifacts_reused": false
+  },
+  "claim_limit": "The previews demonstrate coordinate-faithful descriptive overlays for one public Visium section. They do not validate the workflow that created the trusted object and do not establish spatial enrichment, biological replication, cell types, mechanism, or causality."
 }

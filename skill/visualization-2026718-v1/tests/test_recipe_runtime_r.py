@@ -232,6 +232,26 @@ class RecipeRuntimeRTests(unittest.TestCase):
         self.assertEqual(result["runtime"]["probe_returncode"], 3221225477)
         self.assertIn("exited non-zero", result["runtime"]["probe_error"])
 
+    def test_r_child_environment_restores_native_windows_architecture_without_parent_mutation(self) -> None:
+        with mock.patch.object(runtime.os, "name", "nt"), mock.patch.object(
+            runtime.sys, "maxsize", 2**63 - 1
+        ), mock.patch.dict(runtime.os.environ, {}, clear=True):
+            child, architecture = runtime._r_child_environment()
+            self.assertNotIn("PROCESSOR_ARCHITECTURE", runtime.os.environ)
+        self.assertEqual(child["PROCESSOR_ARCHITECTURE"], "AMD64")
+        self.assertEqual(architecture["native_architecture"], "X64")
+        self.assertTrue(architecture["processor_architecture_restored"])
+        self.assertFalse(architecture["parent_environment_modified"])
+
+    def test_r_child_environment_rejects_conflicting_architecture(self) -> None:
+        with mock.patch.object(runtime.os, "name", "nt"), mock.patch.object(
+            runtime.sys, "maxsize", 2**63 - 1
+        ), mock.patch.dict(
+            runtime.os.environ, {"PROCESSOR_ARCHITECTURE": "ARM64"}, clear=True
+        ):
+            with self.assertRaisesRegex(RuntimeError, "PROCESSOR_ARCHITECTURE conflicts"):
+                runtime._r_child_environment()
+
     def test_r_literal_keeps_parameter_strings_inert(self) -> None:
         payload = {'marker-box-r-v1': {'colour': '\"); system("whoami"); #'}}
         encoded = runtime._r_literal(payload)

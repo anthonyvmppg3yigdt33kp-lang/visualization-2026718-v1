@@ -1,0 +1,63 @@
+name: visualization-2026718-v1
+version: 1.0.0
+profile: biomedical-public-runtime-v1
+description: >-
+  Public task-local formal-Recipe runtime for evidence-aware scientific figure
+  selection, backend-exclusive R/Python adaptation and composition, rendering,
+  and native visual review. Raw source archives, extracted source code,
+  reference-only candidates, and third-party curated previews are excluded.
+
+always_load:
+  - static/core/contract.md
+  - static/core/stance.md
+
+axes:
+  mode:
+    values:
+      discover: static/fragments/mode/discover.md
+      adapt: static/fragments/mode/adapt.md
+      compose: static/fragments/mode/compose.md
+      review: static/fragments/mode/review.md
+    multi: false
+  backend:
+    required_for:
+      - adapt
+      - compose
+      - render
+      - export
+      - backend_visual_qa
+    values:
+      r: static/fragments/backend/r.md
+      python: static/fragments/backend/python.md
+    multi: false
+
+data:
+  distribution_profile: public-install-profile.json
+  scheme_catalog: references/scheme-catalog.jsonl
+  scheme_aliases: references/scheme-aliases.json
+  retrieval_index: references/retrieval-index.json
+  scheme_coverage: references/scheme-coverage.json
+  recipes: assets/recipes
+  exact_render_previews: assets/previews-rendered
+  fixtures: assets/fixtures
+  recipe_runtime: scripts/recipe_runtime.py
+  visual_review_controller: scripts/visual_review_controller.py
+
+references:
+  on_demand:
+    - id: ontology
+      path: references/visual-semantic-ontology.md
+    - id: selection_policy
+      path: references/figure-selection-policy.md
+    - id: visual_review
+      path: references/visual-review-protocol.md
+    - id: recipe_schema
+      path: references/recipe-schema.md
+    - id: qa_contract
+      path: references/qa-contract.md
+
+capability_limits:
+  - Source-archive audit, ingestion, update, and reference-only candidate execution are unavailable in this public runtime profile.
+  - Only formal Recipes with a callable implementation and passing preflight may be adapted or executed.
+  - Missing excluded source paths are intentional and must not be downloaded or reconstructed automatically.
+  - Real-object validation evidence applies to the named Recipe and trusted input only; it does not validate any upstream object-generation workflow or external CLI wrapper.

@@ -66,6 +66,13 @@ Copy-Item -Recurse -Force `
 
 重新启动或刷新 Codex 技能列表后，通过 `$visualization-2026718-v1` 显式调用。
 
+完整上游 skill 还包含用于离线审计与来源追踪的第三方材料，不能把整个目录视为
+统一 MIT 载荷。面向下游公开、task-local 安装时，以
+`skill/visualization-2026718-v1/public-install-profile.json` 为唯一分发边界：排除
+其中列出的 source archive、抽取源码 catalog、reference-only candidates 和第三方
+curated previews，并把 `SKILL.public-runtime.md`、`manifest.public-runtime.yaml`
+分别覆盖为安装树中的 `SKILL.md`、`manifest.yaml`。被排除内容不得自动下载或重建。
+
 核心检索、审计和验证 CLI 仅使用 Python 标准库。执行具体 Recipe 时，`preflight` 会按所选链检查依赖：Python Recipe 常用 `numpy`、`pandas`、`matplotlib`；R Recipe 可能需要 `ggplot2`、`ggrepel`、`patchwork`、`pROC`、`ComplexHeatmap`、`circlize` 或 `SeuratObject`。不建议预先安装全部依赖，应以实际 Recipe 的 `requires.packages` 为准。
 
 ## 使用示例
@@ -94,7 +101,14 @@ Copy-Item -Recurse -Force `
 使用 $visualization-2026718-v1。R。对可信本地 Seurat Visium 对象先执行 seurat-spatial-overlay-r-v1 preflight，再用 Spatial assay 和指定 image 绘制 cluster 及 Hpca/Ttr spot overlay；不得手工重建坐标，运行后打开原图和最终尺寸图复核。
 ```
 
-该 Recipe 的合成 fixture 只验证对象、图像、scale factor 与 barcode-coordinate 契约；真实空间定位结论必须基于真实 Visium 输入、输入 QC 和 native visual review。
+该 Recipe 的合成 fixture 验证对象、图像、scale factor 与 barcode-coordinate 契约。
+此外，独立 upstream harness 已在一个可信的公开 10x 数据衍生 Seurat 对象上以
+R 4.5.3 / Seurat 5.5.0 返回 0、零 warning/error-pattern 匹配运行，并核对 2,695
+个 barcode 的六向差集均为 0；四张 original/final 预览均经 native review 判定
+`KEEP`。这份证据只验证 Recipe 在该可信对象上的执行，不验证生成该对象的工作流或
+其他 CLI wrapper。11 个标签是 expression-derived spot clusters，不是 cell types；
+Hpca/Ttr overlay 仅作描述，不支持 enrichment、机制或因果声明。精确哈希与边界见
+Recipe 的 `validation-evidence.json`。
 
 ### 解释已有结果图
 
@@ -144,4 +158,7 @@ python scripts/plot_library.py validate --all --strict
 
 ## 许可与素材说明
 
-仓库原创代码与文档按 [MIT License](LICENSE) 提供。
+仓库原创代码与文档按 [MIT License](LICENSE) 提供。第三方来源材料与 10x
+Genomics CC BY 4.0 数据衍生预览不因进入仓库而改授 MIT；归属、分发边界与公开
+runtime 排除项见 [NOTICE](NOTICE.md) 和
+`skill/visualization-2026718-v1/public-install-profile.json`。

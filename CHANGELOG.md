@@ -17,10 +17,11 @@
 - Give CellChat context priority over marker routes and restrict adapter composition to compatible CellChat recipe chains.
 - Permit explicitly trusted local RDS inputs while retaining a clear untrusted-deserialization warning.
 - Preserve `source_archive` bytes across clean clones so checksum and catalog-freshness validation remain reproducible.
+- Restore native Windows X64 architecture only in R child-process environments so package preflight and rendering do not inherit an absent `PROCESSOR_ARCHITECTURE`; the parent environment remains unchanged and conflicting architecture values fail closed.
 
 ### Validated
 
-- Seurat 5.5.0 spatial Recipe on the official 10x Mouse Brain Sagittal-Anterior section: 2,695 Spatial-assay, image, and coordinate barcodes reconciled with zero pairwise differences; cluster and Hpca/Ttr overlays passed hash-bound original/final-size native review.
+- Independent Seurat 5.5.0 Recipe harness on a trusted object derived from the official 10x Mouse Brain Sagittal-Anterior section: native R exit 0, zero warning/error-pattern matches, 2,695 Spatial-assay/image/coordinate barcodes with zero six-way set differences, and hash-bound `KEEP` native reviews for cluster and Hpca/Ttr original/final-size overlays. This validates the Recipe on that object, not the workflow or wrapper that produced it.
 - Seurat 5.4.0 workflow on official PBMC3K: 2638 QC-retained cells and 9 signature-annotated groups.
 - CellChat 2.2.0.9001: 441 communication rows at model `p <= 0.05`, 15 pathways, and 74 nonzero aggregate edges.
 - Nine hash-bound original/final native visual reviews with terminal `keep` decisions.
