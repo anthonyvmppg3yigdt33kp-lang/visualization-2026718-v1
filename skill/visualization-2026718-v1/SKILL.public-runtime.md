@@ -4,11 +4,12 @@ description: >-
   可视化2026718V1 public formal-Recipe runtime：面向生物医学、临床研究、统计分析和多组学，选择证据相容的正式图形 Recipe，适配或组合 R/Python 实现，按需渲染并完成原生像素复核。Use when users ask for 科研绘图、UMAP、dot/bubble plot、heatmap、volcano、GSEA/ORA、CellChat、survival、ROC、genomics、spatial 或 multipanel figures. Executable work requires an explicit backend and a formal Recipe.
 ---
 
-# 可视化2026718V1：public formal-Recipe runtime
+# 可视化2026718V1：public formal-Recipe runtime（V1.2.0）
 
 本安装由 `public-install-profile.json` 定义，只提供可公开分发的正式 Recipe
 运行层。先读 [manifest.yaml](manifest.yaml)、`always_load` 契约和
-[NOTICE.md](NOTICE.md)。
+[NOTICE.md](NOTICE.md)。可用 `scripts/build_public_runtime.py verify` 对照
+`PUBLIC_RUNTIME_MANIFEST.json` 复核安装树；builder 永不覆盖既有输出。
 
 ## 权利与能力边界
 
@@ -48,14 +49,23 @@ catalog、reference-only source-code candidates，以及第三方 curated previe
 `adapter -> base_recipe -> semantic_modifier -> aesthetic_modifier -> layout -> export`
 
 - R/Python backend 必须在执行前明确，选定后禁止跨后端重绘。
+- Windows PowerShell 中优先使用 UTF-8 参数 JSON 文件的路径作为 `--params-json`，
+  不依赖容易被 shell 引号规则改写的内联 JSON。
 - 运行前验证 `requires`、`provides`、`compatible_with` 和 `conflicts`。
 - 不执行 install/download、workspace clearing、`setwd()`、私有路径或隐藏写入。
 - 不为“让图跑起来”而改变过滤、归一化、阈值、检验、聚合或声明含义。
-- Seurat Visium 使用 `seurat-spatial-overlay-r-v1`，先检查 Spatial assay、image、
+- Seurat UMAP 的声明式链显式使用 `seurat-embedding-adapter-r-v2 ->
+  umap-dataframe-r-v2`；marker 汇总链显式使用
+  `seurat-marker-summary-adapter-r-v2 -> marker-dotplot-r-v2`，并绑定既有
+  reduction/group 或 assay/layer/transform/group/denominator。
+- Seurat Visium 使用 `seurat-spatial-overlay-r-v2`，先检查 Spatial assay、image、
   scale factors 与 barcode-coordinate 对账，并保留 Seurat 坐标绘图接口。
-- 该 Recipe 的 `verified` 证据边界是独立 upstream harness 在一个可信 Seurat
-  对象上的执行，不是对生成对象的工作流或外层 CLI wrapper 的背书。11 个标签仅作
-  expression-derived spot clusters，Hpca/Ttr overlay 仅作描述性展示。
+- v2 `verified` 证据边界是相应 Recipe/adapter chain 在指定 hash-bound 可信对象
+  上的执行，不是对生成对象的工作流或外层 CLI wrapper 的背书。PBMC labels 与
+  11 个 Visium expression-derived spot clusters 均只作描述性展示。
+- v1 Recipe 继续作为显式兼容接口；不得把已有 v1 provenance 静默迁移为 v2。
+- 对 `visual_revision.parameter_policy=declared-only` 的 Recipe，只接受已声明且由
+  issue registry 映射的视觉参数，并禁止通过参数载荷重绑定输入对象。
 
 ### 图审与交付
 

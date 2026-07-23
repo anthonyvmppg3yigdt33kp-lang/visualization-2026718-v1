@@ -67,6 +67,27 @@ Python base Recipes return Figure/Axes and modifiers return the updated object.
 and `description`. A default must not change filtering, statistics, or claim
 strength silently.
 
+For a Recipe whose input artifact is passed as the first callable argument,
+declare `input_parameter` with the matching parameter name. The runtime binds
+that parameter from `--input`, rejects attempts to override it, and rejects
+every runtime parameter not listed in `parameters`.
+
+Recipes that support the native-review loop may add:
+
+```yaml
+visual_revision:
+  parameter_policy: declared-only
+  max_rounds: 3
+  issue_parameter_map:
+    label_overlap: [label_repel, label_size]
+    point_density_occlusion: [point_size, alpha]
+```
+
+Each issue ID must exist in `visual-issue-actions.json`, and each mapped name
+must be declared by that Recipe. The mapping authorizes only which existing
+visual arguments may address a native finding; it does not detect the finding,
+approve a value, or authorize data/statistical/scale-semantic changes.
+
 ## Semantic and visual records
 
 `semantic_card` contains:

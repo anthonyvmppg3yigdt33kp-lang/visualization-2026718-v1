@@ -10,4 +10,8 @@ Source URLs and lineage metadata are retained where available so users can ident
 
 ## 10x Genomics Visium validation previews
 
-The four `seurat-spatial-*-r*.png` validation previews were generated from the 10x Genomics public dataset “Mouse Brain Serial Section 1 (Sagittal-Anterior)”. The source page identifies the dataset as CC BY 4.0: <https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0>. These data-derived previews retain that attribution and are not relicensed under the repository MIT License. The original data files are not distributed in this repository.
+The v1/v2 identity and feature `seurat-spatial-*-r*.png` and `visium-spatial-*-r-v2*.png` validation previews were generated from the 10x Genomics public dataset “Mouse Brain Serial Section 1 (Sagittal-Anterior)”. The source page identifies the dataset as CC BY 4.0: <https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0>. These data-derived previews retain that attribution and are not relicensed under the repository MIT License. The original data files are not distributed in this repository.
+
+## 10x Genomics PBMC3K validation previews
+
+The `pbmc3k-umap-r-v2*.png` and `pbmc3k-marker-dotplot-r-v2*.png` validation previews were generated from the publicly downloadable 10x Genomics PBMC 3k matrix: <https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz>. They are data-derived validation artifacts, retain attribution to 10x Genomics, and are not relicensed under the repository MIT License. The original count matrix is not distributed in this repository; users must verify the source terms for their intended reuse.

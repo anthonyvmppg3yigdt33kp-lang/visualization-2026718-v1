@@ -70,6 +70,107 @@ def load_recipe(recipe_id: str) -> dict[str, Any]:
     return recipe
 
 
+def _declared_parameter_names(recipe: dict[str, Any]) -> list[str]:
+    """Return the stable, unique runtime parameter names declared by a Recipe."""
+    names: list[str] = []
+    for parameter in recipe.get("parameters") or []:
+        if not isinstance(parameter, dict):
+            continue
+        name = str(parameter.get("name") or "")
+        if name and name not in names:
+            names.append(name)
+    return names
+
+
+def validate_runtime_parameters(
+    recipe: dict[str, Any],
+    parameters: dict[str, Any] | None,
+    *,
+    bind_input: bool = True,
+) -> dict[str, Any]:
+    """Fail closed when a render receives undeclared or rebound parameters.
+
+    The renderer supplies the input artifact as the callable's first argument.
+    Therefore callers may configure only the remaining parameters and may not
+    rebind that input through ``--params-json``.
+    """
+    if parameters is None:
+        parameters = {}
+    if not isinstance(parameters, dict):
+        raise ValueError(f"{recipe.get('id')}: runtime parameters must be an object")
+    declared = _declared_parameter_names(recipe)
+    declared_set = set(declared)
+    unknown = sorted(str(name) for name in parameters if str(name) not in declared_set)
+    if unknown:
+        raise ValueError(
+            f"{recipe.get('id')}: undeclared runtime parameter(s): {', '.join(unknown)}"
+        )
+    explicit_input = recipe.get("input_parameter")
+    inferred_input = (
+        declared[0]
+        if declared
+        and declared[0] in {"data", "object", "adata", "matrix", "matrix_data"}
+        else None
+    )
+    bound_input = str(explicit_input or inferred_input or "") or None
+    if bound_input and bound_input not in declared_set:
+        raise ValueError(
+            f"{recipe.get('id')}: input_parameter '{bound_input}' is not declared"
+        )
+    if bound_input and bound_input in parameters:
+        raise ValueError(
+            f"{recipe.get('id')}: input parameter '{bound_input}' is bound by --input and cannot be overridden"
+        )
+    return {
+        "policy": "declared-only",
+        "recipe_id": recipe.get("id"),
+        "declared": declared,
+        "bound_input": bound_input,
+        "provided": sorted(str(name) for name in parameters),
+        "status": "pass",
+    }
+
+
+def validate_component_parameters(
+    chain: list[dict[str, Any]],
+    component_kwargs: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Validate the nested parameter object used by a composed Recipe chain."""
+    values = dict(component_kwargs or {})
+    selected = {str(recipe.get("id")): recipe for recipe in chain}
+    allowed_top_level = set(selected)
+    if chain and chain[0].get("backend") == "python":
+        allowed_top_level.add("__runtime__")
+    unknown_components = sorted(str(name) for name in values if str(name) not in allowed_top_level)
+    if unknown_components:
+        raise ValueError(
+            "composition received parameters for undeclared component(s): "
+            + ", ".join(unknown_components)
+        )
+    checks: list[dict[str, Any]] = []
+    for recipe_id, recipe in selected.items():
+        payload = values.get(recipe_id, {})
+        if not isinstance(payload, dict):
+            raise ValueError(f"{recipe_id}: component parameters must be an object")
+        checks.append(validate_runtime_parameters(recipe, payload, bind_input=True))
+    if "__runtime__" in values:
+        runtime = values["__runtime__"]
+        if not isinstance(runtime, dict):
+            raise ValueError("__runtime__: component parameters must be an object")
+        unknown_runtime = sorted(set(runtime) - {"figure_size_inches"})
+        if unknown_runtime:
+            raise ValueError(
+                "__runtime__: undeclared runtime parameter(s): "
+                + ", ".join(unknown_runtime)
+            )
+    return {
+        "policy": "declared-only",
+        "composition_order": [recipe.get("id") for recipe in chain],
+        "components": checks,
+        "status": "pass",
+    }
+
+
 def recipe_code(recipe: dict[str, Any]) -> tuple[Path, str]:
     relative = str((recipe.get("files") or {}).get("code") or "")
     if not relative:
@@ -502,6 +603,7 @@ def render_python_recipe(
     recipe = load_recipe(recipe_id)
     if recipe.get("backend") != "python":
         raise ValueError("render_python_recipe requires a Python Recipe")
+    parameter_contract = validate_runtime_parameters(recipe, parameters, bind_input=True)
     preflight = preflight_chain([recipe])
     if not preflight["ok"]:
         raise RuntimeError("Preflight failed: " + json.dumps(preflight, ensure_ascii=False))
@@ -540,6 +642,7 @@ def render_python_recipe(
         "parameters": parameters or {},
         "parameters_path": str(parameters_path),
         "parameters_sha256": _sha256(parameters_path),
+        "parameter_contract": parameter_contract,
         "original": {"path": str(original), "sha256": _sha256(original)},
         "final": {"path": str(final), "sha256": _sha256(final), "width_mm": width_mm, "height_mm": height_mm, "dpi": dpi},
         "preflight": preflight,
@@ -559,6 +662,7 @@ def render_python_chain(
 ) -> dict[str, Any]:
     if not chain or chain[0].get("backend") != "python":
         raise ValueError("render_python_chain requires a Python Recipe chain")
+    parameter_contract = validate_component_parameters(chain, component_kwargs)
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     materialized = materialize_chain(chain, output_dir)
@@ -604,6 +708,7 @@ def render_python_chain(
         "component_kwargs": component_kwargs or {},
         "parameters_path": str(parameters_path),
         "parameters_sha256": _sha256(parameters_path),
+        "component_parameter_contract": parameter_contract,
         "original": {"path": str(original), "sha256": _sha256(original)},
         "final": {"path": str(final), "sha256": _sha256(final), "width_mm": width_mm, "height_mm": height_mm, "dpi": dpi},
         "preflight": materialized["preflight"],
@@ -1120,6 +1225,10 @@ def render_r_recipe(
     recipe = load_recipe(recipe_id)
     if recipe.get("backend") != "r":
         raise ValueError("render_r_recipe requires an R Recipe")
+    normalized_parameters = dict(parameters or {})
+    parameter_contract = validate_runtime_parameters(
+        recipe, normalized_parameters, bind_input=True
+    )
     code_path, code = recipe_code(recipe)
     entrypoint = detect_entrypoint(recipe, code)
     preflight = preflight_chain([recipe])
@@ -1127,7 +1236,7 @@ def render_r_recipe(
         input_path=input_path,
         code_path=code_path,
         entrypoint=entrypoint,
-        parameters=dict(parameters or {}),
+        parameters=normalized_parameters,
         output_dir=output_dir,
         artifact_stem=recipe_id,
         preflight=preflight,
@@ -1141,6 +1250,7 @@ def render_r_recipe(
         timeout_seconds=timeout_seconds,
     )
     result.setdefault("recipe_kind", recipe.get("kind"))
+    result["parameter_contract"] = parameter_contract
     return result
 
 
@@ -1156,6 +1266,10 @@ def render_r_chain(
 ) -> dict[str, Any]:
     if not chain or chain[0].get("backend") != "r":
         raise ValueError("render_r_chain requires an R Recipe chain")
+    normalized_component_kwargs = dict(component_kwargs or {})
+    parameter_contract = validate_component_parameters(
+        chain, normalized_component_kwargs
+    )
     output_dir = output_dir.resolve()
     materialized = materialize_chain(chain, output_dir)
     code_path = Path(str(materialized["code_path"]))
@@ -1168,7 +1282,7 @@ def render_r_chain(
         input_path=input_path,
         code_path=code_path,
         entrypoint="build_plot",
-        parameters=dict(component_kwargs or {}),
+        parameters=normalized_component_kwargs,
         output_dir=output_dir,
         artifact_stem=str(materialized["id"]),
         preflight=materialized["preflight"],
@@ -1183,6 +1297,7 @@ def render_r_chain(
     )
     if "parameters" in result:
         result["component_kwargs"] = result.pop("parameters")
+    result["component_parameter_contract"] = parameter_contract
     return result
 
 

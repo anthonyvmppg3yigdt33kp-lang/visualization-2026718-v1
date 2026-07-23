@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0.0",
+  "recipe_id": "umap-dataframe-r-v2",
+  "status": "verified",
+  "validated_on": "2026-07-23",
+  "validation_scope": {
+    "executed_chain": [
+      "seurat-embedding-adapter-r-v2",
+      "umap-dataframe-r-v2"
+    ],
+    "evidence_set": "pbmc3k-v2-native-review-round-1",
+    "trusted_input": "one hash-bound Seurat object produced from the public PBMC3K teaching dataset",
+    "explicit_exclusions": [
+      "This evidence validates the v2 adapter and plotting chain on the trusted object; it does not independently revalidate the upstream PBMC3K analysis workflow.",
+      "The displayed teaching labels are descriptive annotations and do not establish donor-level inference or population effects."
+    ]
+  },
+  "runtime": {
+    "R": "4.5.3",
+    "Seurat": "5.5.0",
+    "SeuratObject": "5.4.0",
+    "ggplot2": "4.0.3",
+    "ggrepel": "0.9.8",
+    "renv": "1.2.2",
+    "renv_lock_sha256": "f36e3c092f1fda0cb3b2106402ffd95cf1351d7902b4dd6b3cd2381c49a953bf",
+    "task_local_user_library": true,
+    "base_r_recommended_library_used": [
+      "Matrix-1.7.4"
+    ],
+    "external_user_library_used": false,
+    "native_architecture": "Windows X64"
+  },
+  "data_binding": {
+    "dataset": "10x Genomics PBMC 3k",
+    "source_url": "https://cf.10xgenomics.com/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz",
+    "source_archive_sha256": "847d6ebd9a1ec9a768f2be7e40ca42cbfe75ebeb6d76a4c24167041699dc28b5",
+    "trusted_object_sha256": "ed58ff626a7c4d21d82f0e9a8d09b16368ca5438a929790341ab9c7d4524ed57",
+    "input_cells": 2700,
+    "displayed_cells": 2638,
+    "displayed_groups": 9,
+    "group_field": "teaching_label",
+    "statistical_unit": "cell for descriptive visualization only"
+  },
+  "code_binding": {
+    "adapter_recipe_sha256": "8c7798c1855511058946fafb09ce8d6686d173e6a5875061b7d6747244d5b392",
+    "base_recipe_sha256": "020dd748ffe9f9fa71f735108d6a0d36ecdc5007fa7d06ab0d674e32c567db64",
+    "materialized_composed_module_sha256": "cfed6d93fcc072ec1094604995a7f5a46e993ffa537e05313d52f9b185a1af07",
+    "plot_library_sha256": "f62dccd2e819c3c1c7ecc6b78eef6e58785e6a01969f21d625cca6cae2a0d7be",
+    "recipe_runtime_sha256": "ececbbea24502afbc0f7d488665247fc8236a57eed475902c6e64de49a7f68ac",
+    "input_contract_sha256": "99ac2df8493d5dd12fb5c31c4a95dabbf54e254afdaaf34c7eaa8f9bbae75d01"
+  },
+  "formal_preflight": {
+    "status": "pass",
+    "backend": "r",
+    "entrypoint": "build_plot",
+    "missing_dependencies": [],
+    "syntax": "pass",
+    "declared_only_parameter_gate": "pass",
+    "input_rebinding_gate": "pass"
+  },
+  "execution": {
+    "status": "pass",
+    "reduction": "existing umap",
+    "group": "teaching_label",
+    "coordinate_recomputation": false,
+    "group_reassignment": false,
+    "runtime_status": "STATUS=OK; renderer=ggplot2_ggsave",
+    "native_returncode": 0
+  },
+  "rendered_outputs": [
+    {
+      "role": "original",
+      "path": "../../previews-rendered/pbmc3k-umap-r-v2.png",
+      "width_px": 944,
+      "height_px": 787,
+      "dpi": 150,
+      "size_bytes": 32639,
+      "sha256": "1364f477f8ea5e4d0f56a4f356bd6ca940d692882f3846315c3cb8ac27d9015a"
+    },
+    {
+      "role": "final",
+      "path": "../../previews-rendered/pbmc3k-umap-r-v2-final.png",
+      "width_px": 1771,
+      "height_px": 1476,
+      "dpi": 300,
+      "size_bytes": 85528,
+      "sha256": "ea1ef166632ee65295c33a409f45619a2970ebfff83ee7b18f6e594011ada2c5"
+    }
+  ],
+  "native_visual_review": {
+    "method": "native_local_image_view",
+    "actual_tool": "Codex view_image",
+    "detail": "original",
+    "original_and_final_opened": true,
+    "round": 1,
+    "decision": "keep",
+    "blockers": [],
+    "major_findings": [],
+    "visible": [
+      "All nine direct teaching labels are visible without clipping.",
+      "The precomputed point cloud, axes and title are complete at final size.",
+      "Direct labels remain legible over the dense T-cell and monocyte neighborhoods."
+    ],
+    "confirmed": [
+      "The adapter used the existing UMAP reduction and teaching_label metadata without recomputing coordinates or changing group membership."
+    ],
+    "cannot_assert": [
+      "UMAP distance does not establish biological distance, trajectory, abundance differences or statistical significance.",
+      "The teaching labels do not establish population-level effects."
+    ]
+  },
+  "excluded_attempts": [
+    {
+      "status": "excluded_from_success_evidence",
+      "cause": "A pre-fix JSON named-palette conversion produced an R named list rather than a character vector.",
+      "resolution": "The v2 Recipe now normalizes a named list or vector to an identity-preserving named character vector before plotting.",
+      "successful_artifacts_reused": false
+    }
+  ],
+  "claim_limit": "The previews demonstrate a coordinate-preserving descriptive UMAP render for one public PBMC3K teaching object. They do not establish abundance, differential expression, biological replication, trajectory, mechanism or causality."
+}

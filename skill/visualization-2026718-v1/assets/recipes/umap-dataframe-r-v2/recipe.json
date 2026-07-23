@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "id": "umap-dataframe-r-v2",
+  "name": "R data-frame grouped UMAP v2",
+  "description": "Render precomputed embedding coordinates with a named identity palette, bounded point/label controls, and an explicit declared-only visual revision contract.",
+  "kind": "base_recipe",
+  "family": "embedding",
+  "backend": "r",
+  "entrypoint": "plot_umap_groups_v2",
+  "input_parameter": "data",
+  "tags": ["umap", "embedding", "single-cell", "cluster", "overview", "scatter", "human-in-the-loop", "declared-parameters"],
+  "requires": {"object_types": ["data.frame"], "variables": ["x", "y", "group"], "packages": ["ggplot2", "ggrepel"], "capabilities": ["precomputed_embedding", "aligned_group_labels"]},
+  "provides": {"object_types": ["ggplot"], "capabilities": ["embedding_overview", "group_color_mapping", "native_review_ready"]},
+  "compatible_with": {"kinds": ["aesthetic_modifier", "layout", "export"], "ids": ["arrow-axes-r-v1", "borderless-r-v1", "label-repel-r-v1", "shared-legend-r-v1", "publication-export-r-v1"]},
+  "conflicts": ["embedding_recomputation"],
+  "parameters": [
+    {"name": "data", "type": "data.frame", "required": true, "default": null, "allowed": null, "description": "One row per observation with precomputed coordinates."},
+    {"name": "x", "type": "string", "required": false, "default": "umap_1", "allowed": null, "description": "First coordinate column."},
+    {"name": "y", "type": "string", "required": false, "default": "umap_2", "allowed": null, "description": "Second coordinate column."},
+    {"name": "group", "type": "string", "required": false, "default": "cluster", "allowed": null, "description": "Categorical colour column."},
+    {"name": "palette", "type": "named string[]|null", "required": false, "default": null, "allowed": "one named colour per displayed group", "description": "Identity-preserving category-to-colour mapping."},
+    {"name": "point_size", "type": "number", "required": false, "default": 0.55, "allowed": "[0.05, 10]", "description": "Purely visual point size; observations are never filtered."},
+    {"name": "alpha", "type": "number", "required": false, "default": 0.82, "allowed": "[0, 1]", "description": "Purely visual point opacity."},
+    {"name": "label_groups", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Show group labels without changing group identity."},
+    {"name": "label_repel", "type": "boolean", "required": false, "default": true, "allowed": [true, false], "description": "Use deterministic label repulsion."},
+    {"name": "label_size", "type": "number", "required": false, "default": 3.5, "allowed": "[1, 20]", "description": "Label text size."},
+    {"name": "label_box_padding", "type": "number", "required": false, "default": 0.35, "allowed": "[0, 5]", "description": "Visual padding used by label repulsion."},
+    {"name": "show_legend", "type": "boolean", "required": false, "default": false, "allowed": [true, false], "description": "Show the existing categorical legend."},
+    {"name": "legend_position", "type": "string", "required": false, "default": "right", "allowed": ["right", "left", "top", "bottom", "none"], "description": "Position of the existing categorical legend."},
+    {"name": "base_size", "type": "number", "required": false, "default": 11, "allowed": "[6, 30]", "description": "Base typography size."},
+    {"name": "coordinate_padding", "type": "number", "required": false, "default": 0.12, "allowed": "[0, 1]", "description": "Purely visual coordinate expansion that does not transform coordinates."},
+    {"name": "title", "type": "string|null", "required": false, "default": null, "allowed": null, "description": "Optional descriptive title."}
+  ],
+  "visual_revision": {
+    "parameter_policy": "declared-only", "max_rounds": 3,
+    "issue_parameter_map": {
+      "label_overlap": ["label_repel", "label_size", "label_box_padding", "coordinate_padding"],
+      "legend_clipped": ["show_legend", "legend_position"],
+      "font_too_small": ["base_size", "label_size"],
+      "cross_panel_color_inconsistent": ["palette"],
+      "red_green_only": ["palette"],
+      "axis_label_clipped": ["base_size"],
+      "point_density_occlusion": ["point_size", "alpha"],
+      "excess_whitespace": ["coordinate_padding"]
+    }
+  },
+  "lineage": {"parent_id": "umap-dataframe-r-v1", "components": [], "source_fingerprints": []},
+  "semantic_card": {
+    "questions_answered": ["distribution", "embedding_neighborhood"], "evidence_roles": ["overview", "discovery"], "units": ["cell", "observation"], "data_topologies": ["embedding"],
+    "required_variables": [{"name": "x/y", "role": "position", "type": "numeric"}, {"name": "group", "role": "color", "type": "categorical"}],
+    "transformations": [{"field": "coordinates", "method": "precomputed_embedding"}],
+    "visual_channels": {"x": "embedding_dimension_1", "y": "embedding_dimension_2", "color": "group identity", "size": "constant", "shape": "constant", "alpha": "density control", "facet": "none", "annotation": "optional group label"},
+    "supports_claims": ["Shows local embedding neighborhoods and the displayed group distribution."],
+    "does_not_support": ["Does not establish abundance differences, significance, trajectory direction, global metric distance, biological replication, mechanism, or causality."],
+    "required_statistics": ["none"], "misread_risks": ["global_distance_interpretation", "cell_as_replicate", "overplotting"],
+    "preferred_companions": ["sample-level composition"], "safer_alternatives": ["sample-level proportion plot for abundance claims"]
+  },
+  "visual_fingerprint": {"family": "embedding", "panels": 1, "panel_structure": "single", "channels": ["position", "color"], "legend_mode": "direct_or_categorical", "information_density": "medium", "strengths": ["cluster overview"], "risks": ["overplotting", "color collision"], "final_size_behavior": "requires point, label and identity-colour check", "evidence_level": "image_code_data", "reviewed": true, "review_note": "The v2 Seurat adapter/base chain rendered the hash-bound 2,638-cell PBMC3K teaching object; original and final-size previews passed round-1 native review with all nine direct labels visible. This is descriptive cell-level evidence only."},
+  "source": {"status": "derived", "articles": [], "license_status": "MIT", "transformation": "original v2 rewrite with explicit visual parameter contract"},
+  "validation": {"tier": "verified", "checks": {"schema": "pass", "syntax": "pass", "safety": "pass", "fixture": "pass", "render": "pass", "visual": "pass", "semantic": "pass", "provenance": "pass"}, "last_validated": "2026-07-23", "runtime": "R-4.5.3; Seurat-5.5.0; SeuratObject-5.4.0; ggplot2-4.0.3; ggrepel-0.9.8; renv-1.2.2", "notes": ["A fresh v2 adapter/base execution used the existing UMAP reduction and teaching_label metadata from the hash-bound PBMC3K object without recomputation or reassignment.", "Both v2 previews received a terminal KEEP decision in native review; see validation-evidence.json.", "No v1 visual evidence or failed pre-fix render is reused as v2 release evidence."]},
+  "files": {"code": "recipe.R", "example": "example.R", "preview": "../../previews-rendered/pbmc3k-umap-r-v2.png", "preview_final": "../../previews-rendered/pbmc3k-umap-r-v2-final.png", "fixture": "../../fixtures/umap_points.csv", "validation_evidence": "validation-evidence.json"}
+}

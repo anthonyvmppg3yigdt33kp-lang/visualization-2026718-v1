@@ -2,7 +2,7 @@
 
 `可视化2026718V1` 是一个面向生物医学、临床研究、统计分析和多组学场景的离线科研可视化技能。它不只“找一张像的图”，而是先判断科学问题、分析单位、统计前提和证据角色，再检索可追踪的 Scheme，选择或组合已验证的 R/Python Recipe，并在用户明确要求后执行渲染和原生视觉复核。
 
-当前发布版本：`V1.0.0`。机器可识别的 skill name 为 `visualization-2026718-v1`，Codex UI 显示名称为“可视化2026718V1”。
+当前发布版本：`V1.2.0`。机器可识别的 skill name 为 `visualization-2026718-v1`，Codex UI 显示名称为“可视化2026718V1”。
 
 ## 核心能力
 
@@ -15,8 +15,9 @@
 - 科学结果解读：区分像素可见、图例/代码可解释、数据统计已确认和目前不能断言。
 - 原生视觉 QA：检查原图与最终尺寸图片，支持最多三轮受控视觉修订。
 - 图库维护：支持来源审计、dry-run 更新、Scheme/Recipe 验证、图册导出和显式 promotion。
-- 单细胞对象适配：可从可信本地 Seurat 对象提取既有 embedding 和 marker 汇总，避免静默重算分析结果。
-- 空间对象绘图：`seurat-spatial-overlay-r-v1` 在调用 `SpatialDimPlot`/`SpatialFeaturePlot` 前核对 Spatial assay、图像、scale factors 与 barcode-coordinate 对账，保留 Seurat 的坐标语义并返回 plot object。
+- 单细胞对象适配：v2 链可从可信本地 Seurat 对象提取既有 embedding，或按显式 assay/layer/transform/group/denominator 生成 marker 汇总，避免静默重算分析结果。
+- 空间对象绘图：`seurat-spatial-overlay-r-v2` 在调用 `SpatialDimPlot`/`SpatialFeaturePlot` 前核对 Spatial assay、图像、scale factors 与 barcode-coordinate 对账，保留 Seurat 的坐标语义并返回 plot object。
+- 受控视觉修订：v2 Recipe 仅允许修改声明过且由 issue registry 映射的视觉参数，禁止参数载荷重绑定输入对象；每轮都保留哈希与人工图审记录。
 
 
 ## 工作流
@@ -59,19 +60,30 @@ skill/
 
 ```powershell
 git clone https://github.com/anthonyvmppg3yigdt33kp-lang/visualization-2026718-v1.git
-Copy-Item -Recurse -Force `
-  .\visualization-2026718-v1\skill\visualization-2026718-v1 `
+Set-Location .\visualization-2026718-v1
+python .\skill\visualization-2026718-v1\scripts\build_public_runtime.py build `
+  --output .\dist\visualization-2026718-v1
+python .\skill\visualization-2026718-v1\scripts\build_public_runtime.py verify `
+  --runtime-root .\dist\visualization-2026718-v1
+Copy-Item -Recurse `
+  .\dist\visualization-2026718-v1 `
   "$env:USERPROFILE\.codex\skills\visualization-2026718-v1"
 ```
 
 重新启动或刷新 Codex 技能列表后，通过 `$visualization-2026718-v1` 显式调用。
 
-完整上游 skill 还包含用于离线审计与来源追踪的第三方材料，不能把整个目录视为
-统一 MIT 载荷。面向下游公开、task-local 安装时，以
+builder 不覆盖既有输出。升级时先构建并验证一个新的版本化目录，再由研究者将当前
+安装目录改名备份并替换；不要把新文件直接叠加到旧目录，以免保留已删除的 stale
+assets。`PUBLIC_RUNTIME_MANIFEST.json` 记录所有安装文件的相对路径、大小、SHA-256
+和整体 content fingerprint，可在替换前后复核。
+
+完整上游 skill 还包含用于离线审计与来源追踪的第三方材料，不能直接复制整个上游
+目录，也不能把它视为统一 MIT 载荷。面向下游公开、task-local 安装时，以
 `skill/visualization-2026718-v1/public-install-profile.json` 为唯一分发边界：排除
 其中列出的 source archive、抽取源码 catalog、reference-only candidates 和第三方
 curated previews，并把 `SKILL.public-runtime.md`、`manifest.public-runtime.yaml`
-分别覆盖为安装树中的 `SKILL.md`、`manifest.yaml`。被排除内容不得自动下载或重建。
+分别覆盖为安装树中的 `SKILL.md`、`manifest.yaml`。上述 builder 确定性执行该规则；
+被排除内容不得自动下载或重建。
 
 核心检索、审计和验证 CLI 仅使用 Python 标准库。执行具体 Recipe 时，`preflight` 会按所选链检查依赖：Python Recipe 常用 `numpy`、`pandas`、`matplotlib`；R Recipe 可能需要 `ggplot2`、`ggrepel`、`patchwork`、`pROC`、`ComplexHeatmap`、`circlize` 或 `SeuratObject`。不建议预先安装全部依赖，应以实际 Recipe 的 `requires.packages` 为准。
 
@@ -98,17 +110,28 @@ curated previews，并把 `SKILL.public-runtime.md`、`manifest.public-runtime.y
 ### 适配 Seurat Visium 空间叠加图
 
 ```text
-使用 $visualization-2026718-v1。R。对可信本地 Seurat Visium 对象先执行 seurat-spatial-overlay-r-v1 preflight，再用 Spatial assay 和指定 image 绘制 cluster 及 Hpca/Ttr spot overlay；不得手工重建坐标，运行后打开原图和最终尺寸图复核。
+使用 $visualization-2026718-v1。R。对可信本地 Seurat Visium 对象先执行 seurat-spatial-overlay-r-v2 preflight，再用 Spatial assay 和指定 image 绘制 cluster 及 Hpca/Ttr spot overlay；不得手工重建坐标，运行后打开原图和最终尺寸图复核。
 ```
 
 该 Recipe 的合成 fixture 验证对象、图像、scale factor 与 barcode-coordinate 契约。
-此外，独立 upstream harness 已在一个可信的公开 10x 数据衍生 Seurat 对象上以
-R 4.5.3 / Seurat 5.5.0 返回 0、零 warning/error-pattern 匹配运行，并核对 2,695
-个 barcode 的六向差集均为 0；四张 original/final 预览均经 native review 判定
-`KEEP`。这份证据只验证 Recipe 在该可信对象上的执行，不验证生成该对象的工作流或
-其他 CLI wrapper。11 个标签是 expression-derived spot clusters，不是 cell types；
-Hpca/Ttr overlay 仅作描述，不支持 enrichment、机制或因果声明。精确哈希与边界见
-Recipe 的 `validation-evidence.json`。
+此外，v2 final-code 链已在一个可信的公开 10x 数据衍生 Seurat 对象上以 R 4.5.3 /
+Seurat 5.5.0 返回 0，并核对 2,695 个 barcode 的六向差集均为 0；identity 与
+Hpca/Ttr 的四张 original/final 预览均经 hash-bound native review 判定 `KEEP`。
+这份证据只验证 Recipe 在该可信对象上的执行，不验证生成该对象的工作流或其他 CLI
+wrapper。11 个标签是 expression-derived spot clusters，不是 cell types；Hpca/Ttr
+overlay 仅作描述，不支持 enrichment、机制或因果声明。精确哈希、失败尝试排除记录
+与边界见 Recipe 的 `validation-evidence.json`。
+
+### 适配 Seurat PBMC UMAP 与 marker dot plot
+
+```text
+使用 $visualization-2026718-v1。R。对可信 PBMC Seurat 对象显式组合 seurat-embedding-adapter-r-v2 -> umap-dataframe-r-v2，以及 seurat-marker-summary-adapter-r-v2 -> marker-dotplot-r-v2。只能读取既有 UMAP 和声明的 RNA data layer；绑定 teaching_label、marker、average transform、scaling 与 percent denominator。运行后逐轮打开 original/final 图，并保留不能据此断言的内容。
+```
+
+公开 PBMC3K 验证中，UMAP 链在 2,638 个 QC-retained cells 与 9 个 descriptive teaching
+labels 上 round 1 `KEEP`；marker 链的 round 1 发现 `axis_label_clipped` major finding，
+仅将 label rotation 从 60° 调至 90°、画布高度从 125 mm 调至 140 mm，round 2 复核后
+`KEEP`。这些图不支持 donor-level abundance、差异表达显著性、机制或因果结论。
 
 ### 解释已有结果图
 
@@ -132,6 +155,9 @@ python scripts/plot_library.py preflight --recipe-id <recipe-id>
 python scripts/plot_library.py render --recipe-id <recipe-id> --input <data> --output-dir <dir> --params-json <json> --review-state <state.json>
 python scripts/plot_library.py validate --all --strict
 ```
+
+在 Windows PowerShell 中，建议先把参数保存为 UTF-8 JSON 文件，再将文件路径传给
+`--params-json`；这可避免内联 JSON 被 PowerShell 的引号规则改写。
 
 详细规则、后端门禁、视觉复核和更新协议见 [SKILL.md](skill/visualization-2026718-v1/SKILL.md)。
 

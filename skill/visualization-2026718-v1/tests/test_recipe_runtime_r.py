@@ -189,6 +189,24 @@ class RecipeRuntimeRTests(unittest.TestCase):
         self.assertIn("runtime_parameters <-", runner)
         self.assertIn("c(0, 25, 100)", runner)
 
+    def test_runtime_parameters_fail_closed_on_undeclared_or_rebound_input(self) -> None:
+        recipe = runtime.load_recipe("marker-dotplot-r-v1")
+        with self.assertRaisesRegex(ValueError, "undeclared runtime parameter"):
+            runtime.validate_runtime_parameters(recipe, {"not_declared": 1})
+        with self.assertRaisesRegex(ValueError, "bound by --input"):
+            runtime.validate_runtime_parameters(recipe, {"data": "replacement.csv"})
+
+    def test_component_parameter_contract_accepts_declared_modifier_parameter(self) -> None:
+        chain = runtime.build_chain(
+            "marker-dotplot-r-v1", "r", modifier_ids=["borderless-r-v1"]
+        )
+        contract = runtime.validate_component_parameters(
+            chain, {"borderless-r-v1": {"keep_labels": True}}
+        )
+        self.assertEqual(contract["status"], "pass")
+        with self.assertRaisesRegex(ValueError, "undeclared component"):
+            runtime.validate_component_parameters(chain, {"unknown-r-v1": {}})
+
     def test_matrix_side_effect_and_supported_object_contracts_are_declared(self) -> None:
         heatmap = runtime.load_recipe("complex-heatmap-r-v1")
         chord = runtime.load_recipe("cellchat-chord-r-v1")
